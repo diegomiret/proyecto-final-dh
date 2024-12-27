@@ -4,31 +4,3 @@ body {
     background-color: #f5f7fa; /* Soft and calm background color for a hotel booking site */
     font-family: Arial, sans-serif;
 }
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1030;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff; /* Clean and neutral navbar color */
-}
-.navbar-brand span {
-    color: #007bff; /* Harmonized with the primary color of buttons */
-    font-weight: bold;
-}
-main {
-    margin-top: 80px; /* Adjust based on navbar height */
-    padding: 1rem;
-}
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-.btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
-}
-.btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: #fff;
-}
