@@ -1,47 +1,28 @@
+import { CategoriaAlojamientoCard } from "./cards/CategoriaAlojamientoCard";
+
 export const CategoriasAlojamientoComponent = () => {
 
-    const alojamientos = [
-        {
-          id: 1,
-          image: 'https://via.placeholder.com/150',
-          title: 'Hotel 1',
-          subtitle: 'Subtítulo 1'
-        },
-        {
-          id: 2,
-          image: 'https://via.placeholder.com/150',
-          title: 'Hotel 2',
-          subtitle: 'Subtítulo 2'
-        },
-        {
-          id: 3,
-          image: 'https://via.placeholder.com/150',
-          title: 'Hotel 3',
-          subtitle: 'Subtítulo 3'
-        },
-        {
-          id: 4,
-          image: 'https://via.placeholder.com/150',
-          title: 'Hotel 4',
-          subtitle: 'Subtítulo 4'
-        }
-      ];
+  const categorias = [
+    { image: 'https://via.placeholder.com/150', title: 'Categoría 1', subtitle: 'Subtítulo 1' },
+    { image: 'https://via.placeholder.com/150', title: 'Categoría 2', subtitle: 'Subtítulo 2' },
+    { image: 'https://via.placeholder.com/150', title: 'Categoría 3', subtitle: 'Subtítulo 3' },
+    { image: 'https://via.placeholder.com/150', title: 'Categoría 4', subtitle: 'Subtítulo 4' },
+    // Agregar más categorías si es necesario
+  ];
 
 
   return (
     
-    <div className="container my-4">
-              <h5 className="mb-4">Categorías</h5>
-      <div className="row row-cols-1 row-cols-md-4 g-4">
-        {alojamientos.map(alojamiento => (
-          <div key={alojamiento.id} className="col">
-            <div className="card">
-              <img src={alojamiento.image} alt={alojamiento.title} className="card-img-top" />
-              <div className="card-body">
-                <h5 className="card-title">{alojamiento.title}</h5>
-                <p className="card-text">{alojamiento.subtitle}</p>
-              </div>
-            </div>
+    <div className="container  my-4">
+      <h5 className="mb-4">Categorías</h5>
+      <div className="row">
+        {categorias.map((categoria, index) => (
+          <div className="col-md-3 mb-4" key={index}>
+            <CategoriaAlojamientoCard
+              image={categoria.image} 
+              title={categoria.title} 
+              subtitle={categoria.subtitle} 
+            />
           </div>
         ))}
       </div>

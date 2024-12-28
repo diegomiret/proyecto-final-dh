@@ -1,9 +1,10 @@
 import React from 'react'
+import { RecomendacionesAlojamientoCard } from './cards/RecomendacionesAlojamientoCard';
 
 export const RecomendacionesAlojamientosComponent = () => {
 
 
-    const recomendaciones = [
+    const categorias = [
         {
           id: 1,
           image: 'https://via.placeholder.com/150',
@@ -33,21 +34,19 @@ export const RecomendacionesAlojamientosComponent = () => {
     
     
   return (
-    <div className="container my-4">
-      <h5 className="mb-4">Recomendados</h5>
-      <div className="row row-cols-1 row-cols-md-4 g-4">
-        {recomendaciones.map(recomendacion => (
-          <div key={recomendacion.id} className="col">
-            <div className="card">
-              <img src={recomendacion.image} alt={recomendacion.title} className="card-img-top" />
-              <div className="card-body">
-                <h5 className="card-title">{recomendacion.title}</h5>
-                <p className="card-text">{recomendacion.subtitle}</p>
+      <div className="container  my-4">
+          <h5 className="mb-4">Recomendaciones</h5>
+          <div className="row">
+            {categorias.map((categoria, index) => (
+              <div className="col-md-3 mb-4" key={index}>
+                <RecomendacionesAlojamientoCard
+                  image={categoria.image} 
+                  title={categoria.title} 
+                  subtitle={categoria.subtitle} 
+                />
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
   )
 }
