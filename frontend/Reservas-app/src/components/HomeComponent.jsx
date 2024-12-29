@@ -7,6 +7,8 @@ import { AlojamientosAleatorios } from './AlojamientosAleatorios'
 
 
 export const HomeComponent = () => {
+
+
     return (
         <>
             <BarraBuscadorComponent></BarraBuscadorComponent>
