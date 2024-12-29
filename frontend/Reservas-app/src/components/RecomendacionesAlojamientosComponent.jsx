@@ -3,7 +3,7 @@ import { RecomendacionesAlojamientoCard } from './cards/RecomendacionesAlojamien
 
 export const RecomendacionesAlojamientosComponent = () => {
 
-
+ 
     const categorias = [
         {
           id: 1,

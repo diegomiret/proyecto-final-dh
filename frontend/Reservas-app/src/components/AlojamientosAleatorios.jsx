@@ -1,5 +1,6 @@
 import React from 'react'
 import './assets/estilos/AlojamientosAleatorios.css';
+import { AleatorioAlojamientoCard } from './cards/AleatorioAlojamientoCard';
 
 export const AlojamientosAleatorios = () => {
 
@@ -16,23 +17,30 @@ export const AlojamientosAleatorios = () => {
         { title: 'Card 10', subtitle: 'Subtítulo 10', imgSrc: 'https://via.placeholder.com/150' },
       ];
     
+
   return (
-    <div className="alojamientosAleatorios-container">
-    <div className="container">
-      <div className="row row-cols-2">
-        {cards.map((card) => (
-          <div className="col mb-4" key={card.id}>
-            <div className="card h-100">
-              <img src={card.imgSrc} className="card-img-top" alt={card.title} />
-              <div className="card-body">
-                <h5 className="card-title">{card.title}</h5>
-                <p className="card-text">{card.subtitle}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+
+<>
+
+<div className="container my-4">
+  <h5 className="mb-4">Recomendaciones</h5>
+  <div className="row">
+    {cards.map((categoria, index) => (
+      <div className="col-md-6 mb-4" key={index}> {/* Cambiamos a 6 para tener dos columnas */}
+        <AleatorioAlojamientoCard
+          image={categoria.imgSrc}
+          title={categoria.title}
+          subtitle={categoria.subtitle}
+        />
       </div>
-    </div>
+    ))}
   </div>
+</div>
+
+
+    
+
+  </>
+
   )
 }
