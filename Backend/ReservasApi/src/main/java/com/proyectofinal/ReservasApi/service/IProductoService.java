@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.List;
 
 public interface IProductoService {
-    Collection<Producto> listaProductosAleatorios();
 
+    public Collection<Producto> listaProductosAleatorios();
+
+    public Producto crearProducto(Producto producto);
 }

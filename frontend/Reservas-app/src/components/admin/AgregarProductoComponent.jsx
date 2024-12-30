@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { FormProductoNuevo } from './FormProductoNuevo';
 import { FormBodyStyle, TitleContainer } from './AgregarProductoComponentStyled';
+import { AxiosInstance } from '../../helpers/AxiosHelper';
+import Swal from 'sweetalert2';
 
 export const AgregarProductoComponent = () => {
 
@@ -60,7 +62,43 @@ export const AgregarProductoComponent = () => {
 
 
     const handleSubmit = (e) => {
-        console.log(e);
+        e.preventDefault();
+    setErrors({ ...errors, ...validationForm(values) });
+
+
+    //post de products
+    AxiosInstance.post(`/productos`, {
+      titulo: values.titulo,
+      descripcion: values.descripcion
+    })
+      // guardado de imagenes
+    //   .then((res) => {
+    //     values.imagenes.forEach((unaImagen, index) => {
+    //       AxiosInstance.post(`/imagenes/agregar`, {
+    //         titulo: '',
+    //         url: unaImagen,
+    //         product: {
+    //           id: res.data.id
+    //         }
+    //       }
+    //         )
+    //         .then((res) => {
+    //           //si la ultima imagen es correcta entonces redirigir a producto exitoso
+    //           index === values.urlImages.length - 1 && navigate('producto-exitoso');
+    //         })
+    //         .catch((error) => {
+    //           Swal.fire({
+    //             icon: 'error',
+    //             text: 'Lamentablemente el producto no ha podido crearse. Por favor intente más tarde'
+    //           })
+    //         })
+    //     })
+      .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          text: 'Error al guardar el producto'
+        })
+      })
     }
 
 

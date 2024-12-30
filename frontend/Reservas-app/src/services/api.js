@@ -3,7 +3,7 @@ import axios from "axios";
 export default class Api {
     constructor() {
         this.client = null;
-        this.api_url = import.meta.env.VITE_BACKEND_URL_API || "http://localhost:8081";
+        this.api_url = import.meta.env.VITE_BACKEND_URL_API || "http://localhost:8080";
     }
     init = () => {
         const headers = {

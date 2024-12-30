@@ -15,8 +15,16 @@ public class ProductoService implements IProductoService {
     @Autowired
     private IProductoRepository productoRepository;
 
+
     @Override
     public Collection<Producto> listaProductosAleatorios() {
         return productoRepository.obtenerProductosAleatorios();
     }
+
+    @Override
+    public Producto crearProducto(Producto producto) {
+        return productoRepository.save(producto);
+    }
+
+
 }
