@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonStyle, ContainerButton, ContainerButtonGlobal, ContainerList, ContainerStyle, ContainerText, DescriptionBlockStyle, DescriptionStyle, FormStyle, ImageBlockStyle, ImageContainerStyle, InputContainerStyle, InputStyle, LabelStyle, SelectContainerStyle, TitleStyle } from '../admin/FormProductoNuevoStyled';
+import { ButtonStyle, ContainerButton, ContainerButtonGlobal, ContainerList, ContainerStyle, ContainerText, DescriptionBlockStyle, DescriptionStyle, ErrorText, FormStyle, ImageBlockStyle, ImageContainerStyle, InputContainerStyle, InputStyle, LabelStyle, SelectContainerStyle, TitleStyle } from '../admin/FormProductoNuevoStyled';
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 
 export const FormProductoNuevo = ({values, handleInputChange, handleSubmit,errors, handleAddUrlImage, handleDeleteUrlImage, handleCategoryChange, handleCityChange}) => {
@@ -22,7 +22,7 @@ export const FormProductoNuevo = ({values, handleInputChange, handleSubmit,error
     </ContainerStyle>
 
 
-    {/* bloque descripcion */}
+
     <DescriptionBlockStyle>
       <LabelStyle>Descripción</LabelStyle>
       <DescriptionStyle

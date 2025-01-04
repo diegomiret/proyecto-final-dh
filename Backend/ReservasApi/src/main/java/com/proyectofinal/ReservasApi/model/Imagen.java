@@ -1,6 +1,7 @@
 package com.proyectofinal.ReservasApi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +23,9 @@ public class Imagen {
     @Column(name="url")
     private String url;
 
-    @ManyToOne
+    @JsonIncludeProperties(value = {"id"})
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id")
-    @JsonIgnore
     private Producto producto;
 
 }

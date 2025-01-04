@@ -4,25 +4,35 @@
     width: 100%;
     z-index: 1030;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff; /* Clean and neutral navbar color */
+    background-color: #003b95; /* Fondo azul de Booking.com */
 }
+
 .navbar-brand span {
-    color: #007bff; /* Harmonized with the primary color of buttons */
+    color: #ffffff; /* Texto blanco para destacar sobre el fondo azul */
     font-weight: bold;
 }
+
 main {
-    margin-top: 80px; /* Adjust based on navbar height */
+    margin-top: 80px; /* Ajuste basado en la altura del navbar */
     padding: 1rem;
 }
+
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #004fc7; /* Azul ligeramente más claro para botones */
+    border-color: #004fc7;
 }
+
+.btn-primary:hover {
+    background-color: #003b95; /* Mismo azul del navbar al hacer hover */
+    border-color: #003b95;
+}
+
 .btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
+    border-color: #ffffff; /* Blanco para contraste sobre fondo azul */
+    color: #ffffff;
 }
+
 .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: #fff;
+    background-color: #ffffff;
+    color: #003b95; /* Azul del navbar para consistencia */
 }

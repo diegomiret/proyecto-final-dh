@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './assets/estilos/AlojamientosAleatorios.css';
 import { AleatorioAlojamientoCard } from './cards/AleatorioAlojamientoCard';
 import { useFetchData } from './hooks/useFetchData';
@@ -6,14 +6,10 @@ import Api from '../services/api';
 
 export const AlojamientosAleatorios = () => {
 
-  const {data, isLoading} = useFetchData('productos/aleatorios');
-
-  // const [productosAleatorios, setProductosAleatorios] = useState([]);
-
-  // const api = new Api();
-  // api.getProductosAleatorios().then((result) => {
-  //   console.log(result);
-  // });
+  const endpoint = 'productos/aleatorios';
+  const postData = {};
+  const { data, isLoading, hayError, error} = useFetchData({endpoint, postData});
+   
 
   return (
 
@@ -21,6 +17,8 @@ export const AlojamientosAleatorios = () => {
 
 <div className="container my-4">
   <h5 className="mb-4">Hoteles</h5>
+  {isLoading ? <h4>Cargando</h4> : null}
+  {hayError ? <h4>{error.message}</h4> : null}
   <div className="row">
     {data.map((producto, index) => (
       <div className="col-md-6 mb-4" key={producto.id}> {/* Cambiamos a 6 para tener dos columnas */}

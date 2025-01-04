@@ -10,4 +10,8 @@ public interface IProductoService {
     public Collection<Producto> listaProductosAleatorios();
 
     public Producto crearProducto(Producto producto);
+
+    public List<Producto> buscarProductoPorTitulo(String titulo);
+
+    public Producto buscarProductoPorId(int id);
 }

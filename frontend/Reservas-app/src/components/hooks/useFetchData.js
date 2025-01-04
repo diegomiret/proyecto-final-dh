@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 
-export const useFetchData = (endpoint) => {
+export const useFetchData = ({ endpoint, postData={} }) => {
   
     const urlBase = `http://localhost:8080/${endpoint}`;
 
     const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+    const [hayError, setHayError] = useState(false);
+    const [error, setError] = useState(null);
 
     const fetchData = async () =>{
         try{
@@ -15,10 +17,13 @@ export const useFetchData = (endpoint) => {
 
             setData(data);
             setIsLoading(false);
+            setHayError(false);
+            console.log(data);
         }
         catch(error){
-            console.error(error);
             setIsLoading(false);
+            setHayError(true);
+            setError(error);
         }
     }
 
@@ -29,6 +34,8 @@ export const useFetchData = (endpoint) => {
 
     return {
     data, 
-    isLoading
+    isLoading,
+    hayError,
+    error
   }
 }

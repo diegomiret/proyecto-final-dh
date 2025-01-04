@@ -23,7 +23,18 @@ public class ProductoService implements IProductoService {
 
     @Override
     public Producto crearProducto(Producto producto) {
+
         return productoRepository.save(producto);
+    }
+
+    @Override
+    public List<Producto> buscarProductoPorTitulo(String titulo) {
+        return productoRepository.findByTitulo(titulo);
+    }
+
+    @Override
+    public Producto buscarProductoPorId(int id) {
+        return productoRepository.findById(id);
     }
 
 
