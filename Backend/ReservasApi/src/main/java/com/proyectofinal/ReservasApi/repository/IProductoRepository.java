@@ -1,5 +1,6 @@
 package com.proyectofinal.ReservasApi.repository;
 
+import com.proyectofinal.ReservasApi.model.Categoria;
 import com.proyectofinal.ReservasApi.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +18,6 @@ public interface IProductoRepository extends JpaRepository<Producto, Integer> {
 
     List<Producto> findByTitulo(String titulo);
 
-    Producto findById(int id);
+    List<Producto> findByCategoria(Categoria categoria);
 
 }

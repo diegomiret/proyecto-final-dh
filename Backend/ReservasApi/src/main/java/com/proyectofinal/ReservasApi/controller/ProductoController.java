@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/productos")
@@ -26,8 +27,13 @@ public class ProductoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Producto> buscarProductoPorId(@PathVariable Integer id) {
+    public ResponseEntity<Optional<Producto>> buscarProductoPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(productoService.buscarProductoPorId(id));
+    }
+
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<List<Producto>> buscarProductoPorIdCategoria(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.buscarPorductosPorIdCategoria(id));
     }
 
     @PostMapping

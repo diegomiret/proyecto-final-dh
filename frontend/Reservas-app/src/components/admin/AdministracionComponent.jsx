@@ -26,11 +26,11 @@ export const AdministracionComponent = () => {
 
     return (
 
+
         <>
+        <div className='container'>
             <button type="button" className="btn btn-primary" onClick={handleRedirect}>Agregar producto</button>
-
-   
-
+            </div>
         </>
 
     )

@@ -8,4 +8,6 @@ import java.util.List;
 public interface IImagenService {
 
     public Imagen crearImagen(Imagen imagen);
+
+    public List<Imagen> obtenerImaganesDelProductoId(int idProducto);
 }

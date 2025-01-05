@@ -53,7 +53,7 @@ export const FormProductoNuevo = ({values, handleInputChange, handleSubmit,error
 
 
       {values.imagenes.map((item, index)=>(
-         <ContainerList key={item}>
+         <ContainerList key={index}>
           <ContainerText >
             {item}
           </ContainerText>

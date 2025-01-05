@@ -26,4 +26,9 @@ public class Producto {
     @OneToMany(mappedBy = "producto")
     private Set<Imagen> imagenes;
 
+
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", nullable = true)
+    private Categoria categoria;
+
 }

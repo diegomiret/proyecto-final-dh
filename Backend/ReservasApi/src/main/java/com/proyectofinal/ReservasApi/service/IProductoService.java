@@ -4,6 +4,7 @@ import com.proyectofinal.ReservasApi.model.Producto;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface IProductoService {
 
@@ -13,5 +14,7 @@ public interface IProductoService {
 
     public List<Producto> buscarProductoPorTitulo(String titulo);
 
-    public Producto buscarProductoPorId(int id);
+    public Optional<Producto> buscarProductoPorId(int id);
+
+    public List<Producto> buscarPorductosPorIdCategoria(int idCategoria);
 }

@@ -3,7 +3,7 @@ import { AiOutlineLeft } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import styledComponents from "styled-components";
 
-export const DetalleAlojamientoHeaderComponent = ({titulo}) => {
+export const DetalleAlojamientoHeaderComponent = ({ titulo }) => {
 
   const headerStyles = {
     backgroundColor: '#0d6efd',
@@ -17,20 +17,19 @@ export const DetalleAlojamientoHeaderComponent = ({titulo}) => {
 
   return (
 
-<>
-    <header
-    className="d-flex justify-content-between align-items-center p-3 w-100"
-    style={headerStyles}
-  >
-    <h1 className="h5" style={{ margin: 0 }}>{titulo}</h1>
+    <>
+      <header
+        className="d-flex justify-content-between align-items-center p-3 w-100"
+        style={headerStyles}
+      >
+        <h1 className="h5" style={{ margin: 0 }}>{titulo}</h1>
 
-      <BackLink>
-                <Link to="/"> <AiOutlineLeft/> </Link>    
-            </BackLink>
-  </header>
+        <BackLink>
+          <Link to="/"> <AiOutlineLeft /> </Link>
+        </BackLink>
+      </header>
 
-
-        </>
+    </>
   )
 }
 

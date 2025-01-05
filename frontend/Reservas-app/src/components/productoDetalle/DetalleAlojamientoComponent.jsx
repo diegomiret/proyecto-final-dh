@@ -1,9 +1,11 @@
 
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AxiosInstance } from '../../helpers/AxiosHelper';
 import { DetalleAlojamientoHeaderComponent } from './DetalleAlojamientoHeaderComponent';
+import { DetalleAlojamientoDescripcionComponent } from './DetalleAlojamientoDescripcionComponent';
+import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagenesComponent';
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
@@ -12,42 +14,61 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     titulo: "",
     descripcion: "",
     imagenes: []
-};
+  };
 
-const scrollToTop = () => {
+  const scrollToTop = () => {
     window.scrollTo(0, 0);
-}
+  }
 
-const { id } = useParams();
-const [ searchParams ] = useSearchParams();
-const [producto, setProducto] = useState({ ...productoDefault, id: id ?? productId });
+  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const [producto, setProducto] = useState({ ...productoDefault, id: id ?? productId });
 
-
-  const endpoint = "/productos/" + producto.id;
+  const navigate = useNavigate();
 
   useEffect(() => {
 
+    const endpoint = "/productos/" + producto.id;
+    AxiosInstance.get(endpoint)
+      .then((res) => {
+        console.log(res.data);
+        setProducto({ ...res.data });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          text: 'No se pudo cargar el producto'
+        })
+      });
 
-AxiosInstance.get(endpoint)
- .then((res) => {
-    console.log(res.data);
-    setProducto({...res.data});
-  })
-  .catch((error) => {
-    console.log(error);
-    Swal.fire({
-      icon: 'error',
-      text: 'No se pudo cargar el producto'
-    })
-  });
-
-}, []);
+  }, []);
 
 
-return (
-        <>
+  const irAGaleria = () => {
 
-           <DetalleAlojamientoHeaderComponent {...producto}/>
-        </>
-);
+    navigate('/galeriaProducto/' + id);
+  };
+
+
+  return (
+    <>
+
+      <DetalleAlojamientoHeaderComponent {...producto} />
+      <div className='container'>
+
+
+        <DetalleAlojamientoDescripcionComponent {...producto} />
+        <DetalleAlojamientoImagenesComponent {...producto} />
+
+
+        <div className="container mt-4">
+          <div className="d-flex justify-content-end">
+            <button  className="btn btn-primary" onClick={irAGaleria}>Ir a Galería</button>
+          </div>
+        </div>
+
+      </div>
+    </>
+  );
 };

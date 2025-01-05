@@ -2,7 +2,7 @@ import React from 'react'
 import { BarraBuscadorComponent } from './BarraBuscadorComponent'
 import { CategoriasAlojamientoComponent } from './CategoriasAlojamientoComponent'
 import { RecomendacionesAlojamientosComponent } from './RecomendacionesAlojamientosComponent'
-import { AlojamientosAleatorios } from './AlojamientosAleatorios'
+import { AlojamientosAleatorios } from './Home/productosPorCriterio/AlojamientosAleatorios'
 
 
 
