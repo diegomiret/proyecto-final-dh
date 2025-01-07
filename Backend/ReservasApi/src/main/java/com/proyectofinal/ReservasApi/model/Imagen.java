@@ -24,7 +24,7 @@ public class Imagen {
     private String url;
 
     @JsonIncludeProperties(value = {"id"})
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id")
     private Producto producto;
 

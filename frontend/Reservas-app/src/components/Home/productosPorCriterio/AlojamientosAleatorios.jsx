@@ -46,6 +46,7 @@ export const AlojamientosAleatorios = () => {
         {productos.map((producto, index) => (
           <div className="col-md-6 mb-4" key={producto.id}> {/* Cambiamos a 6 para tener dos columnas */}
             <AleatorioAlojamientoCard
+              id={producto.id}
               image={producto.imagenes[0].url}
               title={producto.titulo}
               subtitle={producto.descripcion}

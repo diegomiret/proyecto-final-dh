@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { FormProductoNuevo } from './FormProductoNuevo';
 import { FormBodyStyle, TitleContainer } from './AgregarProductoComponentStyled';
-import { AxiosInstance } from '../../helpers/AxiosHelper';
+import { AxiosInstance } from '../../../helpers/AxiosHelper';
 import Swal from 'sweetalert2';
-import { useFetchData } from '../hooks/useFetchData';
+import { useFetchData } from '../../hooks/useFetchData';
 
 export const AgregarProductoComponent = () => {
 
@@ -12,7 +12,7 @@ export const AgregarProductoComponent = () => {
         titulo: '',
         descripcion: '',
         temporaryImageInput: '',
-        imagenes: [],
+        imagenes: []
     });
     const [pasaValidaciones, setPasaValidaciones] = useState(true);
 
@@ -167,12 +167,12 @@ export const AgregarProductoComponent = () => {
                 //  fin post producto
             })
             .catch((error) => {
-            error
+                error
                 mensajeOperacionError(error.response.data);
             });
 
 
-    }
+        }
 
 
     return (

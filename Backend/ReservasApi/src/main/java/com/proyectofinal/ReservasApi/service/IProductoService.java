@@ -1,5 +1,6 @@
 package com.proyectofinal.ReservasApi.service;
 
+import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.Producto;
 
 import java.util.Collection;
@@ -17,4 +18,8 @@ public interface IProductoService {
     public Optional<Producto> buscarProductoPorId(int id);
 
     public List<Producto> buscarPorductosPorIdCategoria(int idCategoria);
+
+    public List<Producto> listarProductos();
+
+    public void eliminarProducto(int id) throws ResourceNotFoundException;
 }

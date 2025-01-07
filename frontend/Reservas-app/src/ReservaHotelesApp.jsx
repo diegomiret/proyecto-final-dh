@@ -1,13 +1,14 @@
 import React from 'react'
 import { NavBarComponent } from './components/NavBarComponent'
-import { HomeComponent } from './components/HomeComponent'
 import { Route, Routes } from 'react-router-dom'
 import { AdministracionComponent } from './components/admin/administracionComponent'
-import { AgregarProductoComponent } from './components/admin/AgregarProductoComponent'
+import { AgregarProductoComponent } from './components/admin/AgregarProducto/AgregarProductoComponent'
 import { DetalleAlojamientoComponent } from './components/productoDetalle/DetalleAlojamientoComponent'
 import { DetalleAlojamientoGaleriaComponent } from './components/productoDetalle/DetalleAlojamientoGaleriaComponent'
 import { FooterComponent } from './components/FooterComponent'
 import { HomePrincipal } from './components/Home/HomePrincipal'
+import FormularioNuevoProducto from './components/admin/AgregarProducto/FormularioNuevoProducto'
+import { ListaProductosComponent } from './components/admin/ListaProductos/ListaProductosComponent'
 
 
 export const ReservaHotelesApp = () => {
@@ -20,8 +21,11 @@ export const ReservaHotelesApp = () => {
                 <Routes>
                     <Route path='/' element={<HomePrincipal />} />
                     <Route path='/*' element={<HomePrincipal />}/>
-                    <Route path='/admin' element={<AdministracionComponent />}/>
-                    <Route path="/agregarProducto" element={<AgregarProductoComponent />} />
+                    <Route path='/administracion' element={<AdministracionComponent />}/>
+                    <Route path='/administracion/agregarProducto' element={<FormularioNuevoProducto />}/>
+                    <Route path='/administracion/listaProductos' element={<ListaProductosComponent />}/>
+
+
                     <Route path="detalleProducto/:id" element={<DetalleAlojamientoComponent />} />
                     <Route path="galeriaProducto/:id" element={<DetalleAlojamientoGaleriaComponent />} />
                 </Routes>

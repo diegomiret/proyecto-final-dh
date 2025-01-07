@@ -16,7 +16,7 @@ export const NavBarComponent = () => {
         <div className="collapse navbar-collapse justify-content-end" id="navbarButtons">
             <div className="d-flex">
                 <button className="btn btn-primary me-2">Crear cuenta</button>
-                <button className="btn btn-outline-secondary">Iniciar sesión</button>
+                <button className="btn btn-primary me-2">Iniciar sesión</button>
             </div>
         </div>
     </div>

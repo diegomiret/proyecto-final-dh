@@ -1,5 +1,6 @@
 package com.proyectofinal.ReservasApi.controller;
 
+import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.Producto;
 import com.proyectofinal.ReservasApi.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,18 @@ public class ProductoController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(productoService.crearProducto(producto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Producto>> listarProductos() {
+        return ResponseEntity.ok(productoService.listarProductos());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id) throws ResourceNotFoundException {
+        productoService.eliminarProducto(id);
+
+        //  Si no arrojó una excepción, revuelvo el estado ok 200
+        return ResponseEntity.ok("Se eliminó el producto con id: " + id);
     }
 }

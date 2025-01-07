@@ -1,37 +1,40 @@
-import React, { useState } from 'react'
-import { useForm } from '../hooks/useForm'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { MenuOpcionesComponent } from './MenuOpcionesComponent';
 
 export const AdministracionComponent = () => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const initialForm =  {
-        inputTitulo: '',
-        inputDescripcion: ''
-    };
+  // Check if the user is on a mobile device
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-    const {inputTitulo, inputDescripcion, onInputChange} = useForm(initialForm);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        // aca se hace la logica del negocio
-        
-    }
-
-    const handleRedirect = () =>{
-        navigate('/agregarProducto');
-    }
-
+  if (isMobile) {
     return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h1>Este componente no está disponible en dispositivos móviles.</h1>
+      </div>
+    );
+  }
 
 
-        <>
-        <div className='container'>
-            <button type="button" className="btn btn-primary" onClick={handleRedirect}>Agregar producto</button>
-            </div>
-        </>
 
-    )
+
+  return (
+    <>
+
+      
+
+      <MenuOpcionesComponent></MenuOpcionesComponent>
+
+      
+
+     
+
+
+
+    </>
+
+  )
+
+
 }

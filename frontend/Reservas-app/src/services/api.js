@@ -18,4 +18,8 @@ export default class Api {
         return this.init().get("/productos/aleatorios").then(r => r.data);
     }
     
+
+    getCategorias = () => {
+        return this.init().get("/categorias").then(r => r.data);
+    }
 }

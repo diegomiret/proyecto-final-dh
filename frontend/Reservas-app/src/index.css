@@ -1,6 +1,107 @@
-body {
+/* Configuración de fuentes */
+:root {
+    --font-primary: 'Inter', sans-serif;
+    --color-primary: #0d6efd; /* Botones */
+    --color-primary-hover: #0a5ed1; /* Botones al pasar el mouse */
+    --color-header-bg: #003b95; /* Fondo del header */
+    --color-footer-bg: #f1f1f1; /* Fondo del footer */
+    --color-text-primary: #333; /* Texto principal */
+    --color-text-secondary: #555; /* Texto secundario */
+    --color-background: #f8f9fa; /* Fondo general */
+  }
+  
+  /* Reseteo de márgenes y paddings */
+  * {
     margin: 0;
     padding: 0;
-    background-color: #f5f7fa; /* Soft and calm background color for a hotel booking site */
-    font-family: Arial, sans-serif;
-}
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: var(--font-primary);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+  }
+  
+  header {
+    background-color: var(--color-header-bg);
+    color: white;
+    padding: 1rem 2rem;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  footer {
+    background-color: var(--color-footer-bg);
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+  
+  button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: var(--color-primary-hover); /* Color manual para hover */
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+  
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+  }
+  
+  .card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card p {
+    color: var(--color-text-secondary);
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none; /* Quita el subrayado por defecto */
+  }
+  
+  a:hover {
+    text-decoration: none; /* Asegura que no aparezca subrayado al pasar el mouse */
+    color: darken(var(--color-primary), 10%); /* Opcional: puedes cambiar ligeramente el color al pasar el mouse */
+  }

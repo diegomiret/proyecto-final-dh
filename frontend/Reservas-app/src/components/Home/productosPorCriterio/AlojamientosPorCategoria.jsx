@@ -82,7 +82,7 @@ export const AlojamientosPorCategoria = () => {
         {currentItems.map((unProducto, index) => (
           <div className="col" key={index}>
             <BusquedaAlojamientoCard
-              id={unProducto.imageUrl}
+              id={unProducto.id}
               titulo={unProducto.titulo}
               descripcion={unProducto.descripcion}
               imagenes={unProducto.imagenes}

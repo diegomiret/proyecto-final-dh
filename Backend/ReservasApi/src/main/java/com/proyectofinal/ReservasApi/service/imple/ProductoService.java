@@ -1,5 +1,6 @@
 package com.proyectofinal.ReservasApi.service.imple;
 
+import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.Categoria;
 import com.proyectofinal.ReservasApi.model.Producto;
 import com.proyectofinal.ReservasApi.repository.IProductoRepository;
@@ -44,6 +45,23 @@ public class ProductoService implements IProductoService {
         Categoria categoria = new Categoria();
         categoria.setId(idCategoria);
         return productoRepository.findByCategoria(categoria);
+    }
+
+    @Override
+    public List<Producto> listarProductos() {
+        return productoRepository.findAll();
+    }
+
+    @Override
+    public void eliminarProducto(int id) throws ResourceNotFoundException {
+        Optional<Producto> productoBuscado = buscarProductoPorId(id);
+
+        if (productoBuscado.isPresent()) {
+            productoRepository.deleteById(id);
+        } else {
+            throw new ResourceNotFoundException("No existe el producto con id: " + id);
+        }
+
     }
 
 
