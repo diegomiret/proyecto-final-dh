@@ -42,7 +42,7 @@ export const BarraBuscadorComponent = () => {
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             className="form-control"
-            placeholderText="Selecciona una fecha"
+            placeholderText="Fecha desde"
           />
         </div>
         <div>
@@ -51,7 +51,7 @@ export const BarraBuscadorComponent = () => {
             selected={endDate}
             onChange={(date) => setEndDate(date)}
             className="form-control"
-            placeholderText="Selecciona una fecha"
+            placeholderText="Fecha hasta"
           />
         </div>
         <button className="btn btn-primary mt-4" onClick={handleSearch}>

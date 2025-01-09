@@ -16,7 +16,6 @@ export const CategoriasAlojamientoComponent = () => {
     const endpoint = "/categorias";
     AxiosInstance.get(endpoint)
       .then((res) => {
-        console.log(res);
         setCategorias(res.data);
         setIsLoading(false);
         setHayError(false);
@@ -26,14 +25,10 @@ export const CategoriasAlojamientoComponent = () => {
         setIsLoading(false);
         setHayError(true);
         setError(error);
-
-        console.log(error);
         
       });
 
   }, []);
-
-
 
 
   return (

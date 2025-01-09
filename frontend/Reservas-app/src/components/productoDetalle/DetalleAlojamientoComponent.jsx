@@ -9,16 +9,12 @@ import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagene
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
-
   const productoDefault = {
     titulo: "",
     descripcion: "",
     imagenes: []
   };
 
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  }
 
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -31,11 +27,9 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     const endpoint = "/productos/" + producto.id;
     AxiosInstance.get(endpoint)
       .then((res) => {
-        console.log(res.data);
         setProducto({ ...res.data });
       })
       .catch((error) => {
-        console.log(error);
         Swal.fire({
           icon: 'error',
           text: 'No se pudo cargar el producto'
@@ -46,7 +40,6 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
 
 
   const irAGaleria = () => {
-
     navigate('/galeriaProducto/' + id);
   };
 
@@ -57,10 +50,8 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
       <DetalleAlojamientoHeaderComponent {...producto} />
       <div className='container'>
 
-
         <DetalleAlojamientoDescripcionComponent {...producto} />
         <DetalleAlojamientoImagenesComponent {...producto} />
-
 
         <div className="container mt-4">
           <div className="d-flex justify-content-end">

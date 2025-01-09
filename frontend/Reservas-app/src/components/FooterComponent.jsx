@@ -3,12 +3,12 @@ import isogotipo from '../assets/imagenes/isogotipo.png'
 
 export const FooterComponent = () => {
 
-    const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
   return (
-    
+
     <>
-    <footer style={{ backgroundColor: '#f1f1f1' }} className="py-3 mt-5">
+      <footer style={{ backgroundColor: '#f1f1f1' }} className="py-3 mt-5">
 
         <div className="row justify-content-between align-items-center">
 
@@ -23,14 +23,9 @@ export const FooterComponent = () => {
             </span>
           </div>
 
-      </div>
-    </footer>
-
-
-
+        </div>
+      </footer>
     </>
-
-
 
   )
 }

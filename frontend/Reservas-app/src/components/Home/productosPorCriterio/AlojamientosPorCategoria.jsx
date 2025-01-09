@@ -49,7 +49,6 @@ export const AlojamientosPorCategoria = () => {
     const endpoint = "/productos/categoria/" + id;
     AxiosInstance.get(endpoint)
       .then((res) => {
-        console.log(res.data);
         setProductos(res.data);
         setIsLoading(false);
         setHayError(false);

@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Api from "../../../services/api";
-import { AiOutlineLeft } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
-
-import styledComponents from "styled-components";
 import { AxiosInstance } from "../../../helpers/AxiosHelper";
 
 const FormularioNuevoProducto = (props) => {
@@ -16,6 +12,12 @@ const FormularioNuevoProducto = (props) => {
   const navigate = useNavigate();
   const form = useRef(null);
 
+  const headerStyles = {
+    backgroundColor: '#0d6efd',
+    color: '#ffffff',
+  };
+
+
   useEffect(() => {
 
     //  Carga de categorias
@@ -23,7 +25,6 @@ const FormularioNuevoProducto = (props) => {
     const endpoint = "/categorias";
     AxiosInstance.get(endpoint)
       .then((res) => {
-        console.log(res);
         setCategorias(res.data);
         setIsLoadingCategoria(false);
         setHayErrorCategoria(false);
@@ -34,30 +35,28 @@ const FormularioNuevoProducto = (props) => {
         setHayErrorCategoria(true);
         setErrorCategoria(error);
 
-        console.log(error);
-
       });
   }, []);
 
 
 
-     const mensajeOperacionExitosa = () => {
-          Swal.fire({
-              title: '¡Éxito!',
-              text: 'La operación se realizó correctamente.',
-              icon: 'success',
-              confirmButtonText: 'Aceptar',
-          });
-      };
-  
-  
-      const mensajeOperacionError = (mensaje) => {
-          Swal.fire({
-              icon: 'error',
-              text: mensaje
-          });
-      };
-  
+  const mensajeOperacionExitosa = () => {
+    Swal.fire({
+      title: '¡Éxito!',
+      text: 'La operación se realizó correctamente.',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
+
+
+  const mensajeOperacionError = (mensaje) => {
+    Swal.fire({
+      icon: 'error',
+      text: mensaje
+    });
+  };
+
 
 
   const submitHandler = (event) => {
@@ -78,44 +77,43 @@ const FormularioNuevoProducto = (props) => {
     };
 
     const imagenesRequests = [
-        {
-          "url": form.current.querySelector("#imagen-1").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-2").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-3").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-4").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-5").value,
-          "titulo": "Imagen"
-        }
-      
+      {
+        "url": form.current.querySelector("#imagen-1").value,
+        "titulo": "Imagen"
+      },
+      {
+        "url": form.current.querySelector("#imagen-2").value,
+        "titulo": "Imagen"
+      },
+      {
+        "url": form.current.querySelector("#imagen-3").value,
+        "titulo": "Imagen"
+      },
+      {
+        "url": form.current.querySelector("#imagen-4").value,
+        "titulo": "Imagen"
+      },
+      {
+        "url": form.current.querySelector("#imagen-5").value,
+        "titulo": "Imagen"
+      }
+
     ]
 
     //post de products
     AxiosInstance.post(`/productos`, postDataProducto, header)
       .then((res) => {
         imagenesRequests.forEach((unRequest, index) => {
-          
+
           // se le agrega el id del producto al que pertenece
           unRequest.producto = {
             id: res.data.id
           };
-          
+
           AxiosInstance.post(`/imagenes`, unRequest, header)
             .then((res) => {
               //si la ultima imagen es correcta entonces redirigir a producto exitoso
               //index === values.imagenes.length - 1 && navigate('producto-exitoso');
-              console.log("Se guardo la imagen");
 
             })
             .catch((error) => {
@@ -141,23 +139,16 @@ const FormularioNuevoProducto = (props) => {
 
   return (
     <>
-      <Header>
-        <div>
-          <p>Nuevo Alojamiento</p>
-          <h2>Administración</h2>
-        </div>
-        <BackLink>
-          <Link to={"/"}> <AiOutlineLeft /> </Link>
-        </BackLink>
-      </Header>
 
-      <Container>
-        <Titulo><h2>Crear Propiedad</h2></Titulo>
-        <FormGroup ref={form} onSubmit={submitHandler} className="form-control">
-          <Grupo>
-            <Columna>
-              <Label htmlFor="titulo">Título</Label>
-              <Input
+      <div className="container py-4" style={{ backgroundColor: '#EEEFF2' }}>
+        <div className="mb-4">
+          <h4>Crear alojamiento</h4>
+        </div>
+        <form ref={form} onSubmit={submitHandler} className="bg-light p-4 rounded shadow">
+          <div className="row mb-4">
+            <div className="col-md-6 mb-3">
+              <label htmlFor="titulo" className="form-label text-primary">Título</label>
+              <input
                 type="text"
                 name="titulo"
                 id="titulo"
@@ -165,238 +156,72 @@ const FormularioNuevoProducto = (props) => {
                 placeholder="Título"
                 required
               />
-            </Columna>
-
-            <Columna>
-              <Label htmlFor="categorias">Categoría</Label>
-
+            </div>
+            <div className="col-md-6 mb-3">
+              <label htmlFor="categorias" className="form-label text-primary">Categoría</label>
               {hayErrorCategoria ? (
-                <div style={{ color: 'red' }}>Hubo un error al cargar las categorias.</div>
+                <div className="text-danger">Hubo un error al cargar las categorías.</div>
               ) : (
-
-
-                <Select name="categorias" id="categorias-select" required>
-                  <option value="#" disabled selected>
+                <select
+                  name="categorias"
+                  id="categorias-select"
+                  className="form-select"
+                  required
+                  defaultValue="#"
+                >
+                  <option value="#" disabled>
                     Seleccione una categoría
                   </option>
-                  {categorias.map((unaCategoria) => {
-                    return (
-                      <option key={`categoria-${unaCategoria.id}`} value={`${unaCategoria.id}`}>
-                        {unaCategoria.nombre}
-                      </option>
-                    );
-                  })}
-                </Select>
+                  {categorias.map((unaCategoria) => (
+                    <option
+                      key={`categoria-${unaCategoria.id}`}
+                      value={unaCategoria.id}
+                    >
+                      {unaCategoria.nombre}
+                    </option>
+                  ))}
+                </select>
               )}
-            </Columna>
-          </Grupo>
-
-
-
-          <Columna>
-            <Label htmlFor="descripcion">Descripción</Label>
+            </div>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="descripcion" className="form-label text-primary">Descripción</label>
             <textarea
               name="descripcion"
               id="descripcion"
+              className="form-control"
               cols="30"
               rows="10"
               required
               maxLength={500}
+              style={{ resize: 'none' }}
             ></textarea>
-          </Columna>
-
-
-
-
-          <Titulo><h3>Cargar imágenes</h3></Titulo>
-
-          <Grupo>
-            <Columna>
-              {Array.from(Array(5).keys()).map((key) => {
-                return <Input className="input-imagen" type="text" key={key} name={"imagen-" + (key + 1)} id={"imagen-" + (key + 1)} placeholder="Inserte la URL de la imagen" required />
-              })}
-            </Columna>
-          </Grupo>
-
-          <Button type="submit">Crear</Button>
-
-        </FormGroup>
-      </Container>
+          </div>
+          <div className="mb-4">
+            <h3 className="text-primary">Cargar imágenes</h3>
+          </div>
+          <div className="row mb-4">
+            {[...Array(5)].map((_, index) => (
+              <div className="col-md-12 mb-3" key={index}>
+                <input
+                  className="form-control"
+                  type="text"
+                  name={`imagen-${index + 1}`}
+                  id={`imagen-${index + 1}`}
+                  placeholder="Inserte la URL de la imagen"
+                  required
+                />
+              </div>
+            ))}
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Crear
+          </button>
+        </form>
+      </div>
     </>
   );
 };
 
-const Input = styledComponents.input`
-    background-color: #fff;
-    border-radius: 5px;
-    border: none;
-    box-shadow: var(--input-shadow);
-    height: 40px;
-    padding-left: 18px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--colorPrincipal);
-    &[type="checkbox"] {
-      font: inherit;
-      color: currentColor;
-      width: 1.15em;
-      height: 1.15em;
-      border: 0.15em solid currentColor;
-      border-radius: 0.15em;
-      transform: translateY(-0.075em);
-    }
-    &.input-imagen {
-      margin-bottom: 1rem;
-    }
-    `;
-
-const Select = styledComponents.select`    
-    background-color: #fff;
-    border-radius: 5px;
-    border: none;
-    box-shadow: var(--input-shadow);
-    height: 40px;
-    padding-left: 18px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--colorPrincipal);
-    & option {
-      font-weight: 500;
-      color: var(--colorPrincipal);
-      padding: 0.5rem;
-    }
-    `;
-
-const FormGroup = styledComponents.form`
-    margin-bottom: 16px;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1rem;
-    background-color: #fafafa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    h4 {
-      font-size: 1.25rem;
-      font-weight: 500;
-      color: var(--colorPrincipal);
-      padding-bottom: 1rem;
-    }
-    h3 {
-      padding-left: 1rem;
-    }
-    `;
-
-const Label = styledComponents.label`
-    text-align: left;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--colorPrincipal);
-    `;
-
-const Button = styledComponents.button`
-    height:40px;
-    width:164px;
-    margin-right:10px;
-    margin-left: 1rem;
-    background-color:var(--color-primary);
-    border:none;
-    color:var(--contrast--light);
-    border-radius:5px;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    `;
-
-const Grupo = styledComponents.div`
-display: flex;
-justify-content: space-between;
-padding-bottom: 2rem;
-@media only screen and (max-width: 768px) {
-  flex-direction: column;
-}
-`
-
-const Container = styledComponents.div`
-padding: 2rem;
-background-color: #EEEFF2;
-textarea {
-  resize: none;
-  background-color: #fff;
-  border-radius: 5px;
-  border: none;
-  box-shadow: var(--input-shadow);
-  padding-top: 18px;
-  padding-left: 18px;
-  margin-bottom: 5px;
-  font-weight: 500;
-  font-size: 1rem;
-  color: var(--colorPrincipal);
-  width: 100%;
-}
-.btn-agregar {
-  align-self: end;
-  margin-bottom: 5px;
-}
-`
-
-const Header = styledComponents.div`
-background-color: var(--colorTerciario);
-background-size: cover;
-background-position: center;
-box-shadow: inset 0px 4px 4px 0px #00000040;
-color: var(--colorCuarto);
-text-align: left;
-display: flex;
-justify-content: space-between;
-padding: 1rem 2rem 0;
-@media only screen and (max-width: 425px) {
-    background-size: initial;
-}
-h2 {
-    font-size: 1.5rem;
-}
-p {
-    font-size: 0.875rem;
-}
-`
-
-const BackLink = styledComponents.div`
-a {
-    font-size: 48px;
-    color: var(--colorCuarto)
-    text-decoration: none;
-}
-`
-
-const Titulo = styledComponents.div`
-font-size: 1.25rem;
-color: var(--colorPrincipal);
-text-align: left;
-padding: 1rem 0;
-`
-
-const Columna = styledComponents.div`
-display: flex;
-flex-direction: column;
-width: 100%;
-padding: 0 1rem;
-`
-
-const Check = styledComponents.div`
-width: 30%;
-display: flex;
-justify-content: space-between;
-padding-bottom: 0.75rem;
-`
-
-const CheckboxGroup = styledComponents.div`
-display: flex;
-justify-content: space-between;
-flex-wrap: wrap;
-padding: 0 1rem 1rem 1rem;
-`
 
 export default FormularioNuevoProducto;

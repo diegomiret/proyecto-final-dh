@@ -16,7 +16,6 @@ export const AlojamientosAleatorios = () => {
     const endpoint = "/productos/aleatorios";
     AxiosInstance.get(endpoint)
       .then((res) => {
-        console.log(res);
         setProductos(res.data);
         setIsLoading(false);
         setHayError(false);
@@ -27,7 +26,6 @@ export const AlojamientosAleatorios = () => {
         setHayError(true);
         setError(error);
 
-        console.log(error);
         
       });
 
@@ -36,7 +34,6 @@ export const AlojamientosAleatorios = () => {
 
   return (
     <>
-
       <div className="container my-4">
         <h5 className="mb-4">Algunos de los alojamientos</h5>
         {isLoading ? <h4>Cargando</h4> : null}
@@ -54,13 +51,8 @@ export const AlojamientosAleatorios = () => {
           </div>
         ))}
         
-  
-        
         </div>
       </div>
-
-
-
 
     </>
 

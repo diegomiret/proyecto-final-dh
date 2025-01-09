@@ -1,5 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { MenuOpcionesComponent } from './MenuOpcionesComponent';
+import { AlojamientosAleatorios } from '../Home/productosPorCriterio/AlojamientosAleatorios';
+import FormularioNuevoProducto from './AgregarProducto/FormularioNuevoProducto';
+import { ListaProductosComponent } from './ListaProductos/ListaProductosComponent';
 
 export const AdministracionComponent = () => {
 
@@ -16,22 +19,19 @@ export const AdministracionComponent = () => {
     );
   }
 
-
-
-
   return (
     <>
+      <div className='container'>
+        <MenuOpcionesComponent></MenuOpcionesComponent>
 
-      
-
-      <MenuOpcionesComponent></MenuOpcionesComponent>
-
-      
-
-     
-
-
-
+        <div style={{ padding: "20px" }}>
+          <Routes>
+            <Route path="/" element={<div></div>} />
+            <Route path="agregarProducto" element={<FormularioNuevoProducto />} />
+            <Route path="listaProductos" element={<ListaProductosComponent />} />
+          </Routes>
+        </div>
+      </div>
     </>
 
   )

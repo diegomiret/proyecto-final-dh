@@ -1,4 +1,3 @@
-/* Configuración de fuentes */
 :root {
     --font-primary: 'Inter', sans-serif;
     --color-primary: #0d6efd; /* Botones */
@@ -56,7 +55,7 @@
   }
   
   button:hover {
-    background-color: var(--color-primary-hover); /* Color manual para hover */
+    background-color: var(--color-primary-hover);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -102,6 +101,6 @@
   }
   
   a:hover {
-    text-decoration: none; /* Asegura que no aparezca subrayado al pasar el mouse */
-    color: darken(var(--color-primary), 10%); /* Opcional: puedes cambiar ligeramente el color al pasar el mouse */
+    text-decoration: none; 
+    color: darken(var(--color-primary), 10%);
   }

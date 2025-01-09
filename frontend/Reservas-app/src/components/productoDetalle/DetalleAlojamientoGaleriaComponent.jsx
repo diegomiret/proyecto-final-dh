@@ -15,11 +15,9 @@ useEffect(() => {
     const endpoint = "/imagenes/imagenesDelProducto/" + idProducto;
     AxiosInstance.get(endpoint)
       .then((res) => {
-        console.log(res.data);
         setImagenes(res.data);
       })
       .catch((error) => {
-        console.log(error);
         Swal.fire({
           icon: 'error',
           text: 'No se pudo cargar las imágenes'
@@ -31,12 +29,7 @@ useEffect(() => {
 
 
   return (
-
-
     <>
-
-
-
     <div className="container mt-4">
       <div className="row">
         {imagenes.map((imagen, index) => (
@@ -57,10 +50,6 @@ useEffect(() => {
         ))}
       </div>
     </div>
-
-  
-
-
   </>
   )
 }

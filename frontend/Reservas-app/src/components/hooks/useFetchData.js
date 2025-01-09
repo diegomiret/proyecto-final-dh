@@ -13,12 +13,10 @@ export const useFetchData = ({ endpoint, postData={} }) => {
         try{
             const res = await fetch(urlBase);
             const data = await res.json();
-            console.log(data);
 
             setData(data);
             setIsLoading(false);
             setHayError(false);
-            console.log(data);
         }
         catch(error){
             setIsLoading(false);
