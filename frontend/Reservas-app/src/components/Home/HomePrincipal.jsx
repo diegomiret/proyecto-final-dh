@@ -7,6 +7,9 @@ import { RecomendacionesAlojamientosComponent } from '../RecomendacionesAlojamie
 import { AlojamientosPorCategoria } from './productosPorCriterio/AlojamientosPorCategoria'
 
 export const HomePrincipal = () => {
+
+console.log(import.meta.env.VITE_BACKEND_URL_API);
+
     return (
         <>
             <BarraBuscadorComponent></BarraBuscadorComponent>
