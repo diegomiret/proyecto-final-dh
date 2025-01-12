@@ -8,7 +8,7 @@ export const MenuOpcionesComponent = () => {
 <nav style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
       <Link to={"/administracion/agregarProducto"}>
       <button  >
-          Crear Producto
+          Crear producto
         </button>
         </Link>
 
@@ -17,6 +17,13 @@ export const MenuOpcionesComponent = () => {
           Lista de productos
         </button>
         </Link>
+
+        <Link to={"/administracion/asignarCategorias"}>
+      <button  >
+          Asignar categorias
+        </button>
+        </Link>
+
       </nav>
     </div>
 

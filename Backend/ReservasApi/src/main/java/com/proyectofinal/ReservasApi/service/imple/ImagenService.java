@@ -27,4 +27,15 @@ public class ImagenService implements IImagenService {
         return imagenRepository.findByProducto(producto);
     }
 
+    @Override
+    public void eliminarImagenesDelProductoId(int idProducto) {
+        Producto producto = new Producto();
+        producto.setId(idProducto);
+        imagenRepository.deleteByProducto(producto);
+    }
+
+    public void eliminarImagenPorId(Integer id) {
+        imagenRepository.deleteById(id);
+    }
+
 }

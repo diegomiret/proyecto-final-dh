@@ -1,7 +1,10 @@
 package com.proyectofinal.ReservasApi.controller;
 
+import com.proyectofinal.ReservasApi.DTO.ProductoUpdateCategoriaDTO;
 import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
+import com.proyectofinal.ReservasApi.model.Categoria;
 import com.proyectofinal.ReservasApi.model.Producto;
+import com.proyectofinal.ReservasApi.service.ICategoriaService;
 import com.proyectofinal.ReservasApi.service.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,8 @@ public class ProductoController {
 
     @Autowired
     private IProductoService productoService;
+    @Autowired
+    private ICategoriaService categoriaService;
 
 
     @GetMapping("/aleatorios")
@@ -63,7 +68,52 @@ public class ProductoController {
     public ResponseEntity<String> delete(@PathVariable int id) throws ResourceNotFoundException {
         productoService.eliminarProducto(id);
 
-        //  Si no arrojó una excepción, revuelvo el estado ok 200
+        //  Si no arrojó una excepción, devuelvo el estado ok 200
         return ResponseEntity.ok("Se eliminó el producto con id: " + id);
     }
+
+    @PutMapping("/actualizarCategoria")
+    public ResponseEntity<?> modificarCategoriaProducto(@RequestBody ProductoUpdateCategoriaDTO updateCategoriaDto) throws ResourceNotFoundException {
+
+        Optional<Producto> productoBuscado = productoService.buscarProductoPorId(updateCategoriaDto.getIdProducto());
+
+        if (!productoBuscado.isPresent()) {
+            throw new ResourceNotFoundException("Producto no encontrado con id: " + updateCategoriaDto.getIdProducto());
+        }
+
+        Producto productoExistente = productoBuscado.get();
+
+        Optional<Categoria> categoriaOptional = categoriaService.obtenerCategoriaPorId(updateCategoriaDto.getIdCategoria());
+        if (!categoriaOptional.isPresent()) {
+            throw new ResourceNotFoundException("Categoría no encontrada con id: " + updateCategoriaDto.getIdCategoria());
+        }
+        productoExistente.setCategoria(categoriaOptional.get());
+
+        // Guarda los cambios en el producto
+        productoService.actualizarProducto(productoExistente);
+
+        return ResponseEntity.ok("Se modificó la categoría del producto con id: " + updateCategoriaDto.getIdProducto());
+    }
+
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> updateProducto(@PathVariable Integer id, @RequestBody Producto producto) {
+        if (!id.equals(producto.getId())) {
+            return ResponseEntity.badRequest().build();
+        }
+        Producto updatedProducto = productoService.actualizarProducto(producto);
+        return ResponseEntity.ok(updatedProducto);
+    }
+
+    @PutMapping("/actualizar-categoria")
+    public ResponseEntity<Producto> actualizarCategoriaProducto(@RequestBody ProductoUpdateCategoriaDTO updateCategoriaDto) {
+        Integer idProducto = updateCategoriaDto.getIdProducto();
+        Integer idCategoria = updateCategoriaDto.getIdCategoria();
+
+        Producto productoActualizado = productoService.actualizarCategoriaProducto(idProducto, idCategoria);
+
+        return ResponseEntity.ok(productoActualizado);
+    }
+
 }

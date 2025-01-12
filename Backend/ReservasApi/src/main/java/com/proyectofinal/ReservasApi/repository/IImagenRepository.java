@@ -16,4 +16,5 @@ public interface IImagenRepository extends JpaRepository<Imagen, Integer> {
 
     List<Imagen> findByProducto(Producto producto);
 
+    public void deleteByProducto(Producto producto);
 }

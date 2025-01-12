@@ -6,6 +6,9 @@ import { DetalleAlojamientoComponent } from './components/productoDetalle/Detall
 import { DetalleAlojamientoGaleriaComponent } from './components/productoDetalle/DetalleAlojamientoGaleriaComponent'
 import { FooterComponent } from './components/FooterComponent'
 import { HomePrincipal } from './components/Home/HomePrincipal'
+import { EditarProductoComponent } from './components/admin/EditarProducto/EditarProductoComponent'
+import { RegistroComponent } from './components/registro/registroComponent'
+import { LoginComponent } from './components/login/LoginComponent'
 
 export const ReservaHotelesApp = () => {
     return (
@@ -20,6 +23,9 @@ export const ReservaHotelesApp = () => {
                     <Route path='/administracion/*' element={<AdministracionComponent />}/>
                     <Route path="detalleProducto/:id" element={<DetalleAlojamientoComponent />} />
                     <Route path="galeriaProducto/:id" element={<DetalleAlojamientoGaleriaComponent />} />
+                    <Route path="editarProducto/:id" element={<EditarProductoComponent />} />
+                    <Route path="registro" element={<RegistroComponent />} />
+                    <Route path="login" element={<LoginComponent />} />
                 </Routes>
             </div>
 

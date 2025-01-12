@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useFetchData = ({ endpoint, postData={} }) => {
+export const useFetchData = (endpoint) => {
   
     const urlBase = `http://localhost:8080/${endpoint}`;
 

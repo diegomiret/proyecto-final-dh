@@ -3,6 +3,7 @@ import { MenuOpcionesComponent } from './MenuOpcionesComponent';
 import { AlojamientosAleatorios } from '../Home/productosPorCriterio/AlojamientosAleatorios';
 import FormularioNuevoProducto from './AgregarProducto/FormularioNuevoProducto';
 import { ListaProductosComponent } from './ListaProductos/ListaProductosComponent';
+import { AsignacionCategoriasComponent } from './AsignacionCategorias/AsignacionCategoriasComponent';
 
 export const AdministracionComponent = () => {
 
@@ -29,6 +30,7 @@ export const AdministracionComponent = () => {
             <Route path="/" element={<div></div>} />
             <Route path="agregarProducto" element={<FormularioNuevoProducto />} />
             <Route path="listaProductos" element={<ListaProductosComponent />} />
+            <Route path="asignarCategorias" element={<AsignacionCategoriasComponent />} />
           </Routes>
         </div>
       </div>

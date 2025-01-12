@@ -30,5 +30,10 @@ public class ImagenController {
     }
 
 
+    @DeleteMapping("/borrarPorProducto/{id}")
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        imagenService.eliminarImagenesDelProductoId(id);
+        return ResponseEntity.ok("Se eliminaron las imagenes con el producto id: " + id);
+    }
 
 }

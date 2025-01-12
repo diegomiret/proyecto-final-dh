@@ -10,4 +10,8 @@ public interface IImagenService {
     public Imagen crearImagen(Imagen imagen);
 
     public List<Imagen> obtenerImaganesDelProductoId(int idProducto);
+
+    public void eliminarImagenesDelProductoId(int idProducto);
+
+    public void eliminarImagenPorId(Integer id);
 }

@@ -20,4 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
     public InternalResourceViewResolver defaultViewResolver() {
         return new InternalResourceViewResolver();
     }
+
+
 }

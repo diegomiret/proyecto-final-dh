@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AxiosInstance } from '../../../helpers/AxiosHelper';
 import Swal from 'sweetalert2';
+import { Link, Navigate } from 'react-router-dom';
 
 export const ListaProductosComponent = () => {
 
@@ -68,8 +69,13 @@ export const ListaProductosComponent = () => {
     }
   };
 
+
+  const editarProducto = (productId) =>{
+    Navigate(`/editarProducto/${productId}`);
+  }
+
   return (
-    <div className="container mt-5">
+    <div className="container py-4" style={{ backgroundColor: '#EEEFF2' }}>
       <h4>Lista de productos</h4>
 
       {hayErrorProductos ? (
@@ -93,9 +99,19 @@ export const ListaProductosComponent = () => {
                   <button
                     className="btn btn-danger"
                     onClick={() => deleteProduct(product.id)}
+                    style={{ marginRight: "10px" }}
                   >
                     Eliminar producto
                   </button>
+
+                  <Link to={"/editarProducto/" + product.id}>
+                  <button
+                    className="btn btn-primary"                   
+                  >
+                    Editar producto
+                  </button>
+                  </Link>
+
                 </td>
               </tr>
             ))}
