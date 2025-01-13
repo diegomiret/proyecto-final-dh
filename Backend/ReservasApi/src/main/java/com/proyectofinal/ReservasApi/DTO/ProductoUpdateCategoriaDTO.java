@@ -1,5 +1,12 @@
 package com.proyectofinal.ReservasApi.DTO;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+
 public class ProductoUpdateCategoriaDTO {
 
     private Integer idProducto;
@@ -20,4 +27,5 @@ public class ProductoUpdateCategoriaDTO {
     public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
+
 }

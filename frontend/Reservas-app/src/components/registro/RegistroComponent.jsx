@@ -54,22 +54,16 @@ export const RegistroComponent = () => {
         };
   
       const apiPayload = {
-          nombre: formData.firstName,
-          apellido: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-          estado: false,
-          rol: {
-            id: 1,
-          },
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+        email: formData.email,
+        password: formData.password
         };
   
-        AxiosInstance.post(`/usuarios`, apiPayload, header)
+        AxiosInstance.post(`/auth/register`, apiPayload, header)
    .then((res) => {
-          console.log(res);
-          mensajeOperacionExitosa(res.data);
+    mensajeOperacionExitosa("Se registró correctamente");
   
-          //  fin post producto
         })
         .catch((error) => {
           error

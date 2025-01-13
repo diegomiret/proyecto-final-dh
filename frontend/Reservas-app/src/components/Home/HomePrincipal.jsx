@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AlojamientosAleatorios } from './productosPorCriterio/AlojamientosAleatorios'
 import { BarraBuscadorComponent } from '../BarraBuscadorComponent'
 import { CategoriasAlojamientoComponent } from '../CategoriasAlojamientoComponent'
 import { RecomendacionesAlojamientosComponent } from '../RecomendacionesAlojamientosComponent'
 import { AlojamientosPorCategoria } from './productosPorCriterio/AlojamientosPorCategoria'
+import { UserContext } from '../../context/UserContext'
+import { User } from '../../ReservaHotelesApp'
 
 export const HomePrincipal = () => {
 
-console.log(import.meta.env.VITE_BACKEND_URL_API);
+    const [user, ] = useContext(User);
 
     return (
         <>

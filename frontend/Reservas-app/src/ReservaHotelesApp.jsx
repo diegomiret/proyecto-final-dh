@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 import { NavBarComponent } from './components/NavBarComponent'
 import { Route, Routes } from 'react-router-dom'
 import { AdministracionComponent } from './components/admin/administracionComponent'
@@ -9,11 +9,19 @@ import { HomePrincipal } from './components/Home/HomePrincipal'
 import { EditarProductoComponent } from './components/admin/EditarProducto/EditarProductoComponent'
 import { RegistroComponent } from './components/registro/registroComponent'
 import { LoginComponent } from './components/login/LoginComponent'
+import ObtenerCuentaLogueada from './components/login/ObtenerCuentaLogueada'
+import { LogOut } from './components/LogOut/LogOutComponent'
+
+
+const User = createContext(false);
 
 export const ReservaHotelesApp = () => {
+
+    const [user, setUser] = useState(null);
     return (
 
-        <>
+        <User.Provider value={[user, setUser]}>          
+<ObtenerCuentaLogueada/>
          <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <NavBarComponent></NavBarComponent>
             <div style={{ flex: 1 }}>
@@ -24,13 +32,16 @@ export const ReservaHotelesApp = () => {
                     <Route path="detalleProducto/:id" element={<DetalleAlojamientoComponent />} />
                     <Route path="galeriaProducto/:id" element={<DetalleAlojamientoGaleriaComponent />} />
                     <Route path="editarProducto/:id" element={<EditarProductoComponent />} />
-                    <Route path="registro" element={<RegistroComponent />} />
+                    <Route path="/registro" element={<RegistroComponent />} />
                     <Route path="login" element={<LoginComponent />} />
+                    <Route path="/logout" element={<LogOut />} />
                 </Routes>
             </div>
 
             <FooterComponent></FooterComponent>
             </div>
-        </>
+
+            </User.Provider>
     )
 }
+export { User };
