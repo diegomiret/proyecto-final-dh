@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AxiosInstance } from "../../../helpers/AxiosHelper";
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../../../helpers/AxiosHelper";
 import Swal from 'sweetalert2';
 
 export const AsignacionCategoriasComponent = () => {
@@ -25,28 +25,32 @@ export const AsignacionCategoriasComponent = () => {
 
 
 
-const mensajeOperacionExitosa = () => {
-    Swal.fire({
-      title: '¡Éxito!',
-      text: 'La operación se realizó correctamente.',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-    });
-  };
+    const mensajeOperacionExitosa = () => {
+        Swal.fire({
+            title: '¡Éxito!',
+            text: 'La operación se realizó correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+        });
+    };
 
 
-  const mensajeOperacionError = (mensaje) => {
-    Swal.fire({
-      icon: 'error',
-      text: mensaje
-    });
-  };
+    const mensajeOperacionError = (mensaje) => {
+        Swal.fire({
+            icon: 'error',
+            text: mensaje
+        });
+    };
 
 
     useEffect(() => {
 
         //  busco los productos
         const fetchProducts = async () => {
+
+
+            //  en enpoints publicos, no se envia token
+            setAuthHeader(false);
 
             setIsLoadingProductos(true);
             const endpoint = "/productos";
@@ -62,6 +66,10 @@ const mensajeOperacionExitosa = () => {
                     setHayErrorProductos(true);
                     setErrorProductos(error);
 
+                })
+                .finally(() => {
+                    // Limpiar el token después de la solicitud
+                    clearAuthHeader();
                 });
 
         };
@@ -76,7 +84,6 @@ const mensajeOperacionExitosa = () => {
                     setCategorias(res.data);
                     setIsLoadingCategoria(false);
                     setHayErrorCategoria(false);
-                    console.log(res.data);
                 })
                 .catch((error) => {
                     setCategorias(new Array());
@@ -105,37 +112,36 @@ const mensajeOperacionExitosa = () => {
     const handleSaveCategory = async (productId) => {
         const product = productos.find((p) => p.id === productId);
 
-        const token = '';
         const putDataUpdateCategoria = {
             idProducto: product.id,
-           idCategoria: product.categoria.id
-          };
+            idCategoria: product.categoria.id
+        };
 
-          const header = {
-            Authorization: `Bearer ${token}`
-          };
+    const token = localStorage.getItem("token");
+    setAuthHeader(token);
 
-
-
-          
         setIsLoadingGuardarCategoria(true);
         const endpoint = "/productos/actualizar-categoria";
-        AxiosInstance.put(endpoint,  putDataUpdateCategoria)
+        AxiosInstance.put(endpoint, putDataUpdateCategoria)
             .then((res) => {
                 setIsLoadingGuardarCategoria(false);
                 setHayErrorGuardarCategoria(false);
                 mensajeOperacionExitosa();
-                console.log(res.data);
+
             })
             .catch((error) => {
                 setIsLoadingGuardarCategoria(false);
                 setHayErrorGuardarCategoria(true);
                 setErrorGuardarCategoria(error);
                 mensajeOperacionError(error.response.data);
-            });
+            })
+            .finally(() => {
+                // Limpiar el token después de la solicitud
+                clearAuthHeader();
+              });;
 
 
-        
+
     };
 
     return (

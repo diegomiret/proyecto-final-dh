@@ -31,13 +31,32 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/usuarios/usuarioActual").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/usuarios/todos").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/usuarios/{id}/role").hasAnyAuthority( "ADMIN")
+
+                                .requestMatchers(HttpMethod.GET, "/productos").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/productos").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/productos/{id}").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/productos/actualizar-categoria").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/productos/{id}").hasAnyAuthority( "ADMIN")
+
+                                .requestMatchers(HttpMethod.POST, "/imagenes").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/imagenes/imagenesDelProducto/{id}").hasAnyAuthority( "ADMIN")
+
+                                .requestMatchers(HttpMethod.GET, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/v3/api-docs/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/productos/*").permitAll()
+
                                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/usuarios/*").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/usuarios/usuarioActual").permitAll()
+
+
                                 .anyRequest().authenticated())
                 .sessionManagement(
                         session -> session

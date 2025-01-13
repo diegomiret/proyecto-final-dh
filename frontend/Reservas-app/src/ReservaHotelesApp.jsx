@@ -11,6 +11,7 @@ import { RegistroComponent } from './components/registro/registroComponent'
 import { LoginComponent } from './components/login/LoginComponent'
 import ObtenerCuentaLogueada from './components/login/ObtenerCuentaLogueada'
 import { LogOut } from './components/LogOut/LogOutComponent'
+import { PerfilComponent } from './components/perfil/PerfilComponent'
 
 
 const User = createContext(false);
@@ -33,6 +34,7 @@ export const ReservaHotelesApp = () => {
                     <Route path="galeriaProducto/:id" element={<DetalleAlojamientoGaleriaComponent />} />
                     <Route path="editarProducto/:id" element={<EditarProductoComponent />} />
                     <Route path="/registro" element={<RegistroComponent />} />
+                    <Route path="/perfil" element={<PerfilComponent />} />
                     <Route path="login" element={<LoginComponent />} />
                     <Route path="/logout" element={<LogOut />} />
                 </Routes>

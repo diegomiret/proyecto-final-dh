@@ -12,8 +12,7 @@ export const BarraBuscadorComponent = () => {
   
 
     const handleSearch = () => {
-        console.log(`ciudad: ${city}, desde: ${startDate}, hasta: ${endDate}`);
-        // aca va a logica de la busquedaa
+
       };
 
 

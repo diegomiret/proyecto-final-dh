@@ -72,28 +72,7 @@ public class ProductoController {
         return ResponseEntity.ok("Se eliminó el producto con id: " + id);
     }
 
-    @PutMapping("/actualizarCategoria")
-    public ResponseEntity<?> modificarCategoriaProducto(@RequestBody ProductoUpdateCategoriaDTO updateCategoriaDto) throws ResourceNotFoundException {
 
-        Optional<Producto> productoBuscado = productoService.buscarProductoPorId(updateCategoriaDto.getIdProducto());
-
-        if (!productoBuscado.isPresent()) {
-            throw new ResourceNotFoundException("Producto no encontrado con id: " + updateCategoriaDto.getIdProducto());
-        }
-
-        Producto productoExistente = productoBuscado.get();
-
-        Optional<Categoria> categoriaOptional = categoriaService.obtenerCategoriaPorId(updateCategoriaDto.getIdCategoria());
-        if (!categoriaOptional.isPresent()) {
-            throw new ResourceNotFoundException("Categoría no encontrada con id: " + updateCategoriaDto.getIdCategoria());
-        }
-        productoExistente.setCategoria(categoriaOptional.get());
-
-        // Guarda los cambios en el producto
-        productoService.actualizarProducto(productoExistente);
-
-        return ResponseEntity.ok("Se modificó la categoría del producto con id: " + updateCategoriaDto.getIdProducto());
-    }
 
 
 

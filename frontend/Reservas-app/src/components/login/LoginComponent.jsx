@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-import { AxiosInstance } from "../../helpers/AxiosHelper";
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../../helpers/AxiosHelper";
 import Swal from 'sweetalert2';
 import { User } from "../../ReservaHotelesApp";
 
@@ -30,17 +30,19 @@ export const LoginComponent = () => {
         e.preventDefault();
         setError(null);
 
-        const header = '';
+        const header = {};
 
         const user = {
             email: email,
             password: password
         }
 
+//  en enpoints publicos, no se envia token
+setAuthHeader(false);
+
         AxiosInstance.post(`/auth/login`, user, header)
             .then((res) => {
 
-                console.log(res.data.token);
                 localStorage.setItem("token", res.data.token);
                 
 
@@ -52,11 +54,16 @@ export const LoginComponent = () => {
             })
             .catch((error) => {
 
-                console.log(error);
                 if (error.status == 403){
                     mensajeOperacionError("Las credenciales no son correctas");
                 }        
-            });
+            })
+            
+.finally(() => {
+	// Limpiar el token después de la solicitud
+	clearAuthHeader();
+});
+
     };
 
     return (

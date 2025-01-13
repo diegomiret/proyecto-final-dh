@@ -7,6 +7,7 @@ import { RecomendacionesAlojamientosComponent } from '../RecomendacionesAlojamie
 import { AlojamientosPorCategoria } from './productosPorCriterio/AlojamientosPorCategoria'
 import { UserContext } from '../../context/UserContext'
 import { User } from '../../ReservaHotelesApp'
+import { AdministracionComponent } from '../admin/administracionComponent'
 
 export const HomePrincipal = () => {
 
@@ -25,9 +26,11 @@ export const HomePrincipal = () => {
 
                 {/* Aca van los otros componentes de muestra de resultados */}
                 <Route path="/productos/categoria/:id" element={<AlojamientosPorCategoria />} />
+
             </Routes>
+            
 
-
+       
 
         </>
     )

@@ -4,6 +4,9 @@ import { AlojamientosAleatorios } from '../Home/productosPorCriterio/Alojamiento
 import FormularioNuevoProducto from './AgregarProducto/FormularioNuevoProducto';
 import { ListaProductosComponent } from './ListaProductos/ListaProductosComponent';
 import { AsignacionCategoriasComponent } from './AsignacionCategorias/AsignacionCategoriasComponent';
+import { AsignacionRolesComponent } from './AsignacionRoles/AsignacionrolesComponent';
+import { AdminCaracterisitcasComponent } from './adminCaracterisitcas/AdminCaracterisitcasComponent';
+
 
 export const AdministracionComponent = () => {
 
@@ -31,6 +34,9 @@ export const AdministracionComponent = () => {
             <Route path="agregarProducto" element={<FormularioNuevoProducto />} />
             <Route path="listaProductos" element={<ListaProductosComponent />} />
             <Route path="asignarCategorias" element={<AsignacionCategoriasComponent />} />
+            <Route path="asignarRoles" element={<AsignacionRolesComponent />} />
+            <Route path="adminCaracterisitcas" element={<AdminCaracterisitcasComponent />} />
+
           </Routes>
         </div>
       </div>

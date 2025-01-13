@@ -1,4 +1,4 @@
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './assets/estilos/NavBarComponent.css'
 import logoMarca from '../assets/imagenes/logo-marca.png'
 import { User } from '../ReservaHotelesApp';
@@ -7,12 +7,12 @@ import { useContext } from 'react';
 export const NavBarComponent = () => {
 
 
-    const [user, ] = useContext(User);
+  const [user,] = useContext(User);
 
-    const getUserInitials = (nombre, apellido) => {
-        if (!nombre || !apellido) return '';
-        return `${nombre.charAt(0)}${apellido.charAt(0)}`.toUpperCase();
-      };
+  const getUserInitials = (nombre, apellido) => {
+    if (!nombre || !apellido) return '';
+    return `${nombre.charAt(0)}${apellido.charAt(0)}`.toUpperCase();
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light sticky-top">
@@ -37,39 +37,52 @@ export const NavBarComponent = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarButtons">
-          <div className="d-flex align-items-center">
-            {user ? (
-              <>
-                {user.role === 'ADMIN' && (
-                  <NavLink to="/administracion" className="me-2">
-                    <button className="btn btn-warning">Administración</button>
-                  </NavLink>
-                )}
-                <NavLink to="/reservas" className="me-2">
-                  <button className="btn btn-success">Reservas</button>
-                </NavLink>
-               
-                <NavLink to="/logout">
-                  <button className="btn btn-danger">Cerrar sesión</button>
-                </NavLink>
-                <div
-                  className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-2"
-                  style={{ width: '40px', height: '40px' }}
-                >
-                  {getUserInitials(user.nombre, user.apellido)}
-                </div>
-              </>
-            ) : (
-              <>
-                <NavLink to="/registro" className="me-2">
-                  <button className="btn btn-primary">Crear cuenta</button>
-                </NavLink>
-                <NavLink to="/login">
-                  <button className="btn btn-primary">Iniciar sesión</button>
-                </NavLink>
-              </>
-            )}
+        <div className="d-flex align-items-center">
+  {user ? (
+    <>
+      {user.role === 'ADMIN' && (
+        <NavLink to="/administracion" className="me-2">
+          <button className="btn btn-primary">Administración</button>
+        </NavLink>
+      )}
+      <NavLink to="/reservas" className="me-2">
+        <button className="btn btn-primary">Reservas</button>
+      </NavLink>
+
+      {/* Línea de separación vertical */}
+      <div
+        className="vr mx-3"
+        style={{
+          borderLeft: '1px solid #dee2e6',
+          height: '40px',
+        }}
+      ></div>
+
+      <div className="d-flex flex-column align-items-center me-2">
+        <NavLink to="/perfil" className="me-2">
+          <div
+            className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center mb-2"
+            style={{ width: '40px', height: '40px' }}
+          >
+            {getUserInitials(user.nombre, user.apellido)}
           </div>
+        </NavLink>
+        <NavLink to="/logout" className="text-decoration-none">
+          <p className="m-0 text-white">Cerrar sesión</p>
+        </NavLink>
+      </div>
+    </>
+  ) : (
+    <>
+      <NavLink to="/registro" className="me-2">
+        <button className="btn btn-primary">Crear cuenta</button>
+      </NavLink>
+      <NavLink to="/login">
+        <button className="btn btn-primary">Iniciar sesión</button>
+      </NavLink>
+    </>
+  )}
+</div>
         </div>
       </div>
     </nav>

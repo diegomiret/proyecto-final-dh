@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { AxiosInstance } from "../../../helpers/AxiosHelper";
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../../../helpers/AxiosHelper";
 import Swal from 'sweetalert2';
 
 export const EditarProductoComponent = () => {
@@ -51,6 +51,9 @@ export const EditarProductoComponent = () => {
             //  Carga de productos
             setIsLoadingProducto(true);
             const endpoint = "/productos/" + id;
+            
+    //  en enpoints publicos, no se envia token
+    setAuthHeader(false);
 
             AxiosInstance.get(endpoint)
                 .then((res) => {
@@ -65,7 +68,11 @@ export const EditarProductoComponent = () => {
                     setHayErrorProducto(true);
                     setErrorProducto(error);
                     mensajeOperacionError("Error al cargar el producto");
-                });
+                })
+                .finally(() => {
+                    // Limpiar el token después de la solicitud
+                    clearAuthHeader();
+                  });;
 
 
         };
@@ -75,6 +82,10 @@ export const EditarProductoComponent = () => {
             //  Carga de categorias
             setIsLoadingCategorias(true);
             const endpoint = "/categorias";
+
+            //  en enpoints publicos, no se envia token
+            setAuthHeader(false);
+
             AxiosInstance.get(endpoint)
                 .then((res) => {
                     setCategorias(res.data);
@@ -88,7 +99,11 @@ export const EditarProductoComponent = () => {
                     setErrorCategorias(error);
                     mensajeOperacionError("Error al cargar las categorias");
 
-                });
+                })
+                .finally(() => {
+                    // Limpiar el token después de la solicitud
+                    clearAuthHeader();
+                });;
         }
 
         fetchProducts();
@@ -100,7 +115,9 @@ export const EditarProductoComponent = () => {
 
 const guardarImagenes = () =>{
 
-
+    const token = localStorage.getItem("token");
+    setAuthHeader(token);
+                    
     const endpoint = "/imagenes";
     AxiosInstance.put(endpoint, productoActualizado)
         .then((res) => {
@@ -114,7 +131,11 @@ const guardarImagenes = () =>{
             setHayErrorGuardarProducto(true);
             setErrorGuardarProducto(error);
             mensajeOperacionError(error.response.data);
-        });
+        })
+        .finally(() => {
+            // Limpiar el token después de la solicitud
+            clearAuthHeader();
+        });;
 
 
 
@@ -149,6 +170,9 @@ const guardarImagenes = () =>{
                   id: res.data.id
                 };
       
+                const token = localStorage.getItem("token");
+                setAuthHeader(token);
+
                 AxiosInstance.post(`/imagenes`, unRequest, header)
                   .then((res) => {
                     //si la ultima imagen es correcta entonces redirigir a producto exitoso
@@ -159,8 +183,13 @@ const guardarImagenes = () =>{
                     Swal.fire({
                       icon: 'error',
                       text: 'No se pudo guardar la imagen'
-                    })
+                    });
+                    
                   })
+                  .finally(() => {
+                    // Limpiar el token después de la solicitud
+                    clearAuthHeader();
+                });
       
                 // fin del foreach imagenes
               });
@@ -196,6 +225,10 @@ const guardarImagenes = () =>{
 
         setIsLoadingGuardarProducto(true);
         const endpoint = "/productos/" + id;
+        
+        const token = localStorage.getItem("token");
+        setAuthHeader(token);
+				
         AxiosInstance.put(endpoint, productoActualizado)
             .then((res) => {
                 setIsLoadingGuardarProducto(false);
@@ -207,7 +240,13 @@ const guardarImagenes = () =>{
                 setHayErrorGuardarProducto(true);
                 setErrorGuardarProducto(error);
                 mensajeOperacionError(error.response.data);
+            })
+            .finally(() => {
+                // Limpiar el token después de la solicitud
+                clearAuthHeader();
             });
+            
+            ;
 
 
     };

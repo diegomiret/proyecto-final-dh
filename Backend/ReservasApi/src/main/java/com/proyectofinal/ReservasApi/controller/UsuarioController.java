@@ -4,6 +4,7 @@ package com.proyectofinal.ReservasApi.controller;
 import com.proyectofinal.ReservasApi.DTO.AuthenticationRequest;
 import com.proyectofinal.ReservasApi.DTO.AuthenticationResponse;
 import com.proyectofinal.ReservasApi.DTO.RegisterRequest;
+import com.proyectofinal.ReservasApi.DTO.RequestUpdateRoleUsuarioDTO;
 import com.proyectofinal.ReservasApi.authentication.AuthenticationService;
 import com.proyectofinal.ReservasApi.model.Producto;
 import com.proyectofinal.ReservasApi.model.Rol;
@@ -39,6 +40,21 @@ public class UsuarioController {
         //  hasta aca no arrojó excepción
 
         return ResponseEntity.ok(usuarioActual);
+    }
+
+    @GetMapping("/todos")
+    public ResponseEntity<List<Usuario>> obtenerTodosLosUsuarios() {
+        return ResponseEntity.ok(usuarioService.obtenerTodosLosUsuarios());
+    }
+
+
+    @PutMapping("/{id}/role")
+    public ResponseEntity<Usuario> actualizarRole(
+            @PathVariable Integer id,
+            @RequestBody RequestUpdateRoleUsuarioDTO requestUpdateUsuarioDTO) {
+
+        Usuario usuarioActualizado = usuarioService.actualizarRole(id, requestUpdateUsuarioDTO.getRole());
+        return ResponseEntity.ok(usuarioActualizado);
     }
 
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CategoriaAlojamientoCard } from "./cards/CategoriaAlojamientoCard";
-import { AxiosInstance } from "../helpers/AxiosHelper";
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../helpers/AxiosHelper";
 
 export const CategoriasAlojamientoComponent = () => {
 
@@ -11,6 +11,13 @@ export const CategoriasAlojamientoComponent = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
+
+    //  validacion para no enviar token
+    // const token = localStorage.getItem("token");
+    // var headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+    //  en enpoints publicos, no se envia token
+    setAuthHeader(false);
 
     setIsLoading(true);
     const endpoint = "/categorias";
@@ -25,14 +32,19 @@ export const CategoriasAlojamientoComponent = () => {
         setIsLoading(false);
         setHayError(true);
         setError(error);
-        
-      });
+
+      })
+      .finally(() => {
+        // Limpiar el token después de la solicitud
+        clearAuthHeader();
+      });;
+    ;
 
   }, []);
 
 
   return (
-    
+
     <div className="container  my-4">
       <h5 className="mb-4">Categorías</h5>
 
@@ -44,8 +56,8 @@ export const CategoriasAlojamientoComponent = () => {
           <div className="col-md-3 mb-4" key={index}>
             <CategoriaAlojamientoCard
               id={unaCategoria.id}
-              image={unaCategoria.urlImagen} 
-              title={unaCategoria.nombre} 
+              image={unaCategoria.urlImagen}
+              title={unaCategoria.nombre}
             />
           </div>
         ))}

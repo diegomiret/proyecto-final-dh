@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { BusquedaAlojamientoCard } from '../../cards/BusquedaAlojamientoCard';
-import { AxiosInstance } from '../../../helpers/AxiosHelper';
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../../helpers/AxiosHelper';
 
 export const AlojamientosPorCategoria = () => {
 
@@ -46,6 +46,9 @@ export const AlojamientosPorCategoria = () => {
 
   useEffect(() => {
 
+    //  en enpoints publicos, no se envia token
+setAuthHeader(false);
+
     const endpoint = "/productos/categoria/" + id;
     AxiosInstance.get(endpoint)
       .then((res) => {
@@ -58,7 +61,13 @@ export const AlojamientosPorCategoria = () => {
         setIsLoading(false);
         setHayError(true);
         setError(error);
+      })
+      .finally(() => {
+        // Limpiar el token después de la solicitud
+        clearAuthHeader();
       });
+      
+      
 
     setTimeout(() => {
       var headerOffset = 80;

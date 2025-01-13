@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AxiosInstance } from '../../../helpers/AxiosHelper';
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../../helpers/AxiosHelper';
 import Swal from 'sweetalert2';
 import { Link, Navigate } from 'react-router-dom';
 
@@ -20,6 +20,8 @@ export const ListaProductosComponent = () => {
 
     setIsLoadingProductos(true);
     const endpoint = "/productos";
+    //  en enpoints publicos, no se envia token
+    setAuthHeader(false);
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProductos(res.data);
@@ -32,7 +34,12 @@ export const ListaProductosComponent = () => {
         setHayErrorProductos(true);
         setErrorProductos(error);
 
+      })
+      .finally(() => {
+        // Limpiar el token después de la solicitud
+        clearAuthHeader();
       });
+      ;
 
   }, []);
 
@@ -51,6 +58,9 @@ export const ListaProductosComponent = () => {
     if (confirmDelete) {
       setIsLoadingProductosEliminar(true);
       const endpoint = "/productos/" + productId;
+      const token = localStorage.getItem("token");
+      setAuthHeader(token);
+
       AxiosInstance.delete(endpoint)
         .then((res) => {
           setIsLoadingProductosEliminar(false);
@@ -64,13 +74,17 @@ export const ListaProductosComponent = () => {
           setErrorProductosEliminar(error);
           mensajeOperacionError(error.response.data);
 
-        });
+        })
+        .finally(() => {
+          // Limpiar el token después de la solicitud
+          clearAuthHeader();
+        });;;
 
     }
   };
 
 
-  const editarProducto = (productId) =>{
+  const editarProducto = (productId) => {
     Navigate(`/editarProducto/${productId}`);
   }
 
@@ -105,11 +119,11 @@ export const ListaProductosComponent = () => {
                   </button>
 
                   <Link to={"/editarProducto/" + product.id}>
-                  <button
-                    className="btn btn-primary"                   
-                  >
-                    Editar producto
-                  </button>
+                    <button
+                      className="btn btn-primary"
+                    >
+                      Editar producto
+                    </button>
                   </Link>
 
                 </td>

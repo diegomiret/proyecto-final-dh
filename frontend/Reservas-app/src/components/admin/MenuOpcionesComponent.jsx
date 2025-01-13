@@ -24,6 +24,19 @@ export const MenuOpcionesComponent = () => {
         </button>
         </Link>
 
+        <Link to={"/administracion/asignarRoles"}>
+      <button  >
+          Asignar roles
+        </button>
+        </Link>
+
+        <Link to={"/administracion/adminCaracterisitcas"}>
+      <button  >
+          Administrar características
+        </button>
+        </Link>
+
+
       </nav>
     </div>
 

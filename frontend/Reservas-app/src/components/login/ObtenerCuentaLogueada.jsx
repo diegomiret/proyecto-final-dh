@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AxiosInstance } from "../../helpers/AxiosHelper";
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../../helpers/AxiosHelper";
 import { User } from "../../ReservaHotelesApp";
 
 export default function ObtenerCuentaLogueada() {
@@ -8,25 +8,24 @@ export default function ObtenerCuentaLogueada() {
 
     if (!user) {
 
+        const endpoint = "/usuarios/usuarioActual";
         const token = localStorage.getItem("token");
 
-        fetch(`http://localhost:8080/usuarios/usuarioActual`, {
-            mode: 'cors',
-            method: 'GET',
-            headers: {
-                Authorization: "Bearer " + token,
-                Accept: "application/json"
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("RESPUESTA: ", data);
-                setUser(data)
-            })
-            .catch((err) => {
-                console.log("ERROR: ", err);
-            });
+        setAuthHeader(token);
+        console.log(token);
 
+        AxiosInstance.get(endpoint)
+          .then((res) => {
+            setUser(res.data)
+          })
+          .catch((error) => {
+
+            
+          })
+          .finally(() => {
+            // Limpiar el token después de la solicitud
+            clearAuthHeader();
+          });;
 
 
     }

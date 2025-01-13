@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { AxiosInstance } from '../../helpers/AxiosHelper';
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/AxiosHelper';
 
 export const DetalleAlojamientoGaleriaComponent = ({productoId}) => {
 
@@ -12,6 +12,9 @@ export const DetalleAlojamientoGaleriaComponent = ({productoId}) => {
 
 useEffect(() => {
 
+
+//  en enpoints publicos, no se envia token
+setAuthHeader(false);
     const endpoint = "/imagenes/imagenesDelProducto/" + idProducto;
     AxiosInstance.get(endpoint)
       .then((res) => {
@@ -21,8 +24,13 @@ useEffect(() => {
         Swal.fire({
           icon: 'error',
           text: 'No se pudo cargar las imágenes'
-        })
+        });
+      })
+      .finally(() => {
+        // Limpiar el token después de la solicitud
+        clearAuthHeader();
       });
+      
 
   }, []);
 

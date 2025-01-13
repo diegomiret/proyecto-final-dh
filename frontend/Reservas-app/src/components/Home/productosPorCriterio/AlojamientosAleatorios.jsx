@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { AleatorioAlojamientoCard } from '../../cards/AleatorioAlojamientoCard';
-import { AxiosInstance } from '../../../helpers/AxiosHelper';
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../../helpers/AxiosHelper';
 
 export const AlojamientosAleatorios = () => {
 
@@ -14,6 +14,9 @@ export const AlojamientosAleatorios = () => {
 
     setIsLoading(true);
     const endpoint = "/productos/aleatorios";
+    //  en enpoints publicos, no se envia token
+setAuthHeader(false);
+
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProductos(res.data);
@@ -27,7 +30,11 @@ export const AlojamientosAleatorios = () => {
         setError(error);
 
         
+      }).finally(() => {
+        // Limpiar el token después de la solicitud
+        clearAuthHeader();
       });
+      
 
   }, []);
 

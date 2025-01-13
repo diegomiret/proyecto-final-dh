@@ -36,3 +36,26 @@ main {
     background-color: #ffffff;
     color: #003b95; 
 }
+
+.navbar .d-flex.flex-column {
+    text-align: center;
+}
+
+.navbar .text-white {
+    color: #ffffff;
+}
+
+.navbar .text-white:hover {
+    text-decoration: underline;
+}
+
+.navbar .rounded-circle {
+    cursor: pointer; /* Cambiar el puntero a "pointer" cuando el mouse está sobre el div */
+    text-decoration: none; /* Asegurarse de que no se subraye el texto */
+}
+
+.navbar .rounded-circle p,
+.navbar .rounded-circle span {
+    text-decoration: none; /* Desactivar cualquier subrayado en los elementos internos */
+    margin: 0; /* Asegurarnos de que no haya márgenes adicionales que causen un comportamiento inesperado */
+}

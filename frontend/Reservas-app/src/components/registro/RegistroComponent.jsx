@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AxiosInstance } from '../../helpers/AxiosHelper';
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/AxiosHelper';
 import Swal from 'sweetalert2';
 
 export const RegistroComponent = () => {
@@ -45,31 +45,42 @@ export const RegistroComponent = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      console.log('Formulario enviado:', formData);
-      
-      
+
+
+
       const token = '';
       const header = {
-          Authorization: `Bearer ${token}`
-        };
-  
+        Authorization: `Bearer ${token}`
+      };
+
       const apiPayload = {
         firstname: formData.firstName,
         lastname: formData.lastName,
         email: formData.email,
-        password: formData.password
-        };
-  
-        AxiosInstance.post(`/auth/register`, apiPayload, header)
-   .then((res) => {
-    mensajeOperacionExitosa("Se registró correctamente");
-  
+        password: formData.password,
+        role: ""
+      };
+
+
+      //  en enpoints publicos, no se envia token
+      setAuthHeader(false);
+
+      AxiosInstance.post(`/auth/register`, apiPayload, header)
+        .then((res) => {
+          mensajeOperacionExitosa("Se registró correctamente");
+
         })
         .catch((error) => {
           error
           mensajeOperacionError(error.response.data);
+        })
+        .finally(() => {
+          // Limpiar el token después de la solicitud
+          clearAuthHeader();
         });
-  
+        
+
+
 
     }
   };
@@ -77,21 +88,21 @@ export const RegistroComponent = () => {
 
 
   const mensajeOperacionExitosa = (mensaje) => {
-      Swal.fire({
-        title: '¡Éxito!',
-        text: mensaje,
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-      });
-    };
-  
-  
-    const mensajeOperacionError = (mensaje) => {
-      Swal.fire({
-        icon: 'error',
-        text: mensaje
-      });
-    };
+    Swal.fire({
+      title: '¡Éxito!',
+      text: mensaje,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  };
+
+
+  const mensajeOperacionError = (mensaje) => {
+    Swal.fire({
+      icon: 'error',
+      text: mensaje
+    });
+  };
 
 
 
@@ -99,15 +110,15 @@ export const RegistroComponent = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    
+
   };
 
   return (
     <div style={{ backgroundColor: 'rgb(238, 239, 242)', minHeight: '100vh', padding: '20px' }}>
       <div className="container">
-        
+
         <div className="card mx-auto mt-4" style={{ maxWidth: '400px' }}>
-        <h4 className="text-center mb-4">Crear cuenta</h4>
+          <h4 className="text-center mb-4">Crear cuenta</h4>
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <div className="mb-3">

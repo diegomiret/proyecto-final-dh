@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { AxiosInstance } from '../../helpers/AxiosHelper';
+import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/AxiosHelper';
 import { DetalleAlojamientoHeaderComponent } from './DetalleAlojamientoHeaderComponent';
 import { DetalleAlojamientoDescripcionComponent } from './DetalleAlojamientoDescripcionComponent';
 import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagenesComponent';
@@ -24,6 +24,9 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
 
   useEffect(() => {
 
+    //  en enpoints publicos, no se envia token
+setAuthHeader(false);
+
     const endpoint = "/productos/" + producto.id;
     AxiosInstance.get(endpoint)
       .then((res) => {
@@ -33,8 +36,13 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
         Swal.fire({
           icon: 'error',
           text: 'No se pudo cargar el producto'
-        })
+        });
+      })
+      .finally(() => {
+        // Limpiar el token después de la solicitud
+        clearAuthHeader();
       });
+      
 
   }, []);
 
