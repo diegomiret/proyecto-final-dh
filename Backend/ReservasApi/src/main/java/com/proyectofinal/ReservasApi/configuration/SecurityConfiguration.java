@@ -49,6 +49,12 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/imagenes/imagenesDelProducto/{id}").hasAnyAuthority( "ADMIN")
 
+                                .requestMatchers(HttpMethod.GET, "/caracteristicas").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/caracteristicas/{id}").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/caracteristicas").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/caracteristicas/{id}").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/caracteristicas/{id}").hasAnyAuthority( "ADMIN")
+
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/v3/api-docs/**").permitAll()

@@ -31,4 +31,10 @@ public class Producto {
     @JoinColumn(name = "id_categoria", nullable = true)
     private Categoria categoria;
 
+    @ManyToMany
+    @JoinTable(name = "caracteristicas_productos",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "caracteristica_id"))
+    private Set<Caracteristica> caracteristicas;
+
 }
