@@ -2,10 +2,12 @@ package com.proyectofinal.ReservasApi.service.imple;
 
 import com.proyectofinal.ReservasApi.model.Caracteristica;
 import com.proyectofinal.ReservasApi.model.Producto;
+import com.proyectofinal.ReservasApi.repository.ICaracteristicasProductosRepository;
 import com.proyectofinal.ReservasApi.repository.IcaracteristicaRepository;
 import com.proyectofinal.ReservasApi.service.ICaracteristicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,13 +18,21 @@ public class CaracteristicaService implements ICaracteristicaService {
     @Autowired
     private IcaracteristicaRepository caracteristicaRepository;
 
+    @Autowired
+    private ICaracteristicasProductosRepository caracteristicasProductosRepository;
+
     @Override
     public List<Caracteristica> listarCaracteristicas() {
         return caracteristicaRepository.findAll();
     }
 
     @Override
+    @Transactional
     public void eliminarCaracteristica(int id) {
+
+        //  borro las caracteristicas asignadas a los productos
+        caracteristicasProductosRepository.deleteAllByIdCaracteristica(id);
+
         caracteristicaRepository.deleteById(id);
     }
 

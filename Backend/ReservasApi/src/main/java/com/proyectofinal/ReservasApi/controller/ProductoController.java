@@ -76,8 +76,8 @@ public class ProductoController {
 
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Producto> updateProducto(@PathVariable Integer id, @RequestBody Producto producto) {
+    @PutMapping("/OLD/{id}")
+    public ResponseEntity<Producto> updateProductoOLD(@PathVariable Integer id, @RequestBody Producto producto) {
         if (!id.equals(producto.getId())) {
             return ResponseEntity.badRequest().build();
         }
@@ -93,6 +93,19 @@ public class ProductoController {
         Producto productoActualizado = productoService.actualizarCategoriaProducto(idProducto, idCategoria);
 
         return ResponseEntity.ok(productoActualizado);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> updateProducto(@PathVariable Integer id, @RequestBody Producto producto) {
+        Optional<Producto> productoViejo = productoService.buscarProductoPorId(id);
+
+        if (productoViejo == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        producto.setId(id);
+        return ResponseEntity.ok(productoService.actualizarProducto(producto));
     }
 
 }

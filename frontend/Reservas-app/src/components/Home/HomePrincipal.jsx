@@ -22,7 +22,6 @@ export const HomePrincipal = () => {
             <Routes>
                 {/* El componente que se carga por default es el componente de prod aleatorios */}
                 <Route path="/" element={<AlojamientosAleatorios />} />
-                <Route path="/*" element={<AlojamientosAleatorios />} />
 
                 {/* Aca van los otros componentes de muestra de resultados */}
                 <Route path="/productos/categoria/:id" element={<AlojamientosPorCategoria />} />

@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../../../helpers/AxiosHelper";
 import { User } from "../../../ReservaHotelesApp";
+import { SelectorDeCaracteristicasComponent } from "./SelectorDeCaracteristicasComponent";
 
-const FormularioNuevoProducto = (props) => {
+const FormularioNuevoProducto = () => {
   const [categorias, setCategorias] = useState([]);
   const [isLoadingCategoria, setIsLoadingCategoria] = useState(false);
   const [hayErrorCategoria, setHayErrorCategoria] = useState(false);
   const [errorCategoria, setErrorCategoria] = useState();
-
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const navigate = useNavigate();
   const form = useRef(null);
@@ -77,8 +78,11 @@ const FormularioNuevoProducto = (props) => {
       descripcion: form.current.querySelector("#descripcion").value,
       categoria: {
         id: form.current.querySelector("#categorias-select").value
-      }
+      },
+      caracteristicas: selectedTags
     };
+
+    console.log(postDataProducto);
 
     //setAuthHeader(token);
 
@@ -222,6 +226,9 @@ const FormularioNuevoProducto = (props) => {
               style={{ resize: 'none' }}
             ></textarea>
           </div>
+
+          <SelectorDeCaracteristicasComponent onTagsChange={setSelectedTags} />
+
           <div className="mb-4">
             <h3 className="text-primary">Cargar imágenes</h3>
           </div>

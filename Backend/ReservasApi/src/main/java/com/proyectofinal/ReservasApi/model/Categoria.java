@@ -1,3 +1,4 @@
+
 package com.proyectofinal.ReservasApi.model;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;

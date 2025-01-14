@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from "../../../helpers/AxiosHelper";
 import Swal from 'sweetalert2';
+import { SelectorDeCaracteristicasComponent } from "../AgregarProducto/SelectorDeCaracteristicasComponent";
 
 export const EditarProductoComponent = () => {
 
@@ -23,7 +24,9 @@ export const EditarProductoComponent = () => {
     const [hayErrorGuardarProducto, setHayErrorGuardarProducto] = useState(false);
     const [errorGuardarProducto, setErrorGuardarProducto] = useState();
 
+    const [selectedTags, setSelectedTags] = useState([]);
 
+    const [listaInicialDeTags, setListaInicialDeTags] = useState([]);
 
 
     const mensajeOperacionExitosa = () => {
@@ -51,15 +54,19 @@ export const EditarProductoComponent = () => {
             //  Carga de productos
             setIsLoadingProducto(true);
             const endpoint = "/productos/" + id;
-            
-    //  en enpoints publicos, no se envia token
-    setAuthHeader(false);
+
+            //  en enpoints publicos, no se envia token
+            setAuthHeader(false);
 
             AxiosInstance.get(endpoint)
                 .then((res) => {
                     setProducto(res.data);
+                    setListaInicialDeTags(res.data.caracteristicas);
+                    setSelectedTags(res.data.caracteristicas);
+                    console.log(res.data.caracteristica);
                     setIsLoadingProducto(false);
                     setHayErrorProducto(false);
+                    console.log(res.data)
                     fetchCategories();
                 })
                 .catch((error) => {
@@ -72,7 +79,7 @@ export const EditarProductoComponent = () => {
                 .finally(() => {
                     // Limpiar el token después de la solicitud
                     clearAuthHeader();
-                  });;
+                });;
 
 
         };
@@ -107,95 +114,13 @@ export const EditarProductoComponent = () => {
         }
 
         fetchProducts();
-        
+
     }, []);
 
 
     const form = useRef(null);
 
-const guardarImagenes = () =>{
 
-    const token = localStorage.getItem("token");
-    setAuthHeader(token);
-                    
-    const endpoint = "/imagenes";
-    AxiosInstance.put(endpoint, productoActualizado)
-        .then((res) => {
-            setIsLoadingGuardarProducto(false);
-            setHayErrorGuardarProducto(false);
-            mensajeOperacionExitosa();
-            guardarImagenes();
-        })
-        .catch((error) => {
-            setIsLoadingGuardarProducto(false);
-            setHayErrorGuardarProducto(true);
-            setErrorGuardarProducto(error);
-            mensajeOperacionError(error.response.data);
-        })
-        .finally(() => {
-            // Limpiar el token después de la solicitud
-            clearAuthHeader();
-        });;
-
-
-
-    const imagenesRequests = [
-        {
-          "url": form.current.querySelector("#imagen-1").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-2").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-3").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-4").value,
-          "titulo": "Imagen"
-        },
-        {
-          "url": form.current.querySelector("#imagen-5").value,
-          "titulo": "Imagen"
-        }
-  
-      ];
-
-      imagenesRequests.forEach((unRequest, index) => {
-      
-                // se le agrega el id del producto al que pertenece
-                unRequest.producto = {
-                  id: res.data.id
-                };
-      
-                const token = localStorage.getItem("token");
-                setAuthHeader(token);
-
-                AxiosInstance.post(`/imagenes`, unRequest, header)
-                  .then((res) => {
-                    //si la ultima imagen es correcta entonces redirigir a producto exitoso
-                    //index === values.imagenes.length - 1 && navigate('producto-exitoso');
-      
-                  })
-                  .catch((error) => {
-                    Swal.fire({
-                      icon: 'error',
-                      text: 'No se pudo guardar la imagen'
-                    });
-                    
-                  })
-                  .finally(() => {
-                    // Limpiar el token después de la solicitud
-                    clearAuthHeader();
-                });
-      
-                // fin del foreach imagenes
-              });
-  
-
-}
 
 
     // Manejar el envío del formulario
@@ -219,16 +144,17 @@ const guardarImagenes = () =>{
                     id: producto.id,
                 },
             })),
+            caracteristicas: selectedTags
         };
 
         // Llamar a la API para actualizar el producto
 
         setIsLoadingGuardarProducto(true);
         const endpoint = "/productos/" + id;
-        
+
         const token = localStorage.getItem("token");
         setAuthHeader(token);
-				
+
         AxiosInstance.put(endpoint, productoActualizado)
             .then((res) => {
                 setIsLoadingGuardarProducto(false);
@@ -239,14 +165,15 @@ const guardarImagenes = () =>{
                 setIsLoadingGuardarProducto(false);
                 setHayErrorGuardarProducto(true);
                 setErrorGuardarProducto(error);
+                console.log(error);
                 mensajeOperacionError(error.response.data);
             })
             .finally(() => {
                 // Limpiar el token después de la solicitud
                 clearAuthHeader();
             });
-            
-            ;
+
+        ;
 
 
     };
@@ -280,24 +207,24 @@ const guardarImagenes = () =>{
                         <label htmlFor="categorias" className="form-label text-primary">
                             Categoría
                         </label>
-                     
-                            <select
-                                name="categorias"
-                                id="categorias-select"
-                                className="form-select"
-                                required
-                                defaultValue={producto.categoria.id}
-                            >
-                                <option value="#" disabled>
-                                    Seleccione una categoría
+
+                        <select
+                            name="categorias"
+                            id="categorias-select"
+                            className="form-select"
+                            required
+                            defaultValue={producto.categoria.id}
+                        >
+                            <option value="#" disabled>
+                                Seleccione una categoría
+                            </option>
+                            {categorias.map((unaCategoria) => (
+                                <option key={`categoria-${unaCategoria.id}`} value={unaCategoria.id}>
+                                    {unaCategoria.nombre}
                                 </option>
-                                {categorias.map((unaCategoria) => (
-                                    <option key={`categoria-${unaCategoria.id}`} value={unaCategoria.id}>
-                                        {unaCategoria.nombre}
-                                    </option>
-                                ))}
-                            </select>
-                       
+                            ))}
+                        </select>
+
                     </div>
                 </div>
                 <div className="mb-4">
@@ -316,6 +243,12 @@ const guardarImagenes = () =>{
                         defaultValue={producto.descripcion}
                     ></textarea>
                 </div>
+
+                <SelectorDeCaracteristicasComponent
+                    initialTags={listaInicialDeTags}
+                    onTagsChange={setSelectedTags}
+                ></SelectorDeCaracteristicasComponent>
+
                 <div className="mb-4">
                     <h3 className="text-primary">Cargar imágenes</h3>
                 </div>

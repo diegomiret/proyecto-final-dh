@@ -1,11 +1,9 @@
 package com.proyectofinal.ReservasApi.service.imple;
 
 import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
-import com.proyectofinal.ReservasApi.model.Categoria;
-import com.proyectofinal.ReservasApi.model.Imagen;
-import com.proyectofinal.ReservasApi.model.Producto;
-import com.proyectofinal.ReservasApi.repository.IImagenRepository;
-import com.proyectofinal.ReservasApi.repository.IProductoRepository;
+import com.proyectofinal.ReservasApi.model.*;
+import com.proyectofinal.ReservasApi.repository.*;
+import com.proyectofinal.ReservasApi.service.ICaracteristicasProductosService;
 import com.proyectofinal.ReservasApi.service.ICategoriaService;
 import com.proyectofinal.ReservasApi.service.IProductoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductoService implements IProductoService {
@@ -23,11 +19,23 @@ public class ProductoService implements IProductoService {
     @Autowired
     private IProductoRepository productoRepository;
 
-    @Autowired
-    private ICategoriaService categoriaService;
+    //@Autowired
+    //private ICategoriaService categoriaService;
 
     @Autowired
-    private ImagenService imagenService;
+    private IImagenRepository imagenRepository;
+
+    @Autowired
+    private IcaracteristicaRepository caracteristicaRepository;
+
+    @Autowired
+    private ICaracteristicasProductosRepository caracteristicasProductosRepository;
+
+    @Autowired
+    private ICategoriaRepository categoriarepository;
+
+    //@Autowired
+    //private ImagenService imagenService;
 
     @Override
     public Collection<Producto> listaProductosAleatorios() {
@@ -75,7 +83,7 @@ public class ProductoService implements IProductoService {
     }
 
     @Transactional
-    public Producto actualizarProducto(Producto producto) {
+    public Producto actualizarProducto_OLD(Producto producto) {
         // Obtener el producto actual
         Producto productoExistente = productoRepository.findById(producto.getId())
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
@@ -87,7 +95,7 @@ public class ProductoService implements IProductoService {
 
         // Eliminar imágenes existentes
         for (Imagen imagen : productoExistente.getImagenes()) {
-            imagenService.eliminarImagenPorId(imagen.getId());
+            imagenRepository.deleteById(imagen.getId());
         }
 
         // Asignar nueva lista de imágenes
@@ -104,7 +112,7 @@ public class ProductoService implements IProductoService {
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con ID: " + idProducto));
 
         // Buscar la categoría por ID
-        Categoria categoria = categoriaService.obtenerCategoriaPorId(idCategoria)
+        Categoria categoria = categoriarepository.findById(idCategoria)
                 .orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada con ID: " + idCategoria));
 
         // Actualizar la categoría del producto
@@ -112,6 +120,37 @@ public class ProductoService implements IProductoService {
 
         // Guardar el producto actualizado
         return productoRepository.save(producto);
+    }
+
+    @Override
+    @Transactional
+    public Producto actualizarProducto(Producto productoActualizado) {
+
+        Producto productoExistente = productoRepository.findById(productoActualizado.getId())
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        productoExistente.setTitulo(productoActualizado.getTitulo());
+        productoExistente.setDescripcion(productoActualizado.getDescripcion());
+
+        if (productoActualizado.getCategoria() != null) {
+            productoExistente.setCategoria(categoriarepository.findById(productoActualizado.getCategoria().getId())
+                    .orElseThrow(() -> new RuntimeException("Categoría no encontrada")));
+        }
+
+        if (productoActualizado.getImagenes() != null) {
+            // Limpiar imágenes existentes y añadir las nuevas
+            imagenRepository.deleteAllByProductoId(productoExistente.getId());
+            Set<Imagen> nuevasImagenes = new HashSet<>();
+            for (Imagen imagen : productoActualizado.getImagenes()) {
+                imagen.setProducto(productoExistente);
+                nuevasImagenes.add(imagenRepository.save(imagen));
+            }
+            productoExistente.setImagenes(nuevasImagenes);
+        }
+
+        productoExistente.setCaracteristicas(productoActualizado.getCaracteristicas());
+
+        return productoRepository.save(productoExistente);
     }
 
 

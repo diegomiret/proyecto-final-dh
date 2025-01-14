@@ -78,6 +78,11 @@ export const AdminCaracterisitcasComponent = () => {
       });
   };
 
+  const mostrarFormularioEdicion = () =>{
+    setMostrarFormulario(!mostrarFormulario);
+    
+  }
+
   return (
     <div className="container py-4" style={{ backgroundColor: "rgb(238, 239, 242)" }}>
       <h4>Administrar características</h4>
@@ -120,7 +125,8 @@ export const AdminCaracterisitcasComponent = () => {
       <div className="text-end">
         <button
           className="btn btn-primary"
-          onClick={() => setMostrarFormulario(!mostrarFormulario)}
+          // onClick={() => setMostrarFormulario(!mostrarFormulario)}
+           onClick={() => mostrarFormularioEdicion()}
         >
           {mostrarFormulario ? "Cancelar" : "Añadir nueva"}
         </button>
@@ -131,7 +137,7 @@ export const AdminCaracterisitcasComponent = () => {
           id={editarId}
           onGuardarExitoso={() => {
             actualizarLista();
-            setEditarId(null); // Ocultar formulario de edición después de guardar
+            setEditarId(null); 
           }}
         />
       )}

@@ -6,13 +6,15 @@ import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/Axi
 import { DetalleAlojamientoHeaderComponent } from './DetalleAlojamientoHeaderComponent';
 import { DetalleAlojamientoDescripcionComponent } from './DetalleAlojamientoDescripcionComponent';
 import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagenesComponent';
+import { DetalleAlojamientoCaracteristicas } from './DetalleAlojamientoCaracteristicas';
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
   const productoDefault = {
     titulo: "",
     descripcion: "",
-    imagenes: []
+    imagenes: [],
+    caracteristicas: []
   };
 
 
@@ -25,12 +27,13 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
   useEffect(() => {
 
     //  en enpoints publicos, no se envia token
-setAuthHeader(false);
+    setAuthHeader(false);
 
     const endpoint = "/productos/" + producto.id;
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProducto({ ...res.data });
+        console.log(res.data);
       })
       .catch((error) => {
         Swal.fire({
@@ -42,7 +45,7 @@ setAuthHeader(false);
         // Limpiar el token después de la solicitud
         clearAuthHeader();
       });
-      
+
 
   }, []);
 
@@ -59,11 +62,16 @@ setAuthHeader(false);
       <div className='container'>
 
         <DetalleAlojamientoDescripcionComponent {...producto} />
+
+        <DetalleAlojamientoCaracteristicas caracteristicas={producto.caracteristicas} />
+
         <DetalleAlojamientoImagenesComponent {...producto} />
+
+
 
         <div className="container mt-4">
           <div className="d-flex justify-content-end">
-            <button  className="btn btn-primary" onClick={irAGaleria}>Ir a Galería</button>
+            <button className="btn btn-primary" onClick={irAGaleria}>Ir a Galería</button>
           </div>
         </div>
 

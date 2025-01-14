@@ -6,6 +6,7 @@ import { ListaProductosComponent } from './ListaProductos/ListaProductosComponen
 import { AsignacionCategoriasComponent } from './AsignacionCategorias/AsignacionCategoriasComponent';
 import { AsignacionRolesComponent } from './AsignacionRoles/AsignacionrolesComponent';
 import { AdminCaracterisitcasComponent } from './adminCaracterisitcas/AdminCaracterisitcasComponent';
+import { SelectorDeCaracteristicasComponent } from './AgregarProducto/SelectorDeCaracteristicasComponent';
 
 
 export const AdministracionComponent = () => {
@@ -27,6 +28,7 @@ export const AdministracionComponent = () => {
     <>
       <div className='container'>
         <MenuOpcionesComponent></MenuOpcionesComponent>
+
 
         <div style={{ padding: "20px" }}>
           <Routes>

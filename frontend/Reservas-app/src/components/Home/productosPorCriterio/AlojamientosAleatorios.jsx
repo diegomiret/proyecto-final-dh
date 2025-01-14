@@ -22,6 +22,7 @@ setAuthHeader(false);
         setProductos(res.data);
         setIsLoading(false);
         setHayError(false);
+        console.log("Devuelve: ", res.data);
       })
       .catch((error) => {
         setProductos([]);

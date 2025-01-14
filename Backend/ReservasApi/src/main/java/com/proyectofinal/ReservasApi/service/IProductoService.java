@@ -26,4 +26,6 @@ public interface IProductoService {
     public Producto actualizarProducto(Producto producto);
 
     public Producto actualizarCategoriaProducto(Integer idProducto, Integer idCategoria);
+
 }
+
