@@ -69,7 +69,6 @@ export const AsignacionRolesComponent = () => {
             })
             .catch((error) => {
                 alert("Error al actualizar el rol");
-                console.log(error);
             })
             .finally(() => {
                 // Limpiar el token después de la solicitud

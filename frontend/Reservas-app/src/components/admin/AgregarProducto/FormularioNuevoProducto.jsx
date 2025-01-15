@@ -82,11 +82,6 @@ const FormularioNuevoProducto = () => {
       caracteristicas: selectedTags
     };
 
-    console.log(postDataProducto);
-
-    //setAuthHeader(token);
-
-
 
     const imagenesRequests = [
       {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { AleatorioAlojamientoCard } from '../../cards/AleatorioAlojamientoCard';
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../../helpers/AxiosHelper';
 
-export const AlojamientosAleatorios = () => {
+export const SeccionProductosAleatoriosComponent = () => {
 
   const [productos, setProductos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +22,6 @@ setAuthHeader(false);
         setProductos(res.data);
         setIsLoading(false);
         setHayError(false);
-        console.log("Devuelve: ", res.data);
       })
       .catch((error) => {
         setProductos([]);

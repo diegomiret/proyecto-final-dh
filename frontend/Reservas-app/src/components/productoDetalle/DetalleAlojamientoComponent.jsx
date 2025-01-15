@@ -33,7 +33,6 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProducto({ ...res.data });
-        console.log(res.data);
       })
       .catch((error) => {
         Swal.fire({

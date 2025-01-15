@@ -12,7 +12,6 @@ export default function ObtenerCuentaLogueada() {
         const token = localStorage.getItem("token");
 
         setAuthHeader(token);
-        console.log(token);
 
         AxiosInstance.get(endpoint)
           .then((res) => {

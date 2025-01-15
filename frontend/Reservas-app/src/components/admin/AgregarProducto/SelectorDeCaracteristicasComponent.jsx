@@ -54,7 +54,6 @@ const endpoint = "/caracteristicas";
         const newTags = [...tags, selectedOption.raw];
       setTags([...tags, selectedOption.raw]);
       onTagsChange(newTags);
-      console.log(newTags);
     }
   };
 
@@ -62,7 +61,7 @@ const endpoint = "/caracteristicas";
     const newTags = tags.filter((tag) => tag.id !== id);
     setTags(tags.filter((tag) => tag.id !== id));
     onTagsChange(newTags);
-    console.log(newTags);
+
   };
 
   return (

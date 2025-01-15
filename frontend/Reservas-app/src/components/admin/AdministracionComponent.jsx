@@ -1,6 +1,5 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { MenuOpcionesComponent } from './MenuOpcionesComponent';
-import { AlojamientosAleatorios } from '../Home/productosPorCriterio/AlojamientosAleatorios';
 import FormularioNuevoProducto from './AgregarProducto/FormularioNuevoProducto';
 import { ListaProductosComponent } from './ListaProductos/ListaProductosComponent';
 import { AsignacionCategoriasComponent } from './AsignacionCategorias/AsignacionCategoriasComponent';

@@ -63,10 +63,10 @@ export const EditarProductoComponent = () => {
                     setProducto(res.data);
                     setListaInicialDeTags(res.data.caracteristicas);
                     setSelectedTags(res.data.caracteristicas);
-                    console.log(res.data.caracteristica);
+
                     setIsLoadingProducto(false);
                     setHayErrorProducto(false);
-                    console.log(res.data)
+
                     fetchCategories();
                 })
                 .catch((error) => {
@@ -165,7 +165,6 @@ export const EditarProductoComponent = () => {
                 setIsLoadingGuardarProducto(false);
                 setHayErrorGuardarProducto(true);
                 setErrorGuardarProducto(error);
-                console.log(error);
                 mensajeOperacionError(error.response.data);
             })
             .finally(() => {
