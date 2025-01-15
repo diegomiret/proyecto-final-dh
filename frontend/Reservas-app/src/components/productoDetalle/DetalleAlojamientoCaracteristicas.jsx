@@ -20,7 +20,7 @@ export const DetalleAlojamientoCaracteristicas = ({ caracteristicas }) => {
     <div className="container mt-4">
       <div className="row">
         <div className="col-md-6">
-          <h4>Características</h4>
+          <h4>¿Qué incluye el hospedaje?</h4>
           <div className="d-flex flex-wrap">
             {formattedOptions.map((option) => (
               <div

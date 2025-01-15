@@ -36,6 +36,13 @@ export const MenuOpcionesComponent = () => {
         </button>
         </Link>
 
+        <Link to={"/administracion/agregarCategoria"}>
+      <button  >
+          Agregar categoría
+        </button>
+        </Link>
+
+
 
       </nav>
     </div>

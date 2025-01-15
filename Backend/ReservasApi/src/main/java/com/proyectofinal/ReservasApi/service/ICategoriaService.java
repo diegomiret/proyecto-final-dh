@@ -10,4 +10,6 @@ public interface ICategoriaService {
     List<Categoria> obtenerTodasLasCategorias();
 
     Optional<Categoria> obtenerCategoriaPorId(int id);
+
+    public Categoria crearCategoria(Categoria categoria);
 }

@@ -7,6 +7,7 @@ import { AsignacionCategoriasComponent } from './AsignacionCategorias/Asignacion
 import { AsignacionRolesComponent } from './AsignacionRoles/AsignacionrolesComponent';
 import { AdminCaracterisitcasComponent } from './adminCaracterisitcas/AdminCaracterisitcasComponent';
 import { SelectorDeCaracteristicasComponent } from './AgregarProducto/SelectorDeCaracteristicasComponent';
+import { AgregarCategoriaComponent } from './AgregarCategoria/AgregarCategoriaComponent';
 
 
 export const AdministracionComponent = () => {
@@ -38,7 +39,7 @@ export const AdministracionComponent = () => {
             <Route path="asignarCategorias" element={<AsignacionCategoriasComponent />} />
             <Route path="asignarRoles" element={<AsignacionRolesComponent />} />
             <Route path="adminCaracterisitcas" element={<AdminCaracterisitcasComponent />} />
-
+            <Route path="agregarCategoria" element={<AgregarCategoriaComponent />} />
           </Routes>
         </div>
       </div>

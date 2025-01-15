@@ -108,4 +108,10 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.actualizarProducto(producto));
     }
 
+
+    @GetMapping("/cantidadProductos")
+    public ResponseEntity<Integer> obtenerCantidadTotalProductos() {
+        return ResponseEntity.ok(productoService.listarProductos().size());
+    }
+
 }

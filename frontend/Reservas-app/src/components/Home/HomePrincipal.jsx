@@ -8,6 +8,7 @@ import { AlojamientosPorCategoria } from './productosPorCriterio/AlojamientosPor
 import { UserContext } from '../../context/UserContext'
 import { User } from '../../ReservaHotelesApp'
 import { AdministracionComponent } from '../admin/administracionComponent'
+import { PanelBusquedaPorCategoriaComponent } from './PanelBusquedaPorCategoria/PanelBusquedaPorCategoriaComponent'
 
 export const HomePrincipal = () => {
 
@@ -24,7 +25,11 @@ export const HomePrincipal = () => {
                 <Route path="/" element={<AlojamientosAleatorios />} />
 
                 {/* Aca van los otros componentes de muestra de resultados */}
-                <Route path="/productos/categoria/:id" element={<AlojamientosPorCategoria />} />
+                {/* <Route path="/productos/categoria/:id" element={<AlojamientosPorCategoria />} /> */}
+
+                <Route path="/productos/categoria/:id" element={<PanelBusquedaPorCategoriaComponent />} />
+
+              
 
             </Routes>
             

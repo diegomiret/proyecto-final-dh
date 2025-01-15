@@ -26,4 +26,9 @@ public class CategoriaService implements ICategoriaService {
         return categoriaRepository.findById(id);
     }
 
+    @Override
+    public Categoria crearCategoria(Categoria categoria) {
+        return categoriaRepository.save(categoria);
+    }
+
 }
