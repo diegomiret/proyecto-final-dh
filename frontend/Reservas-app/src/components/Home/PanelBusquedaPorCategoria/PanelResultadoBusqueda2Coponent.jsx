@@ -15,19 +15,22 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
   const itemsPerPage = 10; // 5 filas de 2 columnas
   const totalPages = Math.ceil(productos.length / itemsPerPage);
 
-  const handlePreviousPage = () => {
+  const handlePreviousPage = (e) => {
+    e.preventDefault();
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
-  const handleNextPage = () => {
+  const handleNextPage = (e) => {
+    e.preventDefault();
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  const handleFirstPage = () => {
+  const handleFirstPage = (e) => {
+    e.preventDefault();
     setCurrentPage(1);
   };
 
@@ -42,6 +45,8 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
       setError(null);
       let allProductos = [];
 
+      console.log("ids pasados: ", ids.length);
+
       try {
         for (const id of ids) {
           const endpoint = `/productos/categoria/${id}`;
@@ -49,6 +54,28 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
           allProductos = [...allProductos, ...res.data];
         }
         setProductos(allProductos);
+      } catch (err) {
+        setHayError(true);
+        setError(err);
+      } finally {
+        setIsLoading(false);
+        clearAuthHeader(); // Limpiar el token después de la solicitud
+      }
+    };
+
+
+    const fetchTodosLosProductos = async () => {
+      setAuthHeader(false); 
+      setIsLoading(true);
+      setHayError(false);
+      setError(null);
+      let allProductos = [];
+
+
+      try {
+          const endpoint = `/productos`;
+          const res = await AxiosInstance.get(endpoint);
+        setProductos(res.data);
       } catch (err) {
         setHayError(true);
         setError(err);
@@ -77,6 +104,11 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
       };
 
 
+      if(ids.length == 0){
+        fetchTodosLosProductos();
+      }else if(ids.length > 0){
+        fetchProductos
+      }
     fetchProductos();
 
     fetchCantidadProductos();
@@ -97,9 +129,7 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
     <div className="container mt-4">
       <h2 ref={container}>Resultados</h2>
       <hr/>
-      <h6>{`Cantidad de resultados: ${productos.length}`}</h6>
-
-      <label>{`Cantidad de productos total: ${cantidadProductosTotal}`}</label>
+      <h6>{`Resultados encontrados: ${productos.length}`}</h6>
       {isLoading ? (
         <p>Cargando...</p>
       ) : hayError ? (

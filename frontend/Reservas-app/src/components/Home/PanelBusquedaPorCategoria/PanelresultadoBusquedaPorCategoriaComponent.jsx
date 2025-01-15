@@ -22,7 +22,8 @@ export const PanelresultadoBusquedaPorCategoriaComponent = ({ filtroIds }) => {
     }
   };
 
-  const handleFirstPage = () => {
+  const handleFirstPage = (e) => {
+    e.preventDefault();
     setCurrentPage(1);
   };
 

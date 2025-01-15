@@ -123,6 +123,13 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
+    public Integer obtenerCantidadPorCategoria(Integer idCategoria) {
+        Categoria categoria = new Categoria();
+        categoria.setId(idCategoria);
+        return productoRepository.findByCategoria(categoria).size();
+    }
+
+    @Override
     @Transactional
     public Producto actualizarProducto(Producto productoActualizado) {
 

@@ -26,7 +26,7 @@ export const AgregarCategoriaComponent = () => {
 
     const request = {
         nombre: formData.titulo,
-        url_imagen: formData.urlImagen,
+        urlImagen: formData.urlImagen,
         descripcion: formData.descripcion
       };
 

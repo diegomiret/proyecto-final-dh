@@ -1,5 +1,6 @@
 package com.proyectofinal.ReservasApi.controller;
 
+import com.proyectofinal.ReservasApi.DTO.CategoriaResponseDTO;
 import com.proyectofinal.ReservasApi.model.Caracteristica;
 import com.proyectofinal.ReservasApi.model.Categoria;
 import com.proyectofinal.ReservasApi.model.Producto;
@@ -22,7 +23,7 @@ public class CategoriaController {
 
 
     @GetMapping
-    public ResponseEntity<Collection<Categoria>> listarTodasLasCategorias() {
+    public ResponseEntity<Collection<CategoriaResponseDTO>> listarTodasLasCategorias() {
         return ResponseEntity.ok(categoriaService.obtenerTodasLasCategorias());
     }
 

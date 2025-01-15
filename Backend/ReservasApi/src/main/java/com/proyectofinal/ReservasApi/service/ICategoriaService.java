@@ -1,5 +1,6 @@
 package com.proyectofinal.ReservasApi.service;
 
+import com.proyectofinal.ReservasApi.DTO.CategoriaResponseDTO;
 import com.proyectofinal.ReservasApi.model.Categoria;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Optional;
 
 public interface ICategoriaService {
 
-    List<Categoria> obtenerTodasLasCategorias();
+    List<CategoriaResponseDTO> obtenerTodasLasCategorias();
 
     Optional<Categoria> obtenerCategoriaPorId(int id);
 

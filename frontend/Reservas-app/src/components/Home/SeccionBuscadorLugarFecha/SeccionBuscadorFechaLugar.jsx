@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const BarraBuscadorComponent = () => {
+export const SeccionBuscadorFechaLugar = () => {
 
 
     const [city, setCity] = useState('');

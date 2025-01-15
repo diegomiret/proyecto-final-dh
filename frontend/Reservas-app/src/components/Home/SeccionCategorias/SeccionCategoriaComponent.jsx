@@ -11,11 +11,7 @@ export const SeccionCategoriaComponent = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
-
-    //  validacion para no enviar token
-    // const token = localStorage.getItem("token");
-    // var headers = token ? { Authorization: `Bearer ${token}` } : {};
-
+    
     //  en enpoints publicos, no se envia token
     setAuthHeader(false);
 
@@ -52,16 +48,35 @@ export const SeccionCategoriaComponent = () => {
       {hayError ? <h5>Error al cargar</h5> : null}
 
       <div className="row">
-        {categorias.map((unaCategoria, index) => (
+
+        {/* {categorias.map((unaCategoria, index) => (
           <div className="col-md-3 mb-4" key={index}>
             <CategoriaAlojamientoCard
               id={unaCategoria.id}
               image={unaCategoria.urlImagen}
               title={unaCategoria.nombre}
+              subtitle={unaCategoria.descripcion}
+            />
+          </div>
+        ))} */}
+
+<div class="card-group"></div>
+{categorias.map((unaCategoria, index) => (
+          <div className="col-md-3 mb-4" key={index}>
+            <CategoriaAlojamientoCard
+              id={unaCategoria.id}
+              image={unaCategoria.urlImagen}
+              title={unaCategoria.nombre}
+              subtitle={unaCategoria.descripcion}
             />
           </div>
         ))}
+
+
+
       </div>
+
+      
     </div>
 
   )

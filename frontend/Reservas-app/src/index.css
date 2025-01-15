@@ -78,7 +78,7 @@
     padding: 1rem 2rem;
   }
   
-  .card {
+  /* .card {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -93,7 +93,7 @@
   
   .card p {
     color: var(--color-text-secondary);
-  }
+  } */
 
   a {
     color: var(--color-primary);
