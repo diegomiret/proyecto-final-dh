@@ -7,8 +7,9 @@ import { AdministracionComponent } from '../admin/administracionComponent'
 import { PanelBusquedaPorCategoriaComponent } from './PanelBusquedaPorCategoria/PanelBusquedaPorCategoriaComponent'
 import { SeccionCategoriaComponent } from './SeccionCategorias/SeccionCategoriaComponent'
 import { SeccionProductosAleatoriosComponent } from './SeccionProductosAleatorios/SeccionProductosAleatoriosComponent'
-import { SeccionBuscadorFechaLugar } from './SeccionBuscadorLugarFecha/SeccionBuscadorFechaLugar'
+import { SeccionCuadroDeBusquedaComponent } from './SeccionCuadroDeBusqueda/SeccionCuadroDeBusquedaComponent'
 import { SeccionProductosRecomendados } from './SeccionRecomendaciones/SeccionProductosRecomendados'
+import { PanelBusquedaPrincipalComponent } from './PanelBusquedaPrincipal/PanelBusquedaPrincipalComponent'
 
 export const HomePrincipal = () => {
 
@@ -16,7 +17,7 @@ export const HomePrincipal = () => {
 
     return (
         <>
-            <SeccionBuscadorFechaLugar></SeccionBuscadorFechaLugar>
+            <SeccionCuadroDeBusquedaComponent></SeccionCuadroDeBusquedaComponent>
             <SeccionCategoriaComponent></SeccionCategoriaComponent>
             <SeccionProductosRecomendados></SeccionProductosRecomendados>
 
@@ -26,7 +27,7 @@ export const HomePrincipal = () => {
 
                 {/* Aca van los otros componentes de muestra de resultados */}
                 <Route path="/productos/categoria/:id" element={<PanelBusquedaPorCategoriaComponent />} />
-
+                <Route path="/productos/busqueda/:idCiudad" element={<PanelBusquedaPrincipalComponent />} />
               
 
             </Routes>

@@ -50,4 +50,9 @@ public class Producto {
             inverseJoinColumns = @JoinColumn(name = "caracteristica_id"))
     private Set<Caracteristica> caracteristicas;
 
+
+    @ManyToOne
+    @JoinColumn(name = "id_ciudad", nullable = true)
+    private Ciudad ciudad;
+
 }

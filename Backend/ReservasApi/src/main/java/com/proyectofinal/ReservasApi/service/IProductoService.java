@@ -19,6 +19,8 @@ public interface IProductoService {
 
     public List<Producto> buscarPorductosPorIdCategoria(int idCategoria);
 
+    public List<Producto> buscarPorductosPorIdCiudad(int idCiudad);
+
     public List<Producto> listarProductos();
 
     public void eliminarProducto(int id) throws ResourceNotFoundException;

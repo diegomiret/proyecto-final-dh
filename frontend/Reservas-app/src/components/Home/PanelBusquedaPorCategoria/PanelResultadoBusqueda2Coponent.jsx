@@ -107,10 +107,10 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
       if(ids.length == 0){
         fetchTodosLosProductos();
       }else if(ids.length > 0){
-        fetchProductos
+        fetchProductos();
       }
-    fetchProductos();
-
+    
+    //  Obtiene la cantidad total de productos
     fetchCantidadProductos();
 
     setTimeout(() => {

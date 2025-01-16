@@ -130,6 +130,16 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
+    public List<Producto> buscarPorductosPorIdCiudad(int idCiudad) {
+        Ciudad ciudad = new Ciudad();
+        ciudad.setId(idCiudad);
+        return productoRepository.findByCiudad(ciudad);
+    }
+
+
+
+
+    @Override
     @Transactional
     public Producto actualizarProducto(Producto productoActualizado) {
 

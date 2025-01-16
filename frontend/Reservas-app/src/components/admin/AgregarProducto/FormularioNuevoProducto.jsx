@@ -45,7 +45,7 @@ const FormularioNuevoProducto = () => {
       .finally(() => {
         // Limpiar el token después de la solicitud
         clearAuthHeader();
-      });;;;
+      });
   }, []);
 
 

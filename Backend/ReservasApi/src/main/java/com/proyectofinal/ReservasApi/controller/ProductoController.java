@@ -114,4 +114,9 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.listarProductos().size());
     }
 
+    @GetMapping("/ciudad/{id}")
+    public ResponseEntity<List<Producto>> buscarProductoPorIdCiudad(@PathVariable Integer id) {
+        return ResponseEntity.ok(productoService.buscarPorductosPorIdCiudad(id));
+    }
+
 }

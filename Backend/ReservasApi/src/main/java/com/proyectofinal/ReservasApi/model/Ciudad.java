@@ -1,21 +1,14 @@
-
 package com.proyectofinal.ReservasApi.model;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
-@Table(name="categorias")
+@Table(name="ciudades")
 @Getter
 @Setter
-public class Categoria {
-
+public class Ciudad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +18,8 @@ public class Categoria {
     @Column(name="nombre")
     private String nombre;
 
-    @Column(name="url_imagen")
+    @Column(name="pais")
     private String urlImagen;
 
-    @Column(name="descripcion")
-    private String descripcion;
 
 }

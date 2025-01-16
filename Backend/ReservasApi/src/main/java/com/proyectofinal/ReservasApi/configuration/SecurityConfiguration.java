@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT, "/productos/actualizar-categoria").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/productos/{id}").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/productos/cantidadProductos").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/productos/ciudad/{id}").permitAll()
 
                                 .requestMatchers(HttpMethod.POST, "/imagenes").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
@@ -58,6 +59,8 @@ public class SecurityConfiguration {
 
                                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/categorias").hasAnyAuthority( "ADMIN")
+
+                                .requestMatchers(HttpMethod.GET, "/ciudades").permitAll()
 
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
