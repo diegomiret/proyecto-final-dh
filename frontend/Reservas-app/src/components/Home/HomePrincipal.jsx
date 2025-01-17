@@ -15,6 +15,7 @@ export const HomePrincipal = () => {
 
     const [user, ] = useContext(User);
 
+
     return (
         <>
             <SeccionCuadroDeBusquedaComponent></SeccionCuadroDeBusquedaComponent>

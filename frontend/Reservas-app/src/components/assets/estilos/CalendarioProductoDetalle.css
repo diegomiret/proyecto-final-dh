@@ -1,0 +1,100 @@
+/* Archivo DetalleAlojamientoCalendario.css */
+
+/* Estilo para fechas deshabilitadas */
+.disabled-date {
+  background-color: red !important;
+  color: white !important;
+}
+
+/* Estilo para el contenedor principal */
+.container {
+  margin-top: 20px;
+}
+
+/* Estilo para el título */
+.titulo h3 {
+  font-size: 1.5rem;
+  color: var(--colorPrincipal, #333);
+  text-align: left;
+  padding: 1rem 2rem;
+}
+
+/* Estilo para el contenedor de la reserva */
+.reserva-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 2rem 2rem;
+}
+
+/* Estilo para el calendario */
+.calendar-container .react-calendar {
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}
+.react-calendar__month-view__weekdays__weekday {
+  color: var(--colorPrincipal, #333);
+  font-weight: bold;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: inherit;
+}
+.react-calendar__navigation__arrow {
+  color: var(--colorPrimario, #007bff);
+  font-size: 1.5rem;
+}
+.react-calendar__navigation button:disabled,
+.react-calendar__navigation button:focus {
+  background-color: inherit;
+}
+
+/* Estilo para el contenedor de iniciar reserva */
+.iniciar-reserva {
+  background-color: var(--colorQuinto, #f8f9fa);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-align: left;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--colorSexto, #555);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+}
+.iniciar-reserva p {
+  margin-bottom: 1rem;
+}
+.btn-reserva {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.btn-reserva:hover {
+  filter: brightness(85%);
+}
+
+/* Adaptaciones responsivas */
+@media (max-width: 768px) {
+  .iniciar-reserva {
+      background-color: inherit;
+      padding-top: 2rem;
+      box-shadow: none;
+      text-align: center;
+  }
+  .btn-reserva {
+      width: 100%;
+  }
+}
+
+@media (max-width: 425px) {
+  .titulo {
+      padding: 1rem;
+  }
+  .reserva-container {
+      padding: 0 1rem;
+  }
+}

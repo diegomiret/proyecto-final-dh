@@ -10,6 +10,9 @@ export const PanelFiltroCategoriasComponent = ({ categorias, idSeleccionado, onA
             setSeleccionados([idSeleccionado]);
         }
 
+
+      
+
     }, [idSeleccionado]);
 
     const handleCheckboxChange = (categoriaId) => {

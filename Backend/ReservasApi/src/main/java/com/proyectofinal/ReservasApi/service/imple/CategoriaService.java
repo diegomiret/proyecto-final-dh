@@ -35,6 +35,7 @@ public class CategoriaService implements ICategoriaService {
             categoriaDTO.setNombre(categoria.getNombre());
             categoriaDTO.setCantidad(cantidad);
             categoriaDTO.setUrlImagen(categoria.getUrlImagen());
+            categoriaDTO.setDescripcion(categoria.getDescripcion());
 
             listaCategoriasDTO.add(categoriaDTO);
         }

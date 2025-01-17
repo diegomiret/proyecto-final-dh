@@ -46,12 +46,45 @@ export const PanelBusquedaPrincipalComponent = () => {
     const currentItems = productos.slice(startIndex, startIndex + itemsPerPage);
 
 
+    const queryParams = new URLSearchParams({
+        fecha_inicio: searchParams.get("fecha_inicio") || "",
+        fecha_fin: searchParams.get("fecha_fin") || "",
+      });
+
+
+
     const llamarApiCiudadyFechas = () =>{
+
+        
+
         console.log("llamarApiCiudadyFechas");
+        setAuthHeader(false);
+            setIsLoading(true);
+            setHayError(false);
+            setError(null);
+            const endpoint = `/productos/ciudad-fecha/${idCiudad}?${queryParams}`;
+            AxiosInstance.get(endpoint)
+                .then((res) => {
+                    setProductos(res.data);
+                    setIsLoading(false);
+                    setHayError(false);
+                    setError(null);
+                })
+                .catch((error) => {
+                    setIsLoading(false);
+                    setHayError(false);
+                    setError(null);
+
+                })
+                .finally(() => {
+                    // Limpiar el token después de la solicitud
+                    clearAuthHeader();
+                });
     }
 
-    const llamarApiCiudady = () =>{
 
+    const llamarApiCiudad = () =>{
+        console.log("llamarApiCiudad");
         setAuthHeader(false);
             setIsLoading(true);
             setHayError(false);
@@ -74,7 +107,6 @@ export const PanelBusquedaPrincipalComponent = () => {
                     // Limpiar el token después de la solicitud
                     clearAuthHeader();
                 });
-
     }
 
 
@@ -82,11 +114,12 @@ export const PanelBusquedaPrincipalComponent = () => {
         console.log("Es nulo?: " ,searchParams.get("fecha_inicio") == 'null');
         console.log(idCiudad);
 
-        if (searchParams.has("fecha_inicio") == 'null'){
-            llamarApiCiudadyFechas();
+        if (searchParams.get("fecha_inicio") == 'null'){
+            llamarApiCiudad();
+            
         }
         else {
-            llamarApiCiudady();
+            llamarApiCiudadyFechas();
         }
         
 
@@ -116,7 +149,7 @@ export const PanelBusquedaPrincipalComponent = () => {
                     {currentItems.map((unProducto, index) => (
                         <div className="col" key={index}>
                             <BusquedaAlojamientoCard
-                                id={unProducto.id}
+                                idProducto={unProducto.id}
                                 titulo={unProducto.titulo}
                                 descripcion={unProducto.descripcion}
                                 imagenes={unProducto.imagenes}

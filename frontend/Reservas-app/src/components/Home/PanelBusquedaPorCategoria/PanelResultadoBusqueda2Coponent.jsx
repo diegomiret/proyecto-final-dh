@@ -37,6 +37,8 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = productos.slice(startIndex, startIndex + itemsPerPage);
 
+  console.log("Productos slice: ",currentItems );
+
   useEffect(() => {
     const fetchProductos = async () => {
       setAuthHeader(false); 
@@ -126,7 +128,7 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
   }, [ids]);
 
   return (
-    <div className="container mt-4">
+    <div className="container-fluid mt-4 p-4 rounded bg-light">
       <h2 ref={container}>Resultados</h2>
       <hr/>
       <h6>{`Resultados encontrados: ${productos.length}`}</h6>
@@ -139,7 +141,7 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
           {currentItems.map((unProducto, index) => (
             <div className="col" key={index}>
               <BusquedaAlojamientoCard
-                id={unProducto.id}
+                idProducto={unProducto.id}
                 titulo={unProducto.titulo}
                 descripcion={unProducto.descripcion}
                 imagenes={unProducto.imagenes}

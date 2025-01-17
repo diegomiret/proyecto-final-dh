@@ -3,6 +3,7 @@ package com.proyectofinal.ReservasApi.service;
 import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.Producto;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,8 @@ public interface IProductoService {
     public List<Producto> buscarPorductosPorIdCategoria(int idCategoria);
 
     public List<Producto> buscarPorductosPorIdCiudad(int idCiudad);
+
+    public List<Producto> buscarPorductosPorCiudadFecha(Integer ciudad_id, Date fecha_inicio, Date fecha_fin);
 
     public List<Producto> listarProductos();
 

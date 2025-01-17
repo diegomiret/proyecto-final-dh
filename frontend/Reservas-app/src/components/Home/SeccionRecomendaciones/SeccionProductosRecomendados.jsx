@@ -34,7 +34,7 @@ export const SeccionProductosRecomendados = () => {
     
     
   return (
-      <div className="container  my-4">
+      <div className="container-fluid mt-4 p-4 border rounded bg-light">
           <h5 className="mb-4">Recomendaciones</h5>
           <div className="row">
             {categorias.map((categoria, index) => (

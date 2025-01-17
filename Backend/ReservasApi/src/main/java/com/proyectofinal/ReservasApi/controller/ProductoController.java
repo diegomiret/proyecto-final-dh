@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -117,6 +118,11 @@ public class ProductoController {
     @GetMapping("/ciudad/{id}")
     public ResponseEntity<List<Producto>> buscarProductoPorIdCiudad(@PathVariable Integer id) {
         return ResponseEntity.ok(productoService.buscarPorductosPorIdCiudad(id));
+    }
+
+    @GetMapping("/ciudad-fecha/{id}")
+    public ResponseEntity<List<Producto>> buscarProductoPorIdCiudad(@PathVariable Integer id, @RequestParam(required = false) Date fecha_inicio, @RequestParam(required = false) Date fecha_fin) {
+        return ResponseEntity.ok(productoService.buscarPorductosPorCiudadFecha(id, fecha_inicio, fecha_fin));
     }
 
 }

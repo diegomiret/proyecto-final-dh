@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import imagenDefault from "../../assets/imagenes/imagen_default_producto.jpg";
-import styled from 'styled-components';
+
 
 export const CategoriaAlojamientoCard = ({ id, image, title, subtitle }) => {
-
 
   const cardStyle = {
     height: "300px",
@@ -42,33 +41,32 @@ export const CategoriaAlojamientoCard = ({ id, image, title, subtitle }) => {
     WebkitBoxOrient: "vertical",
   };
 
+console.log(subtitle);
+
   return (
 
     <>
-   <Link to={`/productos/categoria/${id}`} className="text-decoration-none">
-      <div
-        className="card shadow-sm rounded-3 overflow-hidden h-100"
-        style={cardStyle}
-      >
-        <img
-          src={image || imagenDefault}
-          alt={title}
-          className="card-img-top"
-          style={imageStyle}
-        />
-        <div className="card-body d-flex flex-column justify-content-between p-3">
-          <h5
-            className="card-title text-dark"
-            style={titleStyle}
-          >
-            {title}
-          </h5>
-          <p className="card-text" style={textStyle}>
-            {subtitle}
-          </p>
-        </div>
-      </div>
-    </Link>
+<Link to={`/productos/categoria/${id}`} className="text-decoration-none">
+  <div
+    className="card shadow-sm rounded-3 overflow-hidden"
+    style={cardStyle}
+  >
+    <img
+      src={image || imagenDefault}
+      alt={title}
+      className="card-img-top"
+      style={imageStyle}
+    />
+    <div className="card-body flex-column p-3" style={{ height: 'calc(100% - 70px)', overflow: 'hidden' }}>
+      <h5 className="card-title text-dark" style={titleStyle}>
+        {title}
+      </h5>
+      <p className="card-text" style={textStyle}>
+        {subtitle}
+      </p>
+    </div>
+  </div>
+</Link>
     </>
   )
 

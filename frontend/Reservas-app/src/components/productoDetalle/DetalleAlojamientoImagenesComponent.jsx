@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export const DetalleAlojamientoImagenesComponent = ({ imagenes }) => {
 
+
   const limitedImages = imagenes.map(item => item.url).slice(0, 5);
 
   const responsive = {
@@ -38,6 +39,9 @@ export const DetalleAlojamientoImagenesComponent = ({ imagenes }) => {
   })
 
   useEffect(() => {
+
+    console.log("Recibi de imagens: ", imagenes);
+
     function handleResize() {
 
       if (window.innerWidth > 780) {

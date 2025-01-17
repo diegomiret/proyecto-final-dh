@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.*;
 
 @Service
@@ -136,7 +137,10 @@ public class ProductoService implements IProductoService {
         return productoRepository.findByCiudad(ciudad);
     }
 
-
+    @Override
+    public List<Producto> buscarPorductosPorCiudadFecha(Integer ciudad_id, Date fecha_inicio, Date fecha_fin) {
+        return productoRepository.findByCiudadFecha(ciudad_id, fecha_inicio, fecha_fin);
+    }
 
 
     @Override

@@ -11,7 +11,7 @@ export const SeccionCategoriaComponent = () => {
   const [error, setError] = useState();
 
   useEffect(() => {
-    
+
     //  en enpoints publicos, no se envia token
     setAuthHeader(false);
 
@@ -22,6 +22,7 @@ export const SeccionCategoriaComponent = () => {
         setCategorias(res.data);
         setIsLoading(false);
         setHayError(false);
+        console.log(res.data);
       })
       .catch((error) => {
         setCategorias(new Array());
@@ -41,27 +42,15 @@ export const SeccionCategoriaComponent = () => {
 
   return (
 
-    <div className="container  my-4">
+    <div className="container-fluid mt-4 p-4 border rounded bg-light">
       <h5 className="mb-4">Categorías</h5>
 
       {isLoading ? <h4>Cargando</h4> : null}
       {hayError ? <h5>Error al cargar</h5> : null}
 
       <div className="row">
-
-        {/* {categorias.map((unaCategoria, index) => (
-          <div className="col-md-3 mb-4" key={index}>
-            <CategoriaAlojamientoCard
-              id={unaCategoria.id}
-              image={unaCategoria.urlImagen}
-              title={unaCategoria.nombre}
-              subtitle={unaCategoria.descripcion}
-            />
-          </div>
-        ))} */}
-
-<div class="card-group"></div>
-{categorias.map((unaCategoria, index) => (
+        <div class="card-group"></div>
+        {categorias.map((unaCategoria, index) => (
           <div className="col-md-3 mb-4" key={index}>
             <CategoriaAlojamientoCard
               id={unaCategoria.id}
@@ -71,12 +60,7 @@ export const SeccionCategoriaComponent = () => {
             />
           </div>
         ))}
-
-
-
       </div>
-
-      
     </div>
 
   )

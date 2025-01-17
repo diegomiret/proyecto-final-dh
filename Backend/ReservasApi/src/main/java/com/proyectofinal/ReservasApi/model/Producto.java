@@ -55,4 +55,8 @@ public class Producto {
     @JoinColumn(name = "id_ciudad", nullable = true)
     private Ciudad ciudad;
 
+
+    @OneToMany(mappedBy="producto")
+    @JsonIgnoreProperties("producto")
+    private Set<Reserva> reservas;
 }

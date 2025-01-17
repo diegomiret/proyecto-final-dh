@@ -13,16 +13,16 @@ export const LoginComponent = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
-    const [, setUser ] = useContext(User);
+    const [, setUser] = useContext(User);
 
     //const {user} = useContext(UserContext)
 
 
-   const mensajeOperacionError = (mensaje) => {
-      Swal.fire({
-        icon: 'error',
-        text: mensaje
-      });
+    const mensajeOperacionError = (mensaje) => {
+        Swal.fire({
+            icon: 'error',
+            text: mensaje
+        });
     };
 
 
@@ -37,15 +37,13 @@ export const LoginComponent = () => {
             password: password
         }
 
-//  en enpoints publicos, no se envia token
-setAuthHeader(false);
+        //  en enpoints publicos, no se envia token
+        setAuthHeader(false);
 
         AxiosInstance.post(`/auth/login`, user, header)
             .then((res) => {
 
                 localStorage.setItem("token", res.data.token);
-                
-
                 // seteo el contexto
                 setUser(false);
 
@@ -54,15 +52,15 @@ setAuthHeader(false);
             })
             .catch((error) => {
 
-                if (error.status == 403){
+                if (error.status == 403) {
                     mensajeOperacionError("Las credenciales no son correctas");
-                }        
+                }
             })
-            
-.finally(() => {
-	// Limpiar el token después de la solicitud
-	clearAuthHeader();
-});
+
+            .finally(() => {
+                // Limpiar el token después de la solicitud
+                clearAuthHeader();
+            });
 
     };
 

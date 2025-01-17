@@ -7,6 +7,7 @@ import { DetalleAlojamientoHeaderComponent } from './DetalleAlojamientoHeaderCom
 import { DetalleAlojamientoDescripcionComponent } from './DetalleAlojamientoDescripcionComponent';
 import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagenesComponent';
 import { DetalleAlojamientoCaracteristicas } from './DetalleAlojamientoCaracteristicas';
+import { DetalleAlojamientoCalendarioComponent } from './DetalleAlojamientoCalendarioComponent';
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
@@ -26,6 +27,8 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
 
   useEffect(() => {
 
+    console.log("Se va a llamar al servicio");
+
     //  en enpoints publicos, no se envia token
     setAuthHeader(false);
 
@@ -33,11 +36,12 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProducto({ ...res.data });
+        console.log(res.data.reservas);
       })
       .catch((error) => {
         Swal.fire({
           icon: 'error',
-          text: 'No se pudo cargar el producto'
+          text: 'No se pudo cargar el producto. Intente mas tarde'
         });
       })
       .finally(() => {
@@ -57,6 +61,8 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
   return (
     <>
 
+    
+
       <DetalleAlojamientoHeaderComponent {...producto} />
       <div className='container'>
 
@@ -66,13 +72,17 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
 
         <DetalleAlojamientoImagenesComponent {...producto} />
 
-
-
         <div className="container mt-4">
           <div className="d-flex justify-content-end">
             <button className="btn btn-primary" onClick={irAGaleria}>Ir a Galería</button>
           </div>
         </div>
+
+        <DetalleAlojamientoCalendarioComponent reservas={producto.reservas || []} />
+
+
+
+        
 
       </div>
     </>

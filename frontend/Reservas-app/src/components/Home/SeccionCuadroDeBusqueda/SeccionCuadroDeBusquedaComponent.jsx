@@ -80,46 +80,52 @@ export const SeccionCuadroDeBusquedaComponent = () => {
   };
 
   return (
-    <div className="container mt-4 p-4 border rounded bg-light">
-      <h3 className="mb-4">Buscador de alojamientos</h3>
-      <div className="d-flex align-items-end gap-3">
-        <div className="flex-grow-1">
-          <label htmlFor="cityInput" className="form-label">
-            Ciudad:
-          </label>
-          <Select
-            id="cityInput"
-            options={todasLasCiudades}
-            value={ciudadIngresada}
-            onChange={(selectedOption) => setCity(selectedOption)}
-            placeholder="Ingresa una ciudad"
-            isLoading={isLoading}
-            isClearable
-            classNamePrefix="react-select"
-          />
-        </div>
-        <div>
-          <label className="form-label">Desde: </label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            className="form-control"
-            placeholderText="Fecha desde"
-          />
-        </div>
-        <div>
-          <label className="form-label">Hasta: </label>
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            className="form-control"
-            placeholderText="Fecha hasta"
-          />
-        </div>
-        <button className="btn btn-primary mt-4" onClick={handleSearch}>
-          Buscar
-        </button>
+<div className="container-fluid mt-4 p-4 border rounded bg-light">
+  <h3 className="mb-4">Buscador de alojamientos</h3>
+  <div className="row gy-3 align-items-end">
+    <div className="col-12 col-md-6 col-lg-4">
+      <label htmlFor="cityInput" className="form-label">
+        Ciudad:
+      </label>
+      <Select
+        id="cityInput"
+        options={todasLasCiudades}
+        value={ciudadIngresada}
+        onChange={(selectedOption) => setCity(selectedOption)}
+        placeholder="Ingresa una ciudad"
+        isLoading={isLoading}
+        isClearable
+        classNamePrefix="react-select"
+      />
+    </div>
+    <div className="col-6 col-md-3 col-lg-2">
+      <div className="d-flex flex-column">
+        <label className="form-label">Desde:</label>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          className="form-control"
+          placeholderText="Fecha desde"
+        />
       </div>
     </div>
+    <div className="col-6 col-md-3 col-lg-2">
+      <div className="d-flex flex-column">
+        <label className="form-label">Hasta:</label>
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          className="form-control"
+          placeholderText="Fecha hasta"
+        />
+      </div>
+    </div>
+    <div className="col-12 col-md-12 col-lg-4">
+      <button className="btn btn-primary w-50 mt-3 mt-md-0" onClick={handleSearch}>
+        Buscar
+      </button>
+    </div>
+  </div>
+</div>
   );
 };

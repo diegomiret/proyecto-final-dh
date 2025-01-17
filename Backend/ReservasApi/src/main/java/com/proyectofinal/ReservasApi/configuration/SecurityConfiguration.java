@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT, "/productos/{id}").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/productos/cantidadProductos").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/productos/ciudad/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/productos//ciudad-fecha/{id}").permitAll()
 
                                 .requestMatchers(HttpMethod.POST, "/imagenes").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
@@ -60,7 +61,14 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/categorias").hasAnyAuthority( "ADMIN")
 
+                                .requestMatchers(HttpMethod.GET, "/favoritos/usuario").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/favoritos/{id}").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/favoritos").hasAnyAuthority( "ADMIN")
+
                                 .requestMatchers(HttpMethod.GET, "/ciudades").permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/reservas").permitAll()
+
 
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
