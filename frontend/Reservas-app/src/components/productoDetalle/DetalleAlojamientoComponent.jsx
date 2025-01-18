@@ -9,6 +9,10 @@ import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagene
 import { DetalleAlojamientoCaracteristicas } from './DetalleAlojamientoCaracteristicas';
 import { DetalleAlojamientoCalendarioComponent } from './DetalleAlojamientoCalendarioComponent';
 import { DetalleAlojamientoPoliticasComponent } from './DetalleAlojamientoPoliticasComponent';
+import { FaShareAlt } from 'react-icons/fa';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import { CompartirProductoComponent } from '../compartir/CompartirProductoComponent';
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
@@ -19,15 +23,14 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     caracteristicas: []
   };
 
-
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const [producto, setProducto] = useState({ ...productoDefault, id: id ?? productId });
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-
 
     //  en enpoints publicos, no se envia token
     setAuthHeader(false);
@@ -47,8 +50,6 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
         // Limpiar el token después de la solicitud
         clearAuthHeader();
       });
-
-
   }, []);
 
 
@@ -56,37 +57,53 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     navigate('/galeriaProducto/' + id);
   };
 
+  const abrirModalCompartir = () => {
+    setShowModal(true);
+  };
+
+  const cerrarModalCompartir = () => {
+    setShowModal(false);
+  };
 
   return (
     <>
+      <DetalleAlojamientoHeaderComponent {...producto} />
 
     
 
-      <DetalleAlojamientoHeaderComponent {...producto} />
       <div className="container-fluid mt-4 p-4 border rounded bg-light">
 
+      <div className="text-left mb-4">
+     <FaShareAlt size={32} onClick={abrirModalCompartir} style={{ cursor: 'pointer' }} />
+      </div>
+
         <DetalleAlojamientoDescripcionComponent {...producto} />
-
         <DetalleAlojamientoCaracteristicas caracteristicas={producto.caracteristicas} />
-
         <DetalleAlojamientoImagenesComponent {...producto} />
-
         <div className="container mt-4">
           <div className="d-flex justify-content-end">
             <button className="btn btn-primary" onClick={irAGaleria}>Ir a Galería</button>
           </div>
         </div>
-
         <DetalleAlojamientoCalendarioComponent reservas={producto.reservas || []} />
-
-
-        <DetalleAlojamientoPoliticasComponent {...producto}></DetalleAlojamientoPoliticasComponent>
-
-
-
-        
+        <DetalleAlojamientoPoliticasComponent politicas={producto.politicas || []}></DetalleAlojamientoPoliticasComponent>
 
       </div>
+
+
+      <Modal show={showModal} onHide={cerrarModalCompartir} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Compartir Producto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <CompartirProductoComponent id={id} />
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={cerrarModalCompartir}>Cerrar</button>
+        </Modal.Footer>
+      </Modal>
+
+
     </>
   );
 };
