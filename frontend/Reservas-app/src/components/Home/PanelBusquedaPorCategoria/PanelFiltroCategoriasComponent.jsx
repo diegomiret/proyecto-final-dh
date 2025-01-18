@@ -24,7 +24,7 @@ export const PanelFiltroCategoriasComponent = ({ categorias, idSeleccionado, onA
     };
 
     const handleAplicarFiltro = () => {
-        console.log("Se va a plicar Filtro: ", seleccionados);
+
         onAplicarFiltro(seleccionados);
     };
 

@@ -36,14 +36,11 @@ export const PerfilComponent = () => {
       <div className="table-responsive">
         <table className="table table-striped" style={{ borderRadius: "10px", overflow: "hidden" }}>
           <thead style={{ backgroundColor: "#003b95", color: "#ffffff" }}>
-            <tr>
-              <th scope="col">Campo</th>
-              <th scope="col">Valor</th>
-            </tr>
+           
           </thead>
           <tbody style={{ backgroundColor: "white" }}>
             <tr>
-              <td><strong>ID</strong></td>
+              <td><strong>ID usuario:</strong></td>
               <td>{data.id}</td>
             </tr>
             <tr>

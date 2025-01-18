@@ -3,11 +3,27 @@ import './assets/estilos/NavBarComponent.css'
 import logoMarca from '../assets/imagenes/logo-marca.png'
 import { User } from '../ReservaHotelesApp';
 import { useContext } from 'react';
+import { FaRegHeart } from 'react-icons/fa';
 
 export const NavBarComponent = () => {
 
 
   const [user,] = useContext(User);
+
+  
+  const styles = {
+    corazonButton: {
+      fontSize: "2rem",
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "0.5rem", // Espacio entre el ícono y el texto
+      transition: "color 0.3s ease",
+    },
+  };
 
   const getUserInitials = (nombre, apellido) => {
     if (!nombre || !apellido) return '';
@@ -49,7 +65,12 @@ export const NavBarComponent = () => {
         <button className="btn btn-primary">Reservas</button>
       </NavLink>
 
-      {/* Línea de separación vertical */}
+      {/* Boton Favoritos  */}
+      <NavLink to="/misFavoritos" className="me-2">
+      <button className="btn btn-primary"  ><FaRegHeart color="white" /> Favoritos</button>
+      </NavLink>
+
+      {/* Línea de separación  */}
       <div
         className="vr mx-3"
         style={{

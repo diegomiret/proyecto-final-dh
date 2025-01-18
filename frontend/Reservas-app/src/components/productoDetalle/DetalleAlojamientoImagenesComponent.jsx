@@ -40,8 +40,6 @@ export const DetalleAlojamientoImagenesComponent = ({ imagenes }) => {
 
   useEffect(() => {
 
-    console.log("Recibi de imagens: ", imagenes);
-
     function handleResize() {
 
       if (window.innerWidth > 780) {

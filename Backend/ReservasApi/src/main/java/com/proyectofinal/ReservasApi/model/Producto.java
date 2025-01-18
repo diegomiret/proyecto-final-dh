@@ -59,4 +59,8 @@ public class Producto {
     @OneToMany(mappedBy="producto")
     @JsonIgnoreProperties("producto")
     private Set<Reserva> reservas;
+
+    @OneToMany(mappedBy="producto")
+    @JsonIgnoreProperties("producto")
+    private Set<Politica> politicas;
 }

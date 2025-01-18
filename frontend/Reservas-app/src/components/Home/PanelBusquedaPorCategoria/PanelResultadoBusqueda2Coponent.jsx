@@ -37,7 +37,7 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = productos.slice(startIndex, startIndex + itemsPerPage);
 
-  console.log("Productos slice: ",currentItems );
+
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -47,7 +47,7 @@ export const PanelResultadoBusqueda2Coponent = ({ ids }) => {
       setError(null);
       let allProductos = [];
 
-      console.log("ids pasados: ", ids.length);
+
 
       try {
         for (const id of ids) {

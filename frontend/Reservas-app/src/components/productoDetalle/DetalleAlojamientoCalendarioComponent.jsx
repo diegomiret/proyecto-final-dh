@@ -19,15 +19,7 @@ export const DetalleAlojamientoCalendarioComponent = ({ productoId, fechaInicio,
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const NotLoggedIn = () => {
-        if (!user) {
-            navigate("/login?reserva=1");
-        } else if (!fecha[0] || !fecha[1]) {
-            navigate(`/producto/${productoId}/reserva`);
-        } else {
-            navigate(`/producto/${productoId}/reserva?fecha_inicio=${fecha[0]}&fecha_fin=${fecha[1]}`);
-        }
-    };
+
 
     const tileClassName = ({ date, view }) => {
         if (view === 'month') {
@@ -75,10 +67,7 @@ export const DetalleAlojamientoCalendarioComponent = ({ productoId, fechaInicio,
                         tileClassName={tileClassName}
                     />
                 </div>
-                <div className="col-lg-4 col-md-12 iniciar-reserva">
-                    <p>Agregá tus fechas de viaje para obtener precios exactos</p>
-                    <button className="btn btn-primary btn-reserva" onClick={NotLoggedIn}>Iniciar Reserva</button>
-                </div>
+
             </div>
         </div>
     );

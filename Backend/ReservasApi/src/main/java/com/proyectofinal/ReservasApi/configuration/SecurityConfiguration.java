@@ -61,9 +61,9 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/categorias").hasAnyAuthority( "ADMIN")
 
-                                .requestMatchers(HttpMethod.GET, "/favoritos/usuario").hasAnyAuthority( "ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/favoritos/{id}").hasAnyAuthority( "ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/favoritos").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/favoritos/usuario").hasAnyAuthority( "ADMIN", "USER")
+                                .requestMatchers(HttpMethod.DELETE, "/favoritos/{id}").hasAnyAuthority( "ADMIN", "USER")
+                                .requestMatchers(HttpMethod.POST, "/favoritos").hasAnyAuthority( "ADMIN", "USER")
 
                                 .requestMatchers(HttpMethod.GET, "/ciudades").permitAll()
 

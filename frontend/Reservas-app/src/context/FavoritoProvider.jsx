@@ -17,7 +17,7 @@ export const FavoritoProvider = ({ children, usuario }) => {
               AxiosInstance.get(endpoint)
                 .then((res) => {
                     setFavoritos(res.data);
-                    console.log(res.data);
+
                 })
                 .catch((error) => {
                   console.error(error);

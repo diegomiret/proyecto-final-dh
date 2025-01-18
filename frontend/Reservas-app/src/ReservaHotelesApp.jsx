@@ -13,6 +13,7 @@ import ObtenerCuentaLogueada from './components/login/ObtenerCuentaLogueada'
 import { LogOut } from './components/LogOut/LogOutComponent'
 import { PerfilComponent } from './components/perfil/PerfilComponent'
 import { FavoritoProvider } from './context/FavoritoProvider'
+import { MisFavoritosComponent } from './components/Favoritos/MisFavoritosComponent'
 
 
 const User = createContext(false);
@@ -25,9 +26,9 @@ export const ReservaHotelesApp = () => {
         <User.Provider value={[user, setUser]}>
             <FavoritoProvider usuario={user}>
             <ObtenerCuentaLogueada />
-            <div className="container-fluid">
+            <div className="app-wrapper d-flex flex-column min-vh-100">
                 <NavBarComponent></NavBarComponent>
-                <div>
+                <div className="container-fluid flex-grow-1">
                     <Routes>
                         <Route path='/' element={<HomePrincipal />} />
                         <Route path='/*' element={<HomePrincipal />} />
@@ -37,13 +38,15 @@ export const ReservaHotelesApp = () => {
                         <Route path="editarProducto/:id" element={<EditarProductoComponent />} />
                         <Route path="/registro" element={<RegistroComponent />} />
                         <Route path="/perfil" element={<PerfilComponent />} />
+                        <Route path="/misFavoritos" element={<MisFavoritosComponent />} />
                         <Route path="login" element={<LoginComponent />} />
                         <Route path="/logout" element={<LogOut />} />
                     </Routes>
                 </div>
 
                 <FooterComponent></FooterComponent>
-            </div>
+                </div>
+
             </FavoritoProvider>
         </User.Provider>
 

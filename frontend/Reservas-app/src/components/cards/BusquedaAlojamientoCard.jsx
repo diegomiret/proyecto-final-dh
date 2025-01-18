@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, NavLink } from 'react-router-dom';
 import imagenDefault from "../../assets/imagenes/imagen_default_producto.jpg";
 import styled from "styled-components";
 import { User } from '../../ReservaHotelesApp';
@@ -7,13 +7,14 @@ import { FavoritoContext } from '../../context/FavoritoContext';
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/AxiosHelper';
 import Swal from "sweetalert2";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, imagenes, categoria }) => {
 
   const [user] = useContext(User);
   const { favoritos, setFavoritos } = useContext(FavoritoContext);
 
-  console.log("Se le paso el id producto: ", idProducto);
+  const navigate = useNavigate();
 
   const esFavorito = favoritos.some(favorito => favorito.idProducto === idProducto);
 
@@ -27,11 +28,9 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
     const token = localStorage.getItem("token");
     setAuthHeader(token);
 
-    console.log("Se va a quitar de favorito. ", endpoint);
-
     AxiosInstance.delete(endpoint)
       .then((res) => {
-        console.log(res.data);
+        
       })
       .catch((error) => {
         console.error(error);
@@ -56,8 +55,6 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
       idProducto: idProducto,
       idUsuario: user.id
     };
-
-    console.log("Se va a agregar a favorito. ", request);
 
     AxiosInstance.post(endpoint, request, header)
       .then((res) => {
@@ -89,6 +86,11 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
     }
   };
 
+
+  const handleRedirect = () => {
+    navigate("/detalleProducto/" + idProducto); 
+  };
+
   return (
     <>
       <div className="card shadow-sm rounded-3 overflow-hidden" style={{ height: "450px", transition: "box-shadow 0.3s ease", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
@@ -112,7 +114,6 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
 
             </div>
 
-            {/* Tercera sección */}
             <div className="favoritoBoton" style={{ flexBasis: "16.66%" }}>
               {user && (
                 <CorazonButton onClick={handleToggleFavorito}>
@@ -126,14 +127,15 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
             {descripcion}
           </p>
 
-
+    
           <button
             className="btn btn-primary mt-2"
             style={{ width: '100%' }}
-            onClick={() => console.log('Botón presionado')}
+            onClick={handleRedirect}
           >
             Ver más detalles
           </button>
+
         </div>
       </div>
     </>

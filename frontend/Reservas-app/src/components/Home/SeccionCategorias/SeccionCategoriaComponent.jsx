@@ -22,7 +22,6 @@ export const SeccionCategoriaComponent = () => {
         setCategorias(res.data);
         setIsLoading(false);
         setHayError(false);
-        console.log(res.data);
       })
       .catch((error) => {
         setCategorias(new Array());
@@ -49,7 +48,7 @@ export const SeccionCategoriaComponent = () => {
       {hayError ? <h5>Error al cargar</h5> : null}
 
       <div className="row">
-        <div class="card-group"></div>
+        <div className="card-group"></div>
         {categorias.map((unaCategoria, index) => (
           <div className="col-md-3 mb-4" key={index}>
             <CategoriaAlojamientoCard

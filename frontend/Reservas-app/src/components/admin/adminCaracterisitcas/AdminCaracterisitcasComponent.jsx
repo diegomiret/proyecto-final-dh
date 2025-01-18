@@ -23,7 +23,6 @@ export const AdminCaracterisitcasComponent = () => {
           setCaracteristicas(res.data);
         })
         .catch((error) => {
-          console.error(error);
         })
         .finally(() => {
           clearAuthHeader();

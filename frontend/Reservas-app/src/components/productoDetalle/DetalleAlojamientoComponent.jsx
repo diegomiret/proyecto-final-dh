@@ -8,6 +8,7 @@ import { DetalleAlojamientoDescripcionComponent } from './DetalleAlojamientoDesc
 import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagenesComponent';
 import { DetalleAlojamientoCaracteristicas } from './DetalleAlojamientoCaracteristicas';
 import { DetalleAlojamientoCalendarioComponent } from './DetalleAlojamientoCalendarioComponent';
+import { DetalleAlojamientoPoliticasComponent } from './DetalleAlojamientoPoliticasComponent';
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
@@ -27,7 +28,6 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
 
   useEffect(() => {
 
-    console.log("Se va a llamar al servicio");
 
     //  en enpoints publicos, no se envia token
     setAuthHeader(false);
@@ -36,7 +36,6 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProducto({ ...res.data });
-        console.log(res.data.reservas);
       })
       .catch((error) => {
         Swal.fire({
@@ -64,7 +63,7 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     
 
       <DetalleAlojamientoHeaderComponent {...producto} />
-      <div className='container'>
+      <div className="container-fluid mt-4 p-4 border rounded bg-light">
 
         <DetalleAlojamientoDescripcionComponent {...producto} />
 
@@ -79,6 +78,9 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
         </div>
 
         <DetalleAlojamientoCalendarioComponent reservas={producto.reservas || []} />
+
+
+        <DetalleAlojamientoPoliticasComponent {...producto}></DetalleAlojamientoPoliticasComponent>
 
 
 

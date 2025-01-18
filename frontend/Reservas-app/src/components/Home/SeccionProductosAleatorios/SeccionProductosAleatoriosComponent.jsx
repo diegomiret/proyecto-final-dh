@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { AleatorioAlojamientoCard } from '../../cards/AleatorioAlojamientoCard';
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../../helpers/AxiosHelper';
+import { BusquedaAlojamientoCard } from '../../cards/BusquedaAlojamientoCard';
 
 export const SeccionProductosAleatoriosComponent = () => {
 
@@ -22,6 +23,7 @@ setAuthHeader(false);
         setProductos(res.data);
         setIsLoading(false);
         setHayError(false);
+
       })
       .catch((error) => {
         setProductos([]);
@@ -41,7 +43,7 @@ setAuthHeader(false);
 
   return (
     <>
-      <div className="container my-4">
+      <div className="container-fluid mt-4 p-4 border rounded bg-light">
         <h5 className="mb-4">Algunos de los alojamientos</h5>
         {isLoading ? <h4>Cargando</h4> : null}
         {hayError ? <h5>Error al cargar</h5> : null}
@@ -49,12 +51,22 @@ setAuthHeader(false);
      
         {productos.map((producto, index) => (
           <div className="col-md-6 mb-4" key={producto.id}> {/* Cambiamos a 6 para tener dos columnas */}
-            <AleatorioAlojamientoCard
-              id={producto.id}
-              image={producto.imagenes[0].url}
-              title={producto.titulo}
-              subtitle={producto.descripcion}
-            />
+           
+           
+
+
+             <BusquedaAlojamientoCard
+                            idProducto={producto.id}
+                            titulo={producto.titulo}
+                            descripcion={producto.descripcion}
+                            imagenes={producto.imagenes}
+                            categoria={producto.categoria}
+                          />
+
+            
+
+
+
           </div>
         ))}
         

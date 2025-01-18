@@ -55,9 +55,6 @@ export const PanelBusquedaPrincipalComponent = () => {
 
     const llamarApiCiudadyFechas = () =>{
 
-        
-
-        console.log("llamarApiCiudadyFechas");
         setAuthHeader(false);
             setIsLoading(true);
             setHayError(false);
@@ -84,7 +81,7 @@ export const PanelBusquedaPrincipalComponent = () => {
 
 
     const llamarApiCiudad = () =>{
-        console.log("llamarApiCiudad");
+
         setAuthHeader(false);
             setIsLoading(true);
             setHayError(false);
@@ -111,8 +108,6 @@ export const PanelBusquedaPrincipalComponent = () => {
 
 
     useEffect(() => {
-        console.log("Es nulo?: " ,searchParams.get("fecha_inicio") == 'null');
-        console.log(idCiudad);
 
         if (searchParams.get("fecha_inicio") == 'null'){
             llamarApiCiudad();

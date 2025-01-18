@@ -41,8 +41,6 @@ export const CategoriaAlojamientoCard = ({ id, image, title, subtitle }) => {
     WebkitBoxOrient: "vertical",
   };
 
-console.log(subtitle);
-
   return (
 
     <>
