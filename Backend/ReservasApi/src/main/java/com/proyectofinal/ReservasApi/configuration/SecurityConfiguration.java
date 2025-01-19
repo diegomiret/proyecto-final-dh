@@ -46,7 +46,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.PUT, "/productos/{id}").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/productos/cantidadProductos").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/productos/ciudad/{id}").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/productos//ciudad-fecha/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/productos/ciudad-fecha/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/productos/top/{cantidadProductos}").permitAll()
 
                                 .requestMatchers(HttpMethod.POST, "/imagenes").hasAnyAuthority( "ADMIN")
                                 .requestMatchers(HttpMethod.GET, "/imagenes/**").permitAll()
@@ -60,14 +61,23 @@ public class SecurityConfiguration {
 
                                 .requestMatchers(HttpMethod.GET, "/categorias").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/categorias").hasAnyAuthority( "ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/categorias/{id}").hasAnyAuthority( "ADMIN")
 
                                 .requestMatchers(HttpMethod.GET, "/favoritos/usuario").hasAnyAuthority( "ADMIN", "USER")
                                 .requestMatchers(HttpMethod.DELETE, "/favoritos/{id}").hasAnyAuthority( "ADMIN", "USER")
                                 .requestMatchers(HttpMethod.POST, "/favoritos").hasAnyAuthority( "ADMIN", "USER")
 
+                                .requestMatchers(HttpMethod.POST, "/politicas").hasAnyAuthority( "ADMIN")
+
                                 .requestMatchers(HttpMethod.GET, "/ciudades").permitAll()
 
                                 .requestMatchers(HttpMethod.GET, "/reservas").permitAll()
+
+                                .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/reviews/promedios").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/reviews/promedios/producto/{id}").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/reviews//top-promedios/{cantidadTop}").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/reviews").hasAnyAuthority( "ADMIN", "USER")
 
 
                                 .requestMatchers(HttpMethod.GET, "/**").permitAll()

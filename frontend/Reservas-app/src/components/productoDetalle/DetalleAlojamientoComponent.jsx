@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/AxiosHelper';
@@ -9,10 +9,13 @@ import { DetalleAlojamientoImagenesComponent } from './DetalleAlojamientoImagene
 import { DetalleAlojamientoCaracteristicas } from './DetalleAlojamientoCaracteristicas';
 import { DetalleAlojamientoCalendarioComponent } from './DetalleAlojamientoCalendarioComponent';
 import { DetalleAlojamientoPoliticasComponent } from './DetalleAlojamientoPoliticasComponent';
+import { DetalleAlojamientoReviewsComponent } from './DetalleAlojamientoReviewsComponent';
 import { FaShareAlt } from 'react-icons/fa';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { CompartirProductoComponent } from '../compartir/CompartirProductoComponent';
+import { InformacionValoracionProductoConponent } from '../InformacionValoracion/InformacionValoracionProductoConponent';
+import { ValoracionesPromedioContext } from '../../context/ValoracionesPromedioContext';
 
 export const DetalleAlojamientoComponent = ({ productId }) => {
 
@@ -23,10 +26,14 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     caracteristicas: []
   };
 
+
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const [producto, setProducto] = useState({ ...productoDefault, id: id ?? productId });
   const [showModal, setShowModal] = useState(false);
+
+  const { valoracionesPromedios, setValoracionesPromedio } = useContext(ValoracionesPromedioContext);
+
 
   const navigate = useNavigate();
 
@@ -39,6 +46,7 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     AxiosInstance.get(endpoint)
       .then((res) => {
         setProducto({ ...res.data });
+        console.log("ANALIZANDO: ",res.data);
       })
       .catch((error) => {
         Swal.fire({
@@ -65,6 +73,12 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
     setShowModal(false);
   };
 
+  const valoracionActual = valoracionesPromedios.find((valoracion) => valoracion.idProducto === Number(id));
+  const promedio = valoracionActual ? valoracionActual.promedio : 0.0;
+  const cantidadValoraciones = valoracionActual ? valoracionActual.cantidadValoraciones : 0;
+
+
+
   return (
     <>
       <DetalleAlojamientoHeaderComponent {...producto} />
@@ -76,6 +90,11 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
       <div className="text-left mb-4">
      <FaShareAlt size={32} onClick={abrirModalCompartir} style={{ cursor: 'pointer' }} />
       </div>
+      
+      <InformacionValoracionProductoConponent
+          promedio={promedio}
+          cantidadValoraciones={cantidadValoraciones}
+        />
 
         <DetalleAlojamientoDescripcionComponent {...producto} />
         <DetalleAlojamientoCaracteristicas caracteristicas={producto.caracteristicas} />
@@ -87,6 +106,7 @@ export const DetalleAlojamientoComponent = ({ productId }) => {
         </div>
         <DetalleAlojamientoCalendarioComponent reservas={producto.reservas || []} />
         <DetalleAlojamientoPoliticasComponent politicas={producto.politicas || []}></DetalleAlojamientoPoliticasComponent>
+        <DetalleAlojamientoReviewsComponent reviews={producto.reviews || []} ></DetalleAlojamientoReviewsComponent>
 
       </div>
 

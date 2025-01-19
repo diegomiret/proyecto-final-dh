@@ -1,7 +1,10 @@
 package com.proyectofinal.ReservasApi.service.imple;
 
 import com.proyectofinal.ReservasApi.DTO.CategoriaResponseDTO;
+import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.Categoria;
+import com.proyectofinal.ReservasApi.model.Imagen;
+import com.proyectofinal.ReservasApi.model.Producto;
 import com.proyectofinal.ReservasApi.repository.ICategoriaRepository;
 import com.proyectofinal.ReservasApi.repository.IImagenRepository;
 import com.proyectofinal.ReservasApi.repository.IProductoRepository;
@@ -21,6 +24,9 @@ public class CategoriaService implements ICategoriaService {
 
     @Autowired
     private ProductoService productoService;
+
+    @Autowired
+    private FavoritoService favoritoService;
 
     @Override
     public List<CategoriaResponseDTO> obtenerTodasLasCategorias() {
@@ -53,6 +59,21 @@ public class CategoriaService implements ICategoriaService {
     @Override
     public Categoria crearCategoria(Categoria categoria) {
         return categoriaRepository.save(categoria);
+    }
+
+    @Override
+    public void eliminarCategoria(int idCategoria) throws ResourceNotFoundException {
+
+
+        List<Producto> productosAborrar = productoService.buscarPorductosPorIdCategoria(idCategoria);
+        //  Elimino los productos asociados a la categoria
+        for (Producto producto : productosAborrar) {
+            productoService.eliminarProducto(producto.getId());
+        }
+
+        Categoria categoria = new Categoria();
+        categoria.setId(idCategoria);
+        categoriaRepository.delete(categoria);
     }
 
 }

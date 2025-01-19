@@ -21,6 +21,11 @@ public class FavoritoService implements IFavoritoService {
     }
 
     @Override
+    public List<Favorito> obtenerFavoritosDelProductoId(Integer idProducto) {
+        return favoritoRepository.findByIdProducto(idProducto);
+    }
+
+    @Override
     public void eliminarFavorito(Integer idFavorito) {
         Favorito favorito = new Favorito();
         favorito.setId(idFavorito);

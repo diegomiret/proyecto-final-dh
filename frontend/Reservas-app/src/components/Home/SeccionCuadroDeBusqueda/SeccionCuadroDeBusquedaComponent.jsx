@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../../helpers/AxiosHelper';
+import es from 'date-fns/locale/es'; 
 
 export const SeccionCuadroDeBusquedaComponent = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export const SeccionCuadroDeBusquedaComponent = () => {
   const [endDate, setEndDate] = useState(null);
   const [todasLasCiudades, setTodasLasCiudades] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  registerLocale('es', es); // Registrar el idioma español
 
   useEffect(() => {
     // En endpoints públicos, no se envía token
@@ -81,7 +84,9 @@ export const SeccionCuadroDeBusquedaComponent = () => {
 
   return (
 <div className="container-fluid mt-4 p-4 border rounded bg-light">
-  <h3 className="mb-4">Buscador de alojamientos</h3>
+    <h3 className="mb-4">Buscador de alojamientos</h3>
+    <h5 className="mb-4">Podes buscar por ciudad y fechas disponibles</h5>
+
   <div className="row gy-3 align-items-end">
     <div className="col-12 col-md-6 col-lg-4">
       <label htmlFor="cityInput" className="form-label">
@@ -106,6 +111,8 @@ export const SeccionCuadroDeBusquedaComponent = () => {
           onChange={(date) => setStartDate(date)}
           className="form-control"
           placeholderText="Fecha desde"
+          locale="es" // Configurar el idioma español
+          dateFormat="dd-MM-yyyy" // Cambiar el formato a DD-MM-AAAA
         />
       </div>
     </div>
@@ -117,6 +124,8 @@ export const SeccionCuadroDeBusquedaComponent = () => {
           onChange={(date) => setEndDate(date)}
           className="form-control"
           placeholderText="Fecha hasta"
+          locale="es" // Configurar el idioma español
+          dateFormat="dd-MM-yyyy" // Cambiar el formato a DD-MM-AAAA
         />
       </div>
     </div>

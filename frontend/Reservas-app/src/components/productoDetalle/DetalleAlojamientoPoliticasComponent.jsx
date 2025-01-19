@@ -4,11 +4,11 @@ export const DetalleAlojamientoPoliticasComponent = ({ politicas }) => {
 
 
   return (
-    <div className="container my-4">
-      <h2 className="text-center mb-4">
+    <div className="container-fluid mt-4 p-4 border rounded bg-light">
+      <h3 className="text-center mb-4" style={{ textDecoration: "underline" }}>
         Políticas del alojamiento
-        <hr className="w-25 mx-auto" />
-      </h2>
+
+      </h3>
       
       <div className="row">
         {politicas.map((politica) => (

@@ -125,4 +125,9 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.buscarPorductosPorCiudadFecha(id, fecha_inicio, fecha_fin));
     }
 
+    @GetMapping("/top/{cantidadProductos}")
+    public ResponseEntity<List<Producto>> buscarProductoToProductosValorados(@PathVariable Integer cantidadProductos) {
+        return ResponseEntity.ok(productoService.buscarTopProductosCalificaciones(cantidadProductos));
+    }
+
 }

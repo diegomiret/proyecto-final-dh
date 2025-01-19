@@ -8,11 +8,15 @@ import { AxiosInstance, clearAuthHeader, setAuthHeader } from '../../helpers/Axi
 import Swal from "sweetalert2";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { ValoracionesPromedioContext } from '../../context/ValoracionesPromedioContext';
+import { InformacionValoracionProductoConponent } from '../InformacionValoracion/InformacionValoracionProductoConponent';
 
 export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, imagenes, categoria }) => {
 
   const [user] = useContext(User);
   const { favoritos, setFavoritos } = useContext(FavoritoContext);
+  const { valoracionesPromedios, setValoracionesPromedio } = useContext(ValoracionesPromedioContext);
+  
 
   const navigate = useNavigate();
 
@@ -91,6 +95,11 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
     navigate("/detalleProducto/" + idProducto); 
   };
 
+  const valoracionActual = valoracionesPromedios.find((valoracion) => valoracion.idProducto === Number(idProducto));
+  const promedio = valoracionActual ? valoracionActual.promedio : 0.0;
+  const cantidadValoraciones = valoracionActual ? valoracionActual.cantidadValoraciones : 0;
+
+
   return (
     <>
       <div className="card shadow-sm rounded-3 overflow-hidden" style={{ height: "450px", transition: "box-shadow 0.3s ease", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
@@ -103,18 +112,21 @@ export const BusquedaAlojamientoCard = ({ idProducto, titulo, descripcion, image
         <div className="card-body d-flex flex-column p-3" style={{ height: 'calc(100% - 70px)', overflow: 'hidden' }}>
           <div className="d-flex">
 
-            <div className="flex-grow-1" style={{ flexBasis: "66.66%" }}>
+            <div className="flex-grow-1" style={{ flexBasis: "50.00%" }}>
               <h5 className="card-title text-dark" style={{ fontSize: "18px", fontWeight: 600, color: "#333", marginBottom: "8px" }}>
                 {titulo}
               </h5>
             </div>
 
 
-            <div className="bg-info text-white d-flex justify-content-center align-items-center" style={{ flexBasis: "16.66%" }}>
-
+            <div className="d-flex justify-content-center align-items-center" style={{ flexBasis: "25.00%" }}>
+            <InformacionValoracionProductoConponent
+          promedio={promedio}
+          cantidadValoraciones={cantidadValoraciones}
+        />
             </div>
 
-            <div className="favoritoBoton" style={{ flexBasis: "16.66%" }}>
+            <div className="favoritoBoton" style={{ flexBasis: "25.00%" }}>
               {user && (
                 <CorazonButton onClick={handleToggleFavorito}>
                   {esFavorito ? <FaHeart color="red" /> : <FaRegHeart color="black" />}

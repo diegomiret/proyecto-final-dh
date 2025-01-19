@@ -14,6 +14,8 @@ export const EditarProductoComponent = () => {
     const [hayErrorCategorias, setHayErrorCategorias] = useState(false);
     const [errorCategorias, setErrorCategorias] = useState();
 
+    const [ciudades, setCiudades] = useState([]);
+
 
     const [producto, setProducto] = useState([]);
     const [isLoadingProducto, setIsLoadingProducto] = useState(false);
@@ -27,6 +29,9 @@ export const EditarProductoComponent = () => {
     const [selectedTags, setSelectedTags] = useState([]);
 
     const [listaInicialDeTags, setListaInicialDeTags] = useState([]);
+
+    const [politicas, setPoliticas] = useState([]);
+    const [nuevaPolitica, setNuevaPolitica] = useState({ titulo: "", detalle: "" });
 
 
     const mensajeOperacionExitosa = () => {
@@ -63,11 +68,13 @@ export const EditarProductoComponent = () => {
                     setProducto(res.data);
                     setListaInicialDeTags(res.data.caracteristicas);
                     setSelectedTags(res.data.caracteristicas);
+                    setPoliticas(res.data.politicas || []);
 
                     setIsLoadingProducto(false);
                     setHayErrorProducto(false);
 
                     fetchCategories();
+                    fetchCiudades();
                 })
                 .catch((error) => {
                     setProducto(new Array());
@@ -113,6 +120,32 @@ export const EditarProductoComponent = () => {
                 });;
         }
 
+
+        //  busco las categorias
+        const fetchCiudades = async () => {
+            //  Carga de ciudades
+
+            const endpoint = "/ciudades";
+
+            //  en enpoints publicos, no se envia token
+            setAuthHeader(false);
+
+            AxiosInstance.get(endpoint)
+                .then((res) => {
+                    setCiudades(res.data);
+                    setIsLoadingCategorias(false);
+                })
+                .catch((error) => {
+                    setCiudades(new Array());
+                    mensajeOperacionError("Error al cargar las ciudades");
+
+                })
+                .finally(() => {
+                    // Limpiar el token después de la solicitud
+                    clearAuthHeader();
+                });;
+        }
+
         fetchProducts();
 
     }, []);
@@ -120,7 +153,24 @@ export const EditarProductoComponent = () => {
 
     const form = useRef(null);
 
+    const agregarPolitica = () => {
+        if (nuevaPolitica.titulo.trim() && nuevaPolitica.detalle.trim()) {
+            setPoliticas([...politicas, { id: Date.now(), ...nuevaPolitica }]);
+            setNuevaPolitica({ titulo: "", detalle: "" });
+        } else {
+            mensajeOperacionError("Ambos campos son obligatorios.");
+        }
+    };
 
+
+    const eliminarIds = (listaConIds) => {
+        return listaConIds.map(({ id, ...resto }) => resto);
+    };
+
+
+    const eliminarPolitica = (id) => {
+        setPoliticas(politicas.filter((politica) => politica.id !== id));
+    };
 
 
     // Manejar el envío del formulario
@@ -144,7 +194,11 @@ export const EditarProductoComponent = () => {
                     id: producto.id,
                 },
             })),
-            caracteristicas: selectedTags
+            caracteristicas: selectedTags,
+            politicas: eliminarIds(politicas),
+            ciudad: {
+                id: parseInt(formData.get("ciudades"), 10),
+            }
         };
 
         // Llamar a la API para actualizar el producto
@@ -154,6 +208,8 @@ export const EditarProductoComponent = () => {
 
         const token = localStorage.getItem("token");
         setAuthHeader(token);
+
+        console.log("Se va a enviar: ", productoActualizado);
 
         AxiosInstance.put(endpoint, productoActualizado)
             .then((res) => {
@@ -188,7 +244,13 @@ export const EditarProductoComponent = () => {
             </div>
             <form ref={form} onSubmit={submitHandler} className="bg-light p-4 rounded shadow">
                 <div className="row mb-4">
+                    <div className="mb-4">
+                        <h3 className="text-primary">Datos básicos</h3>
+                    </div>
+                    <hr></hr>
                     <div className="col-md-6 mb-3">
+
+
                         <label htmlFor="titulo" className="form-label text-primary">
                             Título
                         </label>
@@ -225,6 +287,38 @@ export const EditarProductoComponent = () => {
                         </select>
 
                     </div>
+
+
+                    <div className="col-md-6 mb-3">
+                        <label htmlFor="categorias" className="form-label text-primary">
+                            Ciudad
+                        </label>
+
+                        <select
+                            name="ciudades"
+                            id="ciudades-select"
+                            className="form-select"
+                            required
+                            defaultValue={producto.ciudad.id}
+                        >
+                            <option value="#" disabled>
+                                Seleccione una ciudad
+                            </option>
+                            {ciudades.map((unaCiudad) => (
+                                <option key={`ciudad-${unaCiudad.id}`} value={unaCiudad.id}>
+                                    {unaCiudad.nombre}
+                                </option>
+                            ))}
+                        </select>
+
+                    </div>
+
+
+
+
+
+
+
                 </div>
                 <div className="mb-4">
                     <label htmlFor="descripcion" className="form-label text-primary">
@@ -243,6 +337,71 @@ export const EditarProductoComponent = () => {
                     ></textarea>
                 </div>
 
+
+                <div className="mb-4">
+
+                    <div className="mb-4">
+                        <h3 className="text-primary">Políticas</h3>
+
+                    </div>
+                    <hr />
+                    <label htmlFor="nombre-politica" className="form-label text-primary">
+                        Nombre de la política
+                    </label>
+                    <input
+                        type="text"
+                        id="nombre-politica"
+                        className="form-control"
+                        value={nuevaPolitica.titulo}
+                        onChange={(e) => setNuevaPolitica({ ...nuevaPolitica, titulo: e.target.value })}
+                    />
+                    <label htmlFor="detalle-politica" className="form-label text-primary mt-2">
+                        Detalles
+                    </label>
+                    <textarea
+                        id="detalle-politica"
+                        className="form-control"
+                        rows="3"
+                        value={nuevaPolitica.detalle}
+                        onChange={(e) => setNuevaPolitica({ ...nuevaPolitica, detalle: e.target.value })}
+                    ></textarea>
+                    <button
+                        type="button"
+                        className="btn btn-secondary mt-3"
+                        onClick={agregarPolitica}
+                    >
+                        Agregar política
+                    </button>
+                </div>
+
+
+                <div className="mb-4">
+                    {politicas.map((politica) => (
+                        <div className="card mb-2" key={politica.id}>
+                            <div className="card-header">
+                                {politica.titulo}
+                            </div>
+                            <div className="card-body">
+                                <p className="card-text">{politica.detalle}</p>
+                                <button
+                                    type="button"
+                                    className="btn btn-danger"
+                                    onClick={() => eliminarPolitica(politica.id)}
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+
+                <div className="mb-4">
+                    <h3 className="text-primary">Características</h3>
+                </div>
+                <hr />
+
+
                 <SelectorDeCaracteristicasComponent
                     initialTags={listaInicialDeTags}
                     onTagsChange={setSelectedTags}
@@ -251,6 +410,7 @@ export const EditarProductoComponent = () => {
                 <div className="mb-4">
                     <h3 className="text-primary">Cargar imágenes</h3>
                 </div>
+                <hr />
                 <div className="row mb-4">
                     {producto.imagenes.map((imagen, index) => (
                         <div className="col-md-12 mb-3" key={index}>

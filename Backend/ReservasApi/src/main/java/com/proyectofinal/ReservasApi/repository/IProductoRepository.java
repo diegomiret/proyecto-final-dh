@@ -38,5 +38,5 @@ public interface IProductoRepository extends JpaRepository<Producto, Integer> {
     """, nativeQuery = true)
     List<Producto> findByCiudadFecha(Integer ciudadId, Date fecha_inicio, Date fecha_fin);
 
-
+    public void deleteByCategoria(Categoria categoria);
 }

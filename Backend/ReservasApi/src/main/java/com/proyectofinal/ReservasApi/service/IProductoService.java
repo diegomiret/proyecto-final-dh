@@ -1,6 +1,7 @@
 package com.proyectofinal.ReservasApi.service;
 
 import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
+import com.proyectofinal.ReservasApi.model.Categoria;
 import com.proyectofinal.ReservasApi.model.Producto;
 
 import java.sql.Date;
@@ -33,5 +34,9 @@ public interface IProductoService {
     public Producto actualizarCategoriaProducto(Integer idProducto, Integer idCategoria);
 
     public Integer obtenerCantidadPorCategoria(Integer idCategoria);
+
+    public List<Producto> buscarTopProductosCalificaciones(Integer cantidadProductos);
+
+    public void eliminarProductosCategoriaId(Integer idCategoria);
 }
 

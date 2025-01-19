@@ -1,5 +1,7 @@
 package com.proyectofinal.ReservasApi.service.imple;
 
+import com.proyectofinal.ReservasApi.DTO.ReviewDTO;
+import com.proyectofinal.ReservasApi.DTO.ValoracionPromedioDTO;
 import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.*;
 import com.proyectofinal.ReservasApi.repository.*;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductoService implements IProductoService {
@@ -20,20 +23,24 @@ public class ProductoService implements IProductoService {
     @Autowired
     private IProductoRepository productoRepository;
 
-    //@Autowired
-    //private ICategoriaService categoriaService;
-
     @Autowired
-    private IImagenRepository imagenRepository;
-
-    @Autowired
-    private IcaracteristicaRepository caracteristicaRepository;
-
-    @Autowired
-    private ICaracteristicasProductosRepository caracteristicasProductosRepository;
+    private ImagenService imagenService;
 
     @Autowired
     private ICategoriaRepository categoriarepository;
+
+    @Autowired
+    private ReviewService reviewService;
+
+    @Autowired
+    private FavoritoService favoritoService;
+
+    @Autowired
+    private PolicitcaService policitcaService;
+
+    @Autowired
+    private CiudadService ciudadService;
+
 
     //@Autowired
     //private ImagenService imagenService;
@@ -73,6 +80,27 @@ public class ProductoService implements IProductoService {
 
     @Override
     public void eliminarProducto(int id) throws ResourceNotFoundException {
+
+        //  elimino favoritos
+        List<Favorito> favoritos = favoritoService.obtenerFavoritosDelProductoId(id);
+        for (Favorito favorito : favoritos) {
+            favoritoService.eliminarFavorito(favorito.getId());
+        }
+
+
+        //  Elimino politicas
+//        List<Politica> politicas = policitcaService.obtenerPoliticasDelProducto(id);
+//        for (Politica politica : politicas) {
+//            policitcaService.eliminarPolitica(politica.getId());
+//        }
+
+//        //  Elimino reviews
+//        List<Review> reviews = reviewService.obtenerReviewsDelProductoId(id);
+//        for (Review review : reviews) {
+//            reviewService.eliminarReview(review.getId());
+//        }
+
+
         Optional<Producto> productoBuscado = buscarProductoPorId(id);
 
         if (productoBuscado.isPresent()) {
@@ -95,9 +123,15 @@ public class ProductoService implements IProductoService {
         productoExistente.setCategoria(producto.getCategoria());
 
         // Eliminar imágenes existentes
+        // OLD
+//        for (Imagen imagen : productoExistente.getImagenes()) {
+//            imagenRepository.deleteById(imagen.getId());
+//        }
+
         for (Imagen imagen : productoExistente.getImagenes()) {
-            imagenRepository.deleteById(imagen.getId());
+            imagenService.eliminarImagenPorId(imagen.getId());
         }
+
 
         // Asignar nueva lista de imágenes
         productoExistente.setImagenes(producto.getImagenes());
@@ -131,6 +165,27 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
+    public List<Producto> buscarTopProductosCalificaciones(Integer cantidadProductos) {
+        List<ValoracionPromedioDTO> mejoresPromedios = reviewService.obtenerTopProductosPorValoracion(cantidadProductos);
+
+        List<ValoracionPromedioDTO> valoracionesTop = reviewService.obtenerTopProductosPorValoracion(cantidadProductos);
+
+        // Mapear los IDs del top de ValoracionPromedioDTO a sus correspondientes entidades Producto
+        return valoracionesTop.stream()
+                .map(dto -> productoRepository.findById(dto.getIdProducto())
+                        .orElseThrow(() -> new RuntimeException("Producto no encontrado para ID: " + dto.getIdProducto())))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void eliminarProductosCategoriaId(Integer idCategoria) {
+        Categoria categoria = new Categoria();
+        categoria.setId(idCategoria);
+        productoRepository.deleteByCategoria(categoria);
+    }
+
+
+    @Override
     public List<Producto> buscarPorductosPorIdCiudad(int idCiudad) {
         Ciudad ciudad = new Ciudad();
         ciudad.setId(idCiudad);
@@ -158,18 +213,44 @@ public class ProductoService implements IProductoService {
                     .orElseThrow(() -> new RuntimeException("Categoría no encontrada")));
         }
 
+        if (productoActualizado.getCiudad() != null) {
+            productoExistente.setCiudad(ciudadService.obtenerCiudadId(productoActualizado.getCiudad().getId())
+                    .orElseThrow(() -> new RuntimeException("ciudad no encontrada")));
+        }
+
+        // imagenes
         if (productoActualizado.getImagenes() != null) {
             // Limpiar imágenes existentes y añadir las nuevas
-            imagenRepository.deleteAllByProductoId(productoExistente.getId());
+            // OLD
+            //imagenRepository.deleteAllByProductoId(productoExistente.getId());
+            imagenService.eliminarImagenesDelProductoId(productoExistente.getId());
+
             Set<Imagen> nuevasImagenes = new HashSet<>();
             for (Imagen imagen : productoActualizado.getImagenes()) {
                 imagen.setProducto(productoExistente);
-                nuevasImagenes.add(imagenRepository.save(imagen));
+                // OLD
+                //nuevasImagenes.add(imagenRepository.save(imagen));
+                nuevasImagenes.add(imagenService.crearImagen(imagen));
             }
             productoExistente.setImagenes(nuevasImagenes);
         }
 
+
+        // politicas
+        if (productoActualizado.getPoliticas() != null) {
+
+            policitcaService.eliminarpoliticasDelProductoId(productoExistente.getId());
+
+            Set<Politica> nuevasPoliticas = new HashSet<>();
+            for (Politica politica : productoActualizado.getPoliticas()) {
+                politica.setProducto(productoExistente);
+                nuevasPoliticas.add(policitcaService.crearPolitica(politica));
+            }
+            productoExistente.setPoliticas(nuevasPoliticas);
+        }
+
         productoExistente.setCaracteristicas(productoActualizado.getCaracteristicas());
+        productoExistente.setPoliticas(productoActualizado.getPoliticas());
 
         return productoRepository.save(productoExistente);
     }

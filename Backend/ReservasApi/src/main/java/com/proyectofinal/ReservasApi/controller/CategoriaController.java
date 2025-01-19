@@ -1,6 +1,7 @@
 package com.proyectofinal.ReservasApi.controller;
 
 import com.proyectofinal.ReservasApi.DTO.CategoriaResponseDTO;
+import com.proyectofinal.ReservasApi.exception.ResourceNotFoundException;
 import com.proyectofinal.ReservasApi.model.Caracteristica;
 import com.proyectofinal.ReservasApi.model.Categoria;
 import com.proyectofinal.ReservasApi.model.Producto;
@@ -32,5 +33,12 @@ public class CategoriaController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(categoriaService.crearCategoria(categoria));
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarCategoria(@PathVariable Integer id) throws ResourceNotFoundException {
+        categoriaService.eliminarCategoria(id);
+        return ResponseEntity.ok("Se eliminó el favorito con id: " + id);
     }
 }

@@ -55,7 +55,7 @@ export const FavoritoCard = ({ favorito, onEliminar })  => {
                 {producto.titulo}
               </h5>
             </div>
-            <div className="bg-info text-white d-flex justify-content-center align-items-center" style={{ flexBasis: "16.66%" }}>
+            <div className="text-white d-flex justify-content-center align-items-center" style={{ flexBasis: "16.66%" }}>
             </div>
 
             <div className="favoritoBoton" style={{ flexBasis: "16.66%" }}>

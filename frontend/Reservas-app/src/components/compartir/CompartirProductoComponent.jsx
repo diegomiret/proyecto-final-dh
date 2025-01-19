@@ -59,7 +59,7 @@ export const CompartirProductoComponent = ({ id }) => {
                         </h5>
                     </div>
 
-                    <div className="bg-info text-white d-flex justify-content-center align-items-center" style={{ flexBasis: "16.66%" }}>
+                    <div className="text-white d-flex justify-content-center align-items-center" style={{ flexBasis: "16.66%" }}>
 
                     </div>
 
